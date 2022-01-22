@@ -2,19 +2,20 @@ package com.example.android.arkanoid;
 
 public class Ball {
 
-    protected float xRychlost;
-    protected float yRychlost;
+    protected float xSpeed;
+    protected float ySpeed;
     private float x;
     private float y;
 
     public Ball(float x, float y) {
         this.x = x;
         this.y = y;
-        vytvorRychlost();
+        createSpeed();
     }
 
-    // vytvorí random rýchlosť lopticky
-    protected void vytvorRychlost() {
+
+    //creates a random ball speed
+    protected void createSpeed() {
         int maxX = 13;
         int minX = 7;
         int maxY = -17;
@@ -22,50 +23,50 @@ public class Ball {
         int rangeX = maxX - minX + 1;
         int rangeY = maxY - minY + 1;
 
-        xRychlost = (int) (Math.random() * rangeX) + minX;
-        yRychlost = (int) (Math.random() * rangeY) + minY;
+        xSpeed = (int) (Math.random() * rangeX) + minX;
+        ySpeed = (int) (Math.random() * rangeY) + minY;
     }
 
-    // zmeni smer podla rychlosti
-    protected void zmenSmer() {
-        if (xRychlost > 0 && yRychlost < 0) {
-            otocXRychlost();
-        } else if (xRychlost < 0 && yRychlost < 0) {
-            otocYRychlost();
-        } else if (xRychlost < 0 && yRychlost > 0) {
-            otocXRychlost();
-        } else if (xRychlost > 0 && yRychlost > 0) {
-            otocYRychlost();
+    // changes direction according to speed
+    protected void changeDirection() {
+        if (xSpeed > 0 && ySpeed < 0) {
+            turnXSpeed();
+        } else if (xSpeed < 0 && ySpeed < 0) {
+            turnYSpeed();
+        } else if (xSpeed < 0 && ySpeed > 0) {
+            turnXSpeed();
+        } else if (xSpeed > 0 && ySpeed > 0) {
+            turnYSpeed();
         }
     }
 
-    // zvyši rychlost na zaklade levelu
-    protected void zvysRychlost(int level) {
-        xRychlost = xRychlost + (1 * level);
-        yRychlost = yRychlost - (1 * level);
+    // increase speed based on level
+    protected void increaseSpeed(int level) {
+        xSpeed = xSpeed + (1 * level);
+        ySpeed = ySpeed - (1 * level);
     }
 
-    // zmeni smer podla toho akej steny sa dotkla a rychlosti
-    protected void zmenSmer(String stena) {
-        if (xRychlost > 0 && yRychlost < 0 && stena.equals("prava")) {
-            otocXRychlost();
-        } else if (xRychlost > 0 && yRychlost < 0 && stena.equals("hore")) {
-            otocYRychlost();
-        } else if (xRychlost < 0 && yRychlost < 0 && stena.equals("hore")) {
-            otocYRychlost();
-        } else if (xRychlost < 0 && yRychlost < 0 && stena.equals("lava")) {
-            otocXRychlost();
-        } else if (xRychlost < 0 && yRychlost > 0 && stena.equals("lava")) {
-            otocXRychlost();
-        } else if (xRychlost > 0 && yRychlost > 0 && stena.equals("dole")) {
-            otocYRychlost();
-        } else if (xRychlost > 0 && yRychlost > 0 && stena.equals("prava")) {
-            otocXRychlost();
+    //changes direction depending on which wall it touched and speed
+    protected void changeDirection(String wall) {
+        if (xSpeed > 0 && ySpeed < 0 && wall.equals("right")) {
+            turnXSpeed();
+        } else if (xSpeed > 0 && ySpeed < 0 && wall.equals("up")) {
+            turnYSpeed();
+        } else if (xSpeed < 0 && ySpeed < 0 && wall.equals("up")) {
+            turnYSpeed();
+        } else if (xSpeed < 0 && ySpeed < 0 && wall.equals("left")) {
+            turnXSpeed();
+        } else if (xSpeed < 0 && ySpeed > 0 && wall.equals("left")) {
+            turnXSpeed();
+        } else if (xSpeed > 0 && ySpeed > 0 && wall.equals("down")) {
+            turnYSpeed();
+        } else if (xSpeed > 0 && ySpeed > 0 && wall.equals("right")) {
+            turnXSpeed();
         }
     }
 
-    // zisti ci je lopticka blizko
-    private boolean jeBlizko(float ax, float ay, float bx, float by) {
+    // find out if the ball is close
+    private boolean isClose(float ax, float ay, float bx, float by) {
         bx += 12;
         by += 11;
         if ((Math.sqrt(Math.pow((ax + 50) - bx, 2) + Math.pow(ay - by, 2))) < 80) {
@@ -78,39 +79,39 @@ public class Ball {
         return false;
     }
 
-    // zisti či je lopticka blizko tehly
-    private boolean jeBlizkoBrick(float ax, float ay, float bx, float by) {
+    // find out if the ball is close to a brick
+    private boolean isNearToBrick(float ax, float ay, float bx, float by) {
         bx += 12;
         by += 11;
         double d = Math.sqrt(Math.pow((ax + 50) - bx, 2) + Math.pow((ay + 40) - by, 2));
         return d < 80;
     }
 
-    // ak sa zrazila lopta s padlom tak zmeni smer
-    protected void NarazPaddle(float xPaddle, float yPaddle) {
-        if (jeBlizko(xPaddle, yPaddle, getX(), getY())) zmenSmer();
+    // if the ball collided with the fall, it will change direction
+    protected void SuddenlyPaddle(float xPaddle, float yPaddle) {
+        if (isClose(xPaddle, yPaddle, getX(), getY())) changeDirection();
     }
 
-    // ak sa zrazila lopta s tehlou tak zmeni smer
-    protected boolean NarazBrick(float xBrick, float yBrick) {
-        if (jeBlizkoBrick(xBrick, yBrick, getX(), getY())) {
-            zmenSmer();
+    // if the ball collided with a brick, it will change direction
+    protected boolean SuddenlyBrick(float xBrick, float yBrick) {
+        if (isNearToBrick(xBrick, yBrick, getX(), getY())) {
+            changeDirection();
             return true;
         } else return false;
     }
 
-    // pohne sa o zadanu rychlost
-    protected void pohni() {
-        x = x + xRychlost;
-        y = y + yRychlost;
+    // moves by the specified speed
+    protected void hurryUp() {
+        x = x + xSpeed;
+        y = y + ySpeed;
     }
 
-    public void otocXRychlost() {
-        xRychlost = -xRychlost;
+    public void turnXSpeed() {
+        xSpeed = -xSpeed;
     }
 
-    public void otocYRychlost() {
-        yRychlost = -yRychlost;
+    public void turnYSpeed() {
+        ySpeed = -ySpeed;
     }
 
     public float getX() {
@@ -129,19 +130,19 @@ public class Ball {
         this.y = y;
     }
 
-    public void setxRychlost(float xRychlost) {
-        this.xRychlost = xRychlost;
+    public void setxSpeed(float xSpeed) {
+        this.xSpeed = xSpeed;
     }
 
-    public void setyRychlost(float yRychlost) {
-        this.yRychlost = yRychlost;
+    public void setySpeed(float ySpeed) {
+        this.ySpeed = ySpeed;
     }
 
-    public float getxRychlost() {
-        return xRychlost;
+    public float getxSpeed() {
+        return xSpeed;
     }
 
-    public float getyRychlost() {
-        return yRychlost;
+    public float getySpeed() {
+        return ySpeed;
     }
 }

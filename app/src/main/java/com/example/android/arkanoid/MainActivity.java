@@ -16,20 +16,20 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // nastavi orientaciu obrazovky
+        // set the screen orientation
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
-        // vytvori novu hru
+        // create a new game
         game = new Game(this, 3, 0);
         setContentView(game);
 
-        // vytvori handler a thread
-        VytvorHandler();
+        //create a handler and thread
+        createHandler();
         myThread = new UpdateThread(updateHandler);
         myThread.start();
     }
 
-    private void VytvorHandler() {
+    private void createHandler() {
         updateHandler = new Handler() {
             public void handleMessage(Message msg) {
                 game.invalidate();
@@ -41,12 +41,12 @@ public class MainActivity extends AppCompatActivity {
 
     protected void onPause() {
         super.onPause();
-        game.zastavSnimanie();
+        game.stopSensing();
     }
 
     protected void onResume() {
         super.onResume();
-        game.spustiSnimanie();
+        game.runScanning();
     }
 
 }
