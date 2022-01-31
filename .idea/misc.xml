@@ -4,10 +4,12 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/Utente/Desktop/Esame_Android/app/src/main/res/layout/activity_splash_screen.xml" value="0.14583333333333334" />
+        <entry key="..\:/Users/loris/AndroidStudioProjects/EsameAndroid/app/src/main/res/layout/activity_main_menu.xml" value="0.20833333333333334" />
+        <entry key="..\:/Users/loris/AndroidStudioProjects/EsameAndroid/app/src/main/res/layout/activity_record.xml" value="0.20833333333333334" />
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" project-jdk-name="11" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="11" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/out" />
   </component>
 </project>

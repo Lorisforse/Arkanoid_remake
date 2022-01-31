@@ -19,4 +19,8 @@ public class MainMenu extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void openRecord(View view){
+        Intent intent = new Intent(this,Record.class);
+        startActivity(intent);
+    }
 }

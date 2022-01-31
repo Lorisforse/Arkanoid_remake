@@ -17,7 +17,12 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
 
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.util.ArrayList;
+
+import static android.content.Context.MODE_PRIVATE;
 
 public class Game extends View implements SensorEventListener, View.OnTouchListener {
 
@@ -38,6 +43,8 @@ public class Game extends View implements SensorEventListener, View.OnTouchListe
 
     private SensorManager sManager;
     private Sensor accelerometer;
+
+    private String record;
 
     private int lifes;
     private int score;
@@ -152,6 +159,9 @@ public class Game extends View implements SensorEventListener, View.OnTouchListe
     //checks the status of the game. whether my lives or whether the game is over
     private void checkLives() {
         if (lifes == 1) {
+            //Save record in a String
+            record=(score+", ");
+            saveRecord();
             gameOver = true;
             start = false;
             invalidate();
@@ -241,4 +251,24 @@ public class Game extends View implements SensorEventListener, View.OnTouchListe
             start = false;
         }
     }
+
+    //Save the high score
+    public void saveRecord() {
+
+        try
+        {
+            FileOutputStream fOut = context.openFileOutput("record.txt", Context.MODE_APPEND);
+            OutputStreamWriter osw = new OutputStreamWriter(fOut);
+
+            osw.write(record);
+            osw.flush();
+            osw.close();
+        }
+        catch (IOException ioe)
+        {
+            ioe.printStackTrace();
+        }
+    }
+
+
 }

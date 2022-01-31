@@ -21,6 +21,7 @@
         app:srcCompat="@drawable/logo" />
 
     <ImageButton
+        android:contentDescription="Play a new game"
         android:id="@+id/newGame"
         android:layout_width="150dp"
         android:layout_height="110dp"
@@ -36,6 +37,7 @@
         app:srcCompat="@drawable/play" />
 
     <ImageButton
+        android:contentDescription="Open options"
         android:id="@+id/imageButton6"
         android:layout_width="48dp"
         android:layout_height="48dp"
@@ -50,11 +52,13 @@
         />
 
     <ImageButton
+        android:contentDescription="Open record"
         android:id="@+id/imageButton7"
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:background="#006EB5"
         android:scaleType="centerCrop"
+        android:onClick="openRecord"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
