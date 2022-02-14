@@ -21,11 +21,11 @@
         app:srcCompat="@drawable/logo" />
 
     <ImageButton
-        android:contentDescription="Play a new game"
         android:id="@+id/newGame"
         android:layout_width="150dp"
         android:layout_height="110dp"
         android:background="#006EB5"
+        android:contentDescription="Play a new game"
         android:onClick="openMainActivity"
         android:scaleType="centerInside"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -37,28 +37,28 @@
         app:srcCompat="@drawable/play" />
 
     <ImageButton
-        android:contentDescription="Open options"
         android:id="@+id/imageButton6"
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:background="#006EB5"
+        android:contentDescription="Open options"
+        android:onClick="openOptions"
         android:scaleType="centerCrop"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/imageButton7"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/newGame"
-        app:srcCompat="@drawable/option"
-        />
+        app:srcCompat="@drawable/option" />
 
     <ImageButton
-        android:contentDescription="Open record"
         android:id="@+id/imageButton7"
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:background="#006EB5"
-        android:scaleType="centerCrop"
+        android:contentDescription="Open record"
         android:onClick="openRecord"
+        android:scaleType="centerCrop"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"

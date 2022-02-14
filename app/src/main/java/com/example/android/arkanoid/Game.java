@@ -52,8 +52,13 @@ public class Game extends View implements SensorEventListener, View.OnTouchListe
     private boolean start;
     private boolean gameOver;
     private Context context;
-
-    public Game(Context context, int lifes, int score) {
+    private int gameMode;
+    /*
+    0= joystick abilitato
+    1= accellerometro abilitato
+    2= touchscreen abilitato
+    */
+    public Game(Context context, int lifes, int score, int gameMode) {
         super(context);
         paint = new Paint();
 
@@ -61,6 +66,7 @@ public class Game extends View implements SensorEventListener, View.OnTouchListe
         this.context = context;
         this.lifes = lifes;
         this.score = score;
+        this.gameMode = gameMode;
         level = 0;
 
         //start a gameOver to find out if the game is standing and if the player has lost
@@ -203,15 +209,17 @@ public class Game extends View implements SensorEventListener, View.OnTouchListe
     //change accelerometer
     @Override
     public void onSensorChanged(SensorEvent event) {
-        if (event.sensor.getType() == Sensor.TYPE_ACCELEROMETER) {
-            paddle.setX(paddle.getX() - event.values[0] - event.values[0]);
-
-            if (paddle.getX() + event.values[0] > size.x - 240) {
-                paddle.setX(size.x - 240);
-            } else if (paddle.getX() - event.values[0] <= 20) {
-                paddle.setX(20);
+        if(gameMode==0){
+            if (event.sensor.getType() == Sensor.TYPE_ACCELEROMETER) {
+                paddle.setX(paddle.getX() - event.values[0] - event.values[0]);
+                if (paddle.getX() + event.values[0] > size.x - 240) {
+                    paddle.setX(size.x - 240);
+                } else if (paddle.getX() - event.values[0] <= 20) {
+                    paddle.setX(20);
+                }
             }
         }
+
     }
 
     @Override
@@ -269,6 +277,5 @@ public class Game extends View implements SensorEventListener, View.OnTouchListe
             ioe.printStackTrace();
         }
     }
-
 
 }
