@@ -26,6 +26,7 @@ import static android.content.Context.MODE_PRIVATE;
 
 public class Game extends View implements SensorEventListener, View.OnTouchListener {
 
+    private Joystick joystick;
     private Bitmap background;
     private Bitmap redBall;
     private Bitmap stretchedOut;
@@ -87,6 +88,10 @@ public class Game extends View implements SensorEventListener, View.OnTouchListe
         ball = new Ball(size.x / 2, size.y - 480);
         paddle = new Paddle(size.x / 2, size.y - 400);
         list = new ArrayList<Brick>();
+
+        //create a new Joystick
+        joystick = new Joystick(size.x / 2, size.y - 200, 70,  40);//
+
 
         generateBricks(context);
         this.setOnTouchListener(this);
@@ -183,7 +188,18 @@ public class Game extends View implements SensorEventListener, View.OnTouchListe
 
     //each step checks whether there is a collision, a loss or a win, etc.
     public void update() {
+        if(gameMode ==1){
+            joystick.update();//
+            paddle.update(joystick);//
+        }
         if (start) {
+            //check if the paddle touch the edges
+            if(paddle.getX() <= 0)
+                paddle.setX(0);
+
+            if(paddle.getX()>= 870)
+                paddle.setX(870);
+
             win();
             checkEdges();
             ball.SuddenlyPaddle(paddle.getX(), paddle.getY());
@@ -199,11 +215,13 @@ public class Game extends View implements SensorEventListener, View.OnTouchListe
     }
 
     public void stopSensing() {
-        sManager.unregisterListener(this);
+        if(gameMode ==0)
+            sManager.unregisterListener(this);
     }
 
     public void runScanning() {
-        sManager.registerListener(this, accelerometer, SensorManager.SENSOR_DELAY_GAME);
+        if(gameMode ==0)
+            sManager.registerListener(this, accelerometer, SensorManager.SENSOR_DELAY_GAME);
     }
 
     //change accelerometer
@@ -278,9 +296,24 @@ public class Game extends View implements SensorEventListener, View.OnTouchListe
         }
     }
 
-    @Override
+    @Override //draw the joystick
+    public void draw(Canvas canvas){
+        if(gameMode ==1){
+            super.draw(canvas);
+            joystick.draw(canvas);
+        }else if(gameMode !=1){
+            super.draw(canvas);
+            joystick.draw(canvas);
+            joystick.setOuterCircleRadius(0);
+            joystick.setInnerCircleRadius(0);
+        }
+
+
+    }//
+
+    @Override //event for joystick
     public boolean onTouchEvent(MotionEvent event) {
-        if(gameMode==2){
+		if(gameMode==2){
             switch(event.getAction()) {
                 case MotionEvent.ACTION_MOVE:
                     paddle.setX(event.getX());
@@ -292,8 +325,24 @@ public class Game extends View implements SensorEventListener, View.OnTouchListe
             }
             return true;
         }
-
+        if(gameMode ==1) {
+            switch (event.getAction()) {
+                case MotionEvent.ACTION_DOWN:
+                    if (joystick.isPressed((double) event.getX())) {
+                        joystick.setIsPressed(true);
+                    }
+                    return true;
+                case MotionEvent.ACTION_MOVE:
+                    if (joystick.getIsPressed()) {
+                        joystick.setActuator((double) event.getX());
+                    }
+                    return true;
+                case MotionEvent.ACTION_UP:
+                    joystick.setIsPressed(false);
+                    joystick.resetActuator();
+                    return true;
+            }
+        }
         return super.onTouchEvent(event);
     }
-
 }
