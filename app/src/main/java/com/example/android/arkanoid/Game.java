@@ -278,4 +278,22 @@ public class Game extends View implements SensorEventListener, View.OnTouchListe
         }
     }
 
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        if(gameMode==2){
+            switch(event.getAction()) {
+                case MotionEvent.ACTION_MOVE:
+                    paddle.setX(event.getX());
+                    if (paddle.getX() > size.x - 240) {
+                        paddle.setX(size.x - 235);
+                    } else if (paddle.getX() < 20) {
+                        paddle.setX(20);
+                    }
+            }
+            return true;
+        }
+
+        return super.onTouchEvent(event);
+    }
+
 }
