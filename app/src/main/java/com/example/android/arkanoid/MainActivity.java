@@ -12,6 +12,7 @@ public class MainActivity extends AppCompatActivity {
     private UpdateThread myThread;
     private Handler updateHandler;
     int gameMode;
+    int difficulty;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,12 +20,13 @@ public class MainActivity extends AppCompatActivity {
 
 
         gameMode=getIntent().getIntExtra("gameMode",0);
+        difficulty=getIntent().getIntExtra("difficulty",1);
 
         // set the screen orientation
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         // create a new game
-        game = new Game(this, 3, 0, gameMode);
+        game = new Game(this, 3, 0, gameMode, difficulty);
         setContentView(game);
 
         //create a handler and thread

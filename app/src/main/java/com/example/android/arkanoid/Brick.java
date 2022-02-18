@@ -10,13 +10,21 @@ public class Brick extends View {
     private Bitmap brick;
     private float x;
     private float y;
+    private int lives;
 
-    public Brick(Context context, float x, float y) {
+    public Brick(Context context, float x, float y, int lives) {
         super(context);
         this.x = x;
         this.y = y;
+        this.lives = lives;
         skin();
     }
+
+
+    public void changeSkin() {
+        skin();
+    }
+
 
     //assigns a random image to the brick
     private void skin() {
@@ -67,6 +75,14 @@ public class Brick extends View {
     @Override
     public void setY(float y) {
         this.y = y;
+    }
+
+    public int getLives(){
+        return this.lives;
+    }
+
+    public void setLives(int lives) {
+        this.lives = lives;
     }
 
     public Bitmap getBrick() {

@@ -33,8 +33,14 @@ public class MainMenu extends AppCompatActivity {
         }
     }
 
-    public void openMainActivity(View view) {
+    /*public void openMainActivity(View view) {
         Intent intent = new Intent(this,MainActivity.class);
+        intent.putExtra("gameMode", gameMode);
+        startActivity(intent);
+    }*/
+
+    public void openDifficultyScreen(View view) {
+        Intent intent = new Intent(this, LevelsMenu.class);
         intent.putExtra("gameMode", gameMode);
         startActivity(intent);
     }

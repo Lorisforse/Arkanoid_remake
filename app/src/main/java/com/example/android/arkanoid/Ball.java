@@ -2,29 +2,31 @@ package com.example.android.arkanoid;
 
 public class Ball {
 
+    private int difficulty;
     protected float xSpeed;
     protected float ySpeed;
     private float x;
     private float y;
 
-    public Ball(float x, float y) {
+    public Ball(float x, float y, int difficulty) {
         this.x = x;
         this.y = y;
+        this.difficulty = difficulty;
         createSpeed();
     }
 
 
     //creates a random ball speed
     protected void createSpeed() {
-        int maxX = 13;
-        int minX = 7;
-        int maxY = -17;
-        int minY = -23;
+        int maxX = (int) Math.round(13 * ((double) difficulty / 2 + 0.3));
+        int minX = (int) Math.round(7 * ((double) difficulty / 2 + 0.3));
+        int maxY = (int) Math.round(-17 * ((double) difficulty / 2 + 0.3));
+        int minY = (int) Math.round(-23 * ((double) difficulty / 2 + 0.3));
         int rangeX = maxX - minX + 1;
         int rangeY = maxY - minY + 1;
 
-        xSpeed = (int) (Math.random() * rangeX) + minX;
-        ySpeed = (int) (Math.random() * rangeY) + minY;
+        xSpeed = (int)  (Math.random()*rangeX) + minX;
+        ySpeed = (int)  (Math.random()*rangeY) + minY;
     }
 
     // changes direction according to speed
@@ -42,8 +44,8 @@ public class Ball {
 
     // increase speed based on level
     protected void increaseSpeed(int level) {
-        xSpeed = xSpeed + (1 * level);
-        ySpeed = ySpeed - (1 * level);
+        xSpeed = (float) (xSpeed + 0.5 * level);
+        ySpeed = (float) (ySpeed - 0.5 * level);
     }
 
     //changes direction depending on which wall it touched and speed

@@ -21,6 +21,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.util.ArrayList;
+import java.util.Random;
 
 import static android.content.Context.MODE_PRIVATE;
 
@@ -54,12 +55,13 @@ public class Game extends View implements SensorEventListener, View.OnTouchListe
     private boolean gameOver;
     private Context context;
     private int gameMode;
+    private int difficulty;
     /*
     0= joystick abilitato
     1= accellerometro abilitato
     2= touchscreen abilitato
     */
-    public Game(Context context, int lifes, int score, int gameMode) {
+    public Game(Context context, int lifes, int score, int gameMode, int difficulty) {
         super(context);
         paint = new Paint();
 
@@ -68,6 +70,7 @@ public class Game extends View implements SensorEventListener, View.OnTouchListe
         this.lifes = lifes;
         this.score = score;
         this.gameMode = gameMode;
+        this.difficulty = difficulty;
         level = 0;
 
         //start a gameOver to find out if the game is standing and if the player has lost
@@ -85,7 +88,7 @@ public class Game extends View implements SensorEventListener, View.OnTouchListe
         paddle_p = BitmapFactory.decodeResource(getResources(), R.drawable.paddle);
 
         //creates a new ball, paddle, and list of bricks
-        ball = new Ball(size.x / 2, size.y - 480);
+        ball = new Ball(size.x / 2, size.y - 480, difficulty);
         paddle = new Paddle(size.x / 2, size.y - 400);
         list = new ArrayList<Brick>();
 
@@ -100,9 +103,21 @@ public class Game extends View implements SensorEventListener, View.OnTouchListe
 
     // fill the list with bricks
     private void generateBricks(Context context) {
-        for (int i = 3; i < 7; i++) {
-            for (int j = 1; j < 6; j++) {
-                list.add(new Brick(context, j * 150, i * 100));
+        int maxY = difficulty == 1 ? 6 : difficulty == 2 ? 7 : 9;
+        int maxX = difficulty == 1 ? 5 : difficulty == 2 ? 6 : 7;
+        for (int i = 3; i < maxY; i++) {
+            for (int j = 1; j < maxX; j++) {
+                int lives = 0;
+                if (difficulty==1) {
+                    lives = new Random().nextInt(4);
+                    list.add(new Brick(context, j * 200, i * 130, lives == 0 ? 2 : 1));
+                } else if (difficulty==2) {
+                    lives = new Random().nextInt(4);
+                    list.add(new Brick(context, j * 160, i * 120, lives < 2 ? 2 : 1));
+                } else if (difficulty==3) {
+                    lives = new Random().nextInt(10);
+                    list.add(new Brick(context, j * 140, i * 110, lives < 2 ? 3 : lives < 5 ? 2 : 1));
+                }
             }
         }
     }
@@ -206,9 +221,15 @@ public class Game extends View implements SensorEventListener, View.OnTouchListe
             for (int i = 0; i < list.size(); i++) {
                 Brick b = list.get(i);
                 if (ball.SuddenlyBrick(b.getX(), b.getY())) {
-                    list.remove(i);
-                    score = score + 80;
+                    if (list.get(i).getLives() > 1) {
+                        list.get(i).changeSkin();
+                        list.get(i).setLives(list.get(i).getLives() - 1);
+                    } else {
+                        list.remove(i);
+                        score = difficulty == 1 ? score + 80 : difficulty == 2 ? score + 40 : score + 20;
+                    }
                 }
+
             }
             ball.hurryUp();
         }
