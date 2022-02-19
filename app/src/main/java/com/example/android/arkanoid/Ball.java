@@ -7,6 +7,10 @@ public class Ball {
     protected float ySpeed;
     private float x;
     private float y;
+    private int maxX;
+    private int minX;
+    private int maxY;
+    private int minY;
 
     public Ball(float x, float y, int difficulty) {
         this.x = x;
@@ -18,10 +22,10 @@ public class Ball {
 
     //creates a random ball speed
     protected void createSpeed() {
-        int maxX = (int) Math.round(13 * ((double) difficulty / 2 + 0.3));
-        int minX = (int) Math.round(7 * ((double) difficulty / 2 + 0.3));
-        int maxY = (int) Math.round(-17 * ((double) difficulty / 2 + 0.3));
-        int minY = (int) Math.round(-23 * ((double) difficulty / 2 + 0.3));
+        maxX = (int) Math.round(13 * ((double) difficulty / 2 + 0.3));
+        minX = (int) Math.round(7 * ((double) difficulty / 2 + 0.3));
+        maxY = (int) Math.round(-17 * ((double) difficulty / 2 + 0.3));
+        minY = (int) Math.round(-23 * ((double) difficulty / 2 + 0.3));
         int rangeX = maxX - minX + 1;
         int rangeY = maxY - minY + 1;
 
@@ -97,7 +101,6 @@ public class Ball {
     // if the ball collided with a brick, it will change direction
     protected boolean SuddenlyBrick(float xBrick, float yBrick) {
         if (isNearToBrick(xBrick, yBrick, getX(), getY())) {
-            changeDirection();
             return true;
         } else return false;
     }
@@ -107,6 +110,14 @@ public class Ball {
         x = x + xSpeed;
         y = y + ySpeed;
     }
+
+    // slow down the speed
+    protected void slowDown(){
+        xSpeed = xSpeed - 3;
+        ySpeed = ySpeed + 3;
+    }
+    
+
 
     public void turnXSpeed() {
         xSpeed = -xSpeed;
