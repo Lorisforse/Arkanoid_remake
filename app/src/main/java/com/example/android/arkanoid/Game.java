@@ -41,6 +41,8 @@ public class Game extends View implements SensorEventListener, View.OnTouchListe
     private ArrayList<Brick> list;
     private Paddle paddle;
 
+    private ArrayList<PowerUp> powerUps;
+
     private RectF r;
 
     private SensorManager sManager;
@@ -56,6 +58,12 @@ public class Game extends View implements SensorEventListener, View.OnTouchListe
     private Context context;
     private int gameMode;
     private int difficulty;
+    private int grandezza=200;
+    private float setpaddle;
+    private boolean potenza3;//iceball
+    private boolean potenza1;//fireball
+    private boolean potenza2;//enlarge paddle
+    int piuGrande;
     /*
     0= joystick abilitato
     1= accellerometro abilitato
@@ -91,12 +99,17 @@ public class Game extends View implements SensorEventListener, View.OnTouchListe
         ball = new Ball(size.x / 2, size.y - 480, difficulty);
         paddle = new Paddle(size.x / 2, size.y - 400);
         list = new ArrayList<Brick>();
+        powerUps = new ArrayList<PowerUp>();
+        potenza1= false;
+        potenza2= false;
+        potenza3= false;
 
         //create a new Joystick
         joystick = new Joystick(size.x / 2, size.y - 200, 70,  40);//
 
 
         generateBricks(context);
+        generatePowerUps(context);
         this.setOnTouchListener(this);
 
     }
@@ -122,6 +135,22 @@ public class Game extends View implements SensorEventListener, View.OnTouchListe
         }
     }
 
+    //fill the powerUps list
+    private  void generatePowerUps(Context context){
+        int a = difficulty == 1 ? 3 : difficulty == 2 ? 5 : 7;
+        int maxY = difficulty == 1 ? 6 : difficulty == 2 ? 7 : 9;
+        int maxX = difficulty == 1 ? 5 : difficulty == 2 ? 6 : 7;
+        for(int i = 0 ; i < a ; i++){
+            if (difficulty==1) {
+                powerUps.add(new PowerUp(context, ((int)(Math.random()*(maxX-1))+1)*200,((int)(Math.random()*(maxY-3))+3)*130));
+            } else if (difficulty==2) {
+                powerUps.add(new PowerUp(context, ((int)(Math.random()*(maxX-1))+1)*160,((int)(Math.random()*(maxY-3))+3)*120));
+            } else if (difficulty==3) {
+                powerUps.add(new PowerUp(context, ((int)(Math.random()*(maxX-1))+1)*140,((int)(Math.random()*(maxY-3))+3)*110));
+            }
+        }
+    }
+
     //set background
     private void readBackground(Context context) {
         background = Bitmap.createBitmap(BitmapFactory.decodeResource(this.getResources(), R.drawable.background_score));
@@ -139,13 +168,30 @@ public class Game extends View implements SensorEventListener, View.OnTouchListe
         canvas.drawBitmap(stretchedOut, 0, 0, paint);
 
         //draw the ball
+        if(potenza1==true){
+            redBall = BitmapFactory.decodeResource(getResources(), R.drawable.fireball);
+        }else
+            redBall = BitmapFactory.decodeResource(getResources(), R.drawable.redball);
         paint.setColor(Color.RED);
         canvas.drawBitmap(redBall, ball.getX(), ball.getY(), paint);
 
         // draw paddle
+        if(potenza2==true)
+            piuGrande=100;
+        else
+            piuGrande=0;
         paint.setColor(Color.WHITE);
-        r = new RectF(paddle.getX(), paddle.getY(), paddle.getX() + 200, paddle.getY() + 40);
+        setpaddle=paddle.getX();
+        r = new RectF(paddle.getX(), paddle.getY(), setpaddle + grandezza + piuGrande, paddle.getY() + 40);
         canvas.drawBitmap(paddle_p, null, r, paint);
+
+        // draw powerUps
+        paint.setColor(Color.YELLOW);
+        for( int i = 0 ; i < powerUps.size() ; i++){
+            PowerUp p = powerUps.get(i);
+            r = new RectF(p.getX(),p.getY(), p.getX()+100, p.getY() +80);
+            canvas.drawBitmap(p.getPowerUp(),null,r,paint);
+        }
 
         //draw bricks
         paint.setColor(Color.GREEN);
@@ -176,8 +222,18 @@ public class Game extends View implements SensorEventListener, View.OnTouchListe
         } else if (ball.getX() + ball.getxSpeed() <= 0) {
             ball.changeDirection("left");
         } else if (ball.getY() + ball.getySpeed() <= 150) {
+            potenza1=false;
+            potenza2=false;
+            potenza3=false;
             ball.changeDirection("up");
         } else if (ball.getY() + ball.getySpeed() >= size.y - 200) {
+            potenza1=false;
+            potenza2=false;
+            potenza3=false;
+            for (int i = 0; i < powerUps.size(); i++)
+                if(powerUps.get(i).getActive()){
+                    powerUps.remove(i);
+                }
             checkLives();
         }
     }
@@ -221,15 +277,47 @@ public class Game extends View implements SensorEventListener, View.OnTouchListe
             for (int i = 0; i < list.size(); i++) {
                 Brick b = list.get(i);
                 if (ball.SuddenlyBrick(b.getX(), b.getY())) {
-                    if (list.get(i).getLives() > 1) {
-                        list.get(i).changeSkin();
-                        list.get(i).setLives(list.get(i).getLives() - 1);
+                    if ((b.getLives() >= 1)&&(!potenza1)) {
+                        ball.changeDirection();
+                        b.changeSkin();
+                        b.setLives(b.getLives() - 1);
                     } else {
+                        for(int j = 0; j < powerUps.size(); j ++){
+                            PowerUp p = powerUps.get(j);
+                            if((p.getY()==b.getY())&&(p.getX()==b.getX())) {
+                                p.hurryUp();
+                            }
+                        }
+                        if(!potenza1)
+                            ball.changeDirection();
                         list.remove(i);
                         score = difficulty == 1 ? score + 80 : difficulty == 2 ? score + 40 : score + 20;
                     }
                 }
 
+            }
+            for (int i = 0; i < powerUps.size(); i++){
+                PowerUp p = powerUps.get(i);
+                if(p.isNear(paddle.getX(),paddle.getY())){
+                    switch (p.getEffect()){
+                        case 0:
+                            lifes++;
+                            break;
+
+                        case 1:
+                            potenza1 =true;
+                            break;
+                        case 2:
+                            potenza2 = true;
+                            break;
+                        case 3:
+                            ball.slowDown();
+                            break;
+                    }
+                    powerUps.remove(i);
+                }else if (p.getActive()){
+                    p.hurryUp();
+                }
             }
             ball.hurryUp();
         }
@@ -287,6 +375,7 @@ public class Game extends View implements SensorEventListener, View.OnTouchListe
         ball.createSpeed();
         list = new ArrayList<Brick>();
         generateBricks(context);
+        generatePowerUps(context);
     }
 
     // find out if the player won or not
@@ -334,7 +423,7 @@ public class Game extends View implements SensorEventListener, View.OnTouchListe
 
     @Override //event for joystick
     public boolean onTouchEvent(MotionEvent event) {
-		if(gameMode==2){
+        if(gameMode==2){
             switch(event.getAction()) {
                 case MotionEvent.ACTION_MOVE:
                     paddle.setX(event.getX());
