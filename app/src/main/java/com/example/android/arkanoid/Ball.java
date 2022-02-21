@@ -7,30 +7,23 @@ public class Ball {
     protected float ySpeed;
     private float x;
     private float y;
-    private int maxX;
     private int minX;
-    private int maxY;
     private int minY;
 
     public Ball(float x, float y, int difficulty) {
         this.x = x;
         this.y = y;
         this.difficulty = difficulty;
+        minX = 7;
+        minY = -23;
         createSpeed();
     }
 
 
     //creates a random ball speed
     protected void createSpeed() {
-        maxX = (int) Math.round(13 * ((double) difficulty / 2 + 0.3));
-        minX = (int) Math.round(7 * ((double) difficulty / 2 + 0.3));
-        maxY = (int) Math.round(-17 * ((double) difficulty / 2 + 0.3));
-        minY = (int) Math.round(-23 * ((double) difficulty / 2 + 0.3));
-        int rangeX = maxX - minX + 1;
-        int rangeY = maxY - minY + 1;
-
-        xSpeed = (int)  (Math.random()*rangeX) + minX;
-        ySpeed = (int)  (Math.random()*rangeY) + minY;
+        xSpeed =  difficulty == 1 ? minX : difficulty == 2 ? 10 : 13;
+        ySpeed =  difficulty == 1 ? minY : difficulty == 2 ? -20 : -17;
     }
 
     // changes direction according to speed
@@ -113,10 +106,31 @@ public class Ball {
 
     // slow down the speed
     protected void slowDown(){
-        xSpeed = xSpeed - 3;
-        ySpeed = ySpeed + 3;
+        if(xSpeed > 0){
+            xSpeed = xSpeed - 3;
+        }else{
+            xSpeed = xSpeed + 3;
+        }
+        if(ySpeed < 0) {
+            ySpeed = ySpeed + 3;
+        }else {
+            ySpeed = ySpeed - 3;
+        }
     }
-    
+
+    //speed up the speed
+    protected void speedUp(){
+        if(xSpeed > 0){
+            xSpeed = xSpeed + 3;
+        }else{
+            xSpeed = xSpeed - 3;
+        }
+        if(ySpeed < 0) {
+            ySpeed = ySpeed - 3;
+        }else {
+            ySpeed = ySpeed + 3;
+        }
+    }
 
 
     public void turnXSpeed() {

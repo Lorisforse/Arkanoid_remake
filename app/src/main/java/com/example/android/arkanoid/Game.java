@@ -229,7 +229,10 @@ public class Game extends View implements SensorEventListener, View.OnTouchListe
         } else if (ball.getY() + ball.getySpeed() >= size.y - 200) {
             potenza1=false;
             potenza2=false;
-            potenza3=false;
+            if(potenza3){
+                ball.speedUp();
+                potenza3=false;
+            }
             for (int i = 0; i < powerUps.size(); i++)
                 if(powerUps.get(i).getActive()){
                     powerUps.remove(i);
@@ -311,6 +314,7 @@ public class Game extends View implements SensorEventListener, View.OnTouchListe
                             potenza2 = true;
                             break;
                         case 3:
+                            potenza3 = true;
                             ball.slowDown();
                             break;
                     }
