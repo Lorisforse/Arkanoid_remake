@@ -10,6 +10,7 @@ public class Brick extends View {
     private Bitmap brick;
     private float x;
     private float y;
+    private int color;
     private int lives;
 
     public Brick(Context context, float x, float y, int lives) {
@@ -17,42 +18,73 @@ public class Brick extends View {
         this.x = x;
         this.y = y;
         this.lives = lives;
+        color = (int) (Math.random() * 9);
         skin();
     }
 
 
-    public void changeSkin() {
-        skin();
-    }
+    public void changeSkin(){
+        switch (color) {
+            case 0:
+                brick = BitmapFactory.decodeResource(getResources(), R.drawable.brick_00_cracked);
+                break;
+            case 1:
+                brick = BitmapFactory.decodeResource(getResources(), R.drawable.brick_01_cracked);
+                break;
+            case 2:
+                brick = BitmapFactory.decodeResource(getResources(), R.drawable.brick_02_cracked);
+                break;
+            case 3:
+                brick = BitmapFactory.decodeResource(getResources(), R.drawable.brick_03_cracked);
+                break;
+            case 4:
+                brick = BitmapFactory.decodeResource(getResources(), R.drawable.brick_04_cracked);
+                break;
+            case 5:
+                brick = BitmapFactory.decodeResource(getResources(), R.drawable.brick_05_cracked);
+                break;
+            case 6:
+                brick = BitmapFactory.decodeResource(getResources(), R.drawable.brick_06_cracked);
+                break;
+            case 7:
+                brick = BitmapFactory.decodeResource(getResources(), R.drawable.brick_07_cracked);
+                break;
+            case 8:
+                brick = BitmapFactory.decodeResource(getResources(), R.drawable.brick_08_cracked);
+                break;
+        }
 
+    }
 
     //assigns a random image to the brick
     private void skin() {
-        int a = (int) (Math.random() * 8);
-        switch (a) {
+        switch (color) {
             case 0:
-                brick = BitmapFactory.decodeResource(getResources(), R.drawable.brick_aqua);
+                brick = BitmapFactory.decodeResource(getResources(), R.drawable.brick_00);
                 break;
             case 1:
-                brick = BitmapFactory.decodeResource(getResources(), R.drawable.brick_blue);
+                brick = BitmapFactory.decodeResource(getResources(), R.drawable.brick_01);
                 break;
             case 2:
-                brick = BitmapFactory.decodeResource(getResources(), R.drawable.brick_green);
+                brick = BitmapFactory.decodeResource(getResources(), R.drawable.brick_02);
                 break;
             case 3:
-                brick = BitmapFactory.decodeResource(getResources(), R.drawable.brick_orange);
+                brick = BitmapFactory.decodeResource(getResources(), R.drawable.brick_03);
                 break;
             case 4:
-                brick = BitmapFactory.decodeResource(getResources(), R.drawable.brick_pink);
+                brick = BitmapFactory.decodeResource(getResources(), R.drawable.brick_04);
                 break;
             case 5:
-                brick = BitmapFactory.decodeResource(getResources(), R.drawable.brick_purple);
+                brick = BitmapFactory.decodeResource(getResources(), R.drawable.brick_05);
                 break;
             case 6:
-                brick = BitmapFactory.decodeResource(getResources(), R.drawable.brick_red);
+                brick = BitmapFactory.decodeResource(getResources(), R.drawable.brick_06);
                 break;
             case 7:
-                brick = BitmapFactory.decodeResource(getResources(), R.drawable.brick_yellow);
+                brick = BitmapFactory.decodeResource(getResources(), R.drawable.brick_07);
+                break;
+            case 8:
+                brick = BitmapFactory.decodeResource(getResources(), R.drawable.brick_08);
                 break;
         }
     }

@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="#006EB5"
+    android:background="@drawable/backgroundgen"
     tools:context=".Record">
 
     <TextView
@@ -13,7 +13,8 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         android:textAlignment="center"
-        android:textColor="@android:color/background_dark"
+        android:fontFamily="@font/audiowide"
+        android:textColor="#FFFFFF"
         android:textSize="26sp"
         android:textStyle="bold"
         android:typeface="normal" />
@@ -24,7 +25,8 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         android:textAlignment="center"
-        android:textColor="@android:color/background_dark"
+        android:fontFamily="@font/audiowide"
+        android:textColor="#FFFFFF"
         android:textSize="26sp"
         android:textStyle="bold"
         android:typeface="normal" />
@@ -35,7 +37,8 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         android:textAlignment="center"
-        android:textColor="@android:color/background_dark"
+        android:fontFamily="@font/audiowide"
+        android:textColor="#FFFFFF"
         android:textSize="26sp"
         android:textStyle="bold"
         android:typeface="normal" />
@@ -46,7 +49,8 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         android:textAlignment="center"
-        android:textColor="@android:color/background_dark"
+        android:fontFamily="@font/audiowide"
+        android:textColor="#FFFFFF"
         android:textSize="26sp"
         android:textStyle="bold"
         android:typeface="normal" />
@@ -57,7 +61,8 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         android:textAlignment="center"
-        android:textColor="@android:color/background_dark"
+        android:fontFamily="@font/audiowide"
+        android:textColor="#FFFFFF"
         android:textSize="26sp"
         android:textStyle="bold"
         android:typeface="normal"/>
@@ -68,7 +73,8 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         android:textAlignment="center"
-        android:textColor="@android:color/background_dark"
+        android:fontFamily="@font/audiowide"
+        android:textColor="#FFFFFF"
         android:textSize="26sp"
         android:textStyle="bold"
         android:typeface="normal" />
@@ -79,7 +85,8 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         android:textAlignment="center"
-        android:textColor="@android:color/background_dark"
+        android:fontFamily="@font/audiowide"
+        android:textColor="#FFFFFF"
         android:textSize="26sp"
         android:textStyle="bold"
         android:typeface="normal" />
@@ -90,7 +97,8 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         android:textAlignment="center"
-        android:textColor="@android:color/background_dark"
+        android:fontFamily="@font/audiowide"
+        android:textColor="#FFFFFF"
         android:textSize="26sp"
         android:textStyle="bold"
         android:typeface="normal"/>
@@ -101,7 +109,8 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         android:textAlignment="center"
-        android:textColor="@android:color/background_dark"
+        android:fontFamily="@font/audiowide"
+        android:textColor="#FFFFFF"
         android:textSize="26sp"
         android:textStyle="bold"
         android:typeface="normal" />
@@ -112,7 +121,8 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         android:textAlignment="center"
-        android:textColor="@android:color/background_dark"
+        android:fontFamily="@font/audiowide"
+        android:textColor="#FFFFFF"
         android:textSize="26sp"
         android:textStyle="bold"
         android:typeface="normal" />

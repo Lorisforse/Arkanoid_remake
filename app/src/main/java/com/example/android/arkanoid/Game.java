@@ -92,7 +92,7 @@ public class Game extends View implements SensorEventListener, View.OnTouchListe
         readBackground(context);
 
         // create a bitmap for the ball and paddle
-        redBall = BitmapFactory.decodeResource(getResources(), R.drawable.redball);
+        redBall = BitmapFactory.decodeResource(getResources(), R.drawable.pinkball);
         paddle_p = BitmapFactory.decodeResource(getResources(), R.drawable.paddle);
 
         //creates a new ball, paddle, and list of bricks
@@ -171,7 +171,7 @@ public class Game extends View implements SensorEventListener, View.OnTouchListe
         if(potenza1==true){
             redBall = BitmapFactory.decodeResource(getResources(), R.drawable.fireball);
         }else
-            redBall = BitmapFactory.decodeResource(getResources(), R.drawable.redball);
+            redBall = BitmapFactory.decodeResource(getResources(), R.drawable.pinkball);
         paint.setColor(Color.RED);
         canvas.drawBitmap(redBall, ball.getX(), ball.getY(), paint);
 

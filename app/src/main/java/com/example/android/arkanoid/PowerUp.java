@@ -43,7 +43,7 @@ public class PowerUp extends View {
                 break;
             case 3:
                 //slow down the speed
-                powerUp = BitmapFactory.decodeResource(getResources(), R.drawable.iceball);
+                powerUp = BitmapFactory.decodeResource(getResources(), R.drawable.slowdown);
                 break;
         }
         return a;
