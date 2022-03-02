@@ -8,6 +8,40 @@
     tools:context=".LevelsMenu">
 
 
+    <ImageButton
+        android:id="@+id/imageButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#00006EB5"
+        android:tint="#EE00E5FF"
+        app:layout_constraintBottom_toTopOf="@+id/button1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.376"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.494"
+        app:srcCompat="@drawable/plus"
+        android:onClick="custom"/>
+
+
+    <ImageButton
+        android:id="@+id/newGame"
+        android:layout_width="55dp"
+        android:layout_height="50dp"
+        android:background="#00006EB5"
+        android:contentDescription=""
+        android:tint="#EE00E5FF"
+        android:scaleType="centerInside"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.623"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.07"
+        app:srcCompat="@drawable/play"
+        android:onClick="playCustom"/>
+
+
     <Button
         android:id="@+id/button1"
         style="@android:style/Widget.DeviceDefault.Button.Borderless"

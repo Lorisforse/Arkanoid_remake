@@ -18,12 +18,16 @@ public class Brick extends View {
         this.x = x;
         this.y = y;
         this.lives = lives;
-        color = (int) (Math.random() * 9);
         skin();
+    }
+    public Brick(Context context) {
+        super(context);
     }
 
 
+
     public void changeSkin(){
+        color = (int) (Math.random() * 9);
         switch (color) {
             case 0:
                 brick = BitmapFactory.decodeResource(getResources(), R.drawable.brick_00_cracked);
@@ -57,7 +61,8 @@ public class Brick extends View {
     }
 
     //assigns a random image to the brick
-    private void skin() {
+    public void skin() {
+        color = (int) (Math.random() * 9);
         switch (color) {
             case 0:
                 brick = BitmapFactory.decodeResource(getResources(), R.drawable.brick_00);

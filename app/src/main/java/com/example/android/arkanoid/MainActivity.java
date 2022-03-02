@@ -13,6 +13,7 @@ public class MainActivity extends AppCompatActivity {
     private Handler updateHandler;
     int gameMode;
     int difficulty;
+    private CustomLevel customLevel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,13 +27,19 @@ public class MainActivity extends AppCompatActivity {
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         // create a new game
-        game = new Game(this, 3, 0, gameMode, difficulty);
-        setContentView(game);
+        if(difficulty==0){
+            customLevel = new CustomLevel(this);
+            setContentView(customLevel);
+        }else{
+            game = new Game(this, 3, 0, gameMode, difficulty);
+            setContentView(game);
 
-        //create a handler and thread
-        createHandler();
-        myThread = new UpdateThread(updateHandler);
-        myThread.start();
+            //create a handler and thread
+            createHandler();
+            myThread = new UpdateThread(updateHandler);
+            myThread.start();
+        }
+
     }
 
     private void createHandler() {
@@ -47,12 +54,15 @@ public class MainActivity extends AppCompatActivity {
 
     protected void onPause() {
         super.onPause();
-        game.stopSensing();
+        if(difficulty!=0)
+            game.stopSensing();
+
     }
 
     protected void onResume() {
         super.onResume();
-        game.runScanning();
+        if(difficulty!=0)
+            game.runScanning();
     }
 
 }

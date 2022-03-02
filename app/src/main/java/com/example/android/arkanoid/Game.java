@@ -16,14 +16,18 @@ import android.view.Display;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.Toast;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import java.util.Random;
 
-import static android.content.Context.MODE_PRIVATE;
 
 public class Game extends View implements SensorEventListener, View.OnTouchListener {
 
@@ -64,6 +68,11 @@ public class Game extends View implements SensorEventListener, View.OnTouchListe
     private boolean potenza1;//fireball
     private boolean potenza2;//enlarge paddle
     int piuGrande;
+    int[] brickX;
+    int[] brickY;
+    String [] arrayX;
+    String [] arrayY;
+
     /*
     0= joystick abilitato
     1= accellerometro abilitato
@@ -73,6 +82,8 @@ public class Game extends View implements SensorEventListener, View.OnTouchListe
         super(context);
         paint = new Paint();
 
+        brickX= new int[20];
+        brickY= new int[20];
         // set context, lives, scores and levels
         this.context = context;
         this.lifes = lifes;
@@ -114,52 +125,7 @@ public class Game extends View implements SensorEventListener, View.OnTouchListe
 
     }
 
-    // fill the list with bricks
-    private void generateBricks(Context context) {
-        int maxY = difficulty == 1 ? 6 : difficulty == 2 ? 7 : 9;
-        int maxX = difficulty == 1 ? 5 : difficulty == 2 ? 6 : 7;
-        for (int i = 3; i < maxY; i++) {
-            for (int j = 1; j < maxX; j++) {
-                int lives = 0;
-                if (difficulty==1) {
-                    lives = new Random().nextInt(4);
-                    list.add(new Brick(context, j * 200, i * 130, lives == 0 ? 2 : 1));
-                } else if (difficulty==2) {
-                    lives = new Random().nextInt(4);
-                    list.add(new Brick(context, j * 160, i * 120, lives < 2 ? 2 : 1));
-                } else if (difficulty==3) {
-                    lives = new Random().nextInt(10);
-                    list.add(new Brick(context, j * 140, i * 110, lives < 2 ? 3 : lives < 5 ? 2 : 1));
-                }
-            }
-        }
-    }
-
-    //fill the powerUps list
-    private  void generatePowerUps(Context context){
-        int a = difficulty == 1 ? 3 : difficulty == 2 ? 5 : 7;
-        int maxY = difficulty == 1 ? 6 : difficulty == 2 ? 7 : 9;
-        int maxX = difficulty == 1 ? 5 : difficulty == 2 ? 6 : 7;
-        for(int i = 0 ; i < a ; i++){
-            if (difficulty==1) {
-                powerUps.add(new PowerUp(context, ((int)(Math.random()*(maxX-1))+1)*200,((int)(Math.random()*(maxY-3))+3)*130));
-            } else if (difficulty==2) {
-                powerUps.add(new PowerUp(context, ((int)(Math.random()*(maxX-1))+1)*160,((int)(Math.random()*(maxY-3))+3)*120));
-            } else if (difficulty==3) {
-                powerUps.add(new PowerUp(context, ((int)(Math.random()*(maxX-1))+1)*140,((int)(Math.random()*(maxY-3))+3)*110));
-            }
-        }
-    }
-
-    //set background
-    private void readBackground(Context context) {
-        background = Bitmap.createBitmap(BitmapFactory.decodeResource(this.getResources(), R.drawable.background_score));
-        WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
-        display = wm.getDefaultDisplay();
-        size = new Point();
-        display.getSize(size);
-    }
-
+    @Override
     protected void onDraw(Canvas canvas) {
         // creates a background only once
         if (stretchedOut == null) {
@@ -214,6 +180,63 @@ public class Game extends View implements SensorEventListener, View.OnTouchListe
             canvas.drawText("Game over!", size.x / 4, size.y / 2, paint);
         }
     }
+
+    // fill the list with bricks
+    private void generateBricks(Context context) {
+        int maxY = difficulty == 1 ? 6 : difficulty == 2 ? 7 : 9;
+        int maxX = difficulty == 1 ? 5 : difficulty == 2 ? 6 : 7;
+        readBrick();
+
+        if (difficulty==4) {
+            for (int f = 0; f < (brickX.length) - 1; f++) {
+                brickX = splitAndConvert(arrayX, arrayX.length);
+                brickY = splitAndConvert(arrayY, arrayY.length);
+                list.add(new Brick(context, brickX[f], brickY[f], 1));
+            }
+        }
+        for (int i = 3; i < maxY; i++) {
+            for (int j = 1; j < maxX; j++) {
+                int lives = 0;
+                if (difficulty==1) {
+                    lives = new Random().nextInt(4);
+                    list.add(new Brick(context, j * 200, i * 130, lives == 0 ? 2 : 1));
+                } else if (difficulty==2) {
+                    lives = new Random().nextInt(4);
+                    list.add(new Brick(context, j * 160, i * 120, lives < 2 ? 2 : 1));
+                } else if (difficulty==3) {
+                    lives = new Random().nextInt(10);
+                    list.add(new Brick(context, j * 140, i * 110, lives < 2 ? 3 : lives < 5 ? 2 : 1));
+                }
+            }
+        }
+    }
+
+    //fill the powerUps list
+    private  void generatePowerUps(Context context){
+        int a = difficulty == 1 ? 3 : difficulty == 2 ? 5 : 7;
+        int maxY = difficulty == 1 ? 6 : difficulty == 2 ? 7 : 9;
+        int maxX = difficulty == 1 ? 5 : difficulty == 2 ? 6 : 7;
+        for(int i = 0 ; i < a ; i++){
+            if (difficulty==1) {
+                powerUps.add(new PowerUp(context, ((int)(Math.random()*(maxX-1))+1)*200,((int)(Math.random()*(maxY-3))+3)*130));
+            } else if (difficulty==2) {
+                powerUps.add(new PowerUp(context, ((int)(Math.random()*(maxX-1))+1)*160,((int)(Math.random()*(maxY-3))+3)*120));
+            } else if (difficulty==3) {
+                powerUps.add(new PowerUp(context, ((int)(Math.random()*(maxX-1))+1)*140,((int)(Math.random()*(maxY-3))+3)*110));
+            }
+        }
+    }
+
+    //set background
+    private void readBackground(Context context) {
+        background = Bitmap.createBitmap(BitmapFactory.decodeResource(this.getResources(), R.drawable.background_score));
+        WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+        display = wm.getDefaultDisplay();
+        size = new Point();
+        display.getSize(size);
+    }
+
+
 
     // check that the ball has not touched the edge
     private void checkEdges() {
@@ -459,4 +482,48 @@ public class Game extends View implements SensorEventListener, View.OnTouchListe
         }
         return super.onTouchEvent(event);
     }
+
+
+
+    public void readBrick(){
+        String result = "";
+        String result2[];
+        try {
+            InputStream inputStream = context.openFileInput("brick.txt");
+
+            if ( inputStream != null ) {
+                InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
+                BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+                String receiveString;
+                StringBuilder stringBuilder = new StringBuilder();
+
+                while ( (receiveString = bufferedReader.readLine()) != null ) {
+                    stringBuilder.append("").append(receiveString);
+                }
+                result = stringBuilder.toString();
+                result2=result.split(":");
+                arrayX =(result2[0].split(", "));
+                arrayY =(result2[1].split(", "));
+
+
+                inputStream.close();
+            }
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public int[] splitAndConvert(String[] array, int length){
+        int [] result= new int[length+1];
+        try{
+
+            for(int i = 0; i< length; i++){
+                result[i] = Integer.parseInt(String.valueOf(array[i])); //Note charAt
+            }
+        }catch (Exception e){
+            Toast.makeText(context, "ERRORE",Toast.LENGTH_SHORT).show();
+        }
+        return result;
+    }
+
 }
