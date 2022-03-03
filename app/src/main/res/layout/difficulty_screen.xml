@@ -10,8 +10,8 @@
 
     <ImageButton
         android:id="@+id/imageButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="55dp"
+        android:layout_height="50dp"
         android:background="#00006EB5"
         android:tint="#EE00E5FF"
         app:layout_constraintBottom_toTopOf="@+id/button1"

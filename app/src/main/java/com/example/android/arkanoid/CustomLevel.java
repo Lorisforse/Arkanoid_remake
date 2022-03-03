@@ -74,7 +74,7 @@ public class CustomLevel extends View implements GestureDetector.OnGestureListen
             b_brick[i] = Bitmap.createScaledBitmap(b_brick[i],105,85,false);
             locked[i]=true;
         }
-        plays.set(400,1700,650,1900);
+        plays.set(400,1400,650,1700);
         Toast.makeText(getContext(), "Tieni premuto su un brick per bloccarlo", Toast.LENGTH_SHORT).show();
 
     }
@@ -104,7 +104,7 @@ public class CustomLevel extends View implements GestureDetector.OnGestureListen
             canvas.drawBitmap(b_brick[i],x[i]+10, y[i]+20, paint);
         }
 
-        canvas.drawBitmap(play, size.x/2-110,1700,paint);
+        canvas.drawBitmap(play, size.x/2-110,1400,paint);
     }
 
     @Override
