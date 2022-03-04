@@ -67,6 +67,7 @@ public class Game extends View implements SensorEventListener, View.OnTouchListe
     private boolean potenza3;//iceball
     private boolean potenza1;//fireball
     private boolean potenza2;//enlarge paddle
+    private SoundPlayer sound;
     int piuGrande;
     int[] brickX;
     int[] brickY;
@@ -91,6 +92,7 @@ public class Game extends View implements SensorEventListener, View.OnTouchListe
         this.gameMode = gameMode;
         this.difficulty = difficulty;
         level = 0;
+        sound = new SoundPlayer(context);
 
         //start a gameOver to find out if the game is standing and if the player has lost
         start = false;
@@ -183,7 +185,7 @@ public class Game extends View implements SensorEventListener, View.OnTouchListe
 
     // fill the list with bricks
     private void generateBricks(Context context) {
-        int maxY = difficulty == 1 ? 6 : difficulty == 2 ? 7 : 9;
+        int maxY = difficulty == 1 ? 6 : difficulty == 2 ? 7 : 8;
         int maxX = difficulty == 1 ? 5 : difficulty == 2 ? 6 : 7;
         readBrick();
 
@@ -197,15 +199,19 @@ public class Game extends View implements SensorEventListener, View.OnTouchListe
         for (int i = 3; i < maxY; i++) {
             for (int j = 1; j < maxX; j++) {
                 int lives = 0;
-                if (difficulty==1) {
-                    lives = new Random().nextInt(4);
-                    list.add(new Brick(context, j * 200, i * 130, lives == 0 ? 2 : 1));
-                } else if (difficulty==2) {
-                    lives = new Random().nextInt(4);
-                    list.add(new Brick(context, j * 160, i * 120, lives < 2 ? 2 : 1));
-                } else if (difficulty==3) {
-                    lives = new Random().nextInt(10);
-                    list.add(new Brick(context, j * 140, i * 110, lives < 2 ? 3 : lives < 5 ? 2 : 1));
+                switch (difficulty) {
+                    case 1:
+                        lives = new Random().nextInt(4);
+                        list.add(new Brick(context, j * 200, i * 130, lives == 0 ? 2 : 1));
+                        break;
+                    case 2:
+                        lives = new Random().nextInt(4);
+                        list.add(new Brick(context, j * 160, i * 120, lives < 2 ? 2 : 1));
+                        break;
+                    case 3:
+                        lives = new Random().nextInt(10);
+                        list.add(new Brick(context, j * 140, i * 110, lives == 0 ? 3 : lives < 5 ? 2 : 1));
+                        break;
                 }
             }
         }
@@ -214,7 +220,7 @@ public class Game extends View implements SensorEventListener, View.OnTouchListe
     //fill the powerUps list
     private  void generatePowerUps(Context context){
         int a = difficulty == 1 ? 3 : difficulty == 2 ? 5 : 7;
-        int maxY = difficulty == 1 ? 6 : difficulty == 2 ? 7 : 9;
+        int maxY = difficulty == 1 ? 6 : difficulty == 2 ? 7 : 8;
         int maxX = difficulty == 1 ? 5 : difficulty == 2 ? 6 : 7;
         for(int i = 0 ; i < a ; i++){
             if (difficulty==1) {
@@ -273,6 +279,7 @@ public class Game extends View implements SensorEventListener, View.OnTouchListe
             gameOver = true;
             start = false;
             invalidate();
+            sound.playGameOver();
         } else {
             lifes--;
             ball.setX(size.x / 2);
@@ -303,6 +310,7 @@ public class Game extends View implements SensorEventListener, View.OnTouchListe
             for (int i = 0; i < list.size(); i++) {
                 Brick b = list.get(i);
                 if (ball.SuddenlyBrick(b.getX(), b.getY())) {
+                    sound.playBrick();
                     if ((b.getLives() >= 1)&&(!potenza1)) {
                         ball.changeDirection();
                         b.changeSkin();
@@ -327,16 +335,19 @@ public class Game extends View implements SensorEventListener, View.OnTouchListe
                 if(p.isNear(paddle.getX(),paddle.getY())){
                     switch (p.getEffect()){
                         case 0:
+                            sound.playLife();
                             lifes++;
                             break;
-
                         case 1:
+                            sound.playFire();
                             potenza1 =true;
                             break;
                         case 2:
+                            sound.playPaddle();
                             potenza2 = true;
                             break;
                         case 3:
+                            sound.playIce();
                             potenza3 = true;
                             ball.slowDown();
                             break;
@@ -409,6 +420,7 @@ public class Game extends View implements SensorEventListener, View.OnTouchListe
     private void win() {
         if (list.isEmpty()) {
             ++level;
+            sound.playWin();
             resetLevel();
             ball.increaseSpeed(level);
             start = false;

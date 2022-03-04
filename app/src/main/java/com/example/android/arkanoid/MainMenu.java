@@ -9,6 +9,7 @@ import android.view.View;
 
 public class MainMenu extends AppCompatActivity {
     int gameMode;
+    private SoundPlayer sound;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -18,6 +19,12 @@ public class MainMenu extends AppCompatActivity {
         SharedPreferences sharedPref = this.getPreferences(Context.MODE_PRIVATE);
         SharedPreferences.Editor edt;
         edt = sharedPref.edit();
+
+        if (!Constants.getFlag()) {
+            sound = new SoundPlayer(this);
+            sound.playMenu();
+            Constants.setFlag(true);
+        }
 
         //options not opened
         if(gameMode==5){

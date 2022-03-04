@@ -7,7 +7,7 @@ import android.view.View;
 
 public class Brick extends View {
 
-    private Bitmap brick;
+    private Bitmap brick = BitmapFactory.decodeResource(getResources(), R.drawable.brick_00_cracked);
     private float x;
     private float y;
     private int color;
