@@ -42,6 +42,7 @@ public class CustomLevel extends View implements GestureDetector.OnGestureListen
     private Brick brick;
     private Bitmap play;
     private Rect plays;
+    private String mess;
 
     //COSTRUTTORE
     public CustomLevel (Context context)  {
@@ -75,7 +76,8 @@ public class CustomLevel extends View implements GestureDetector.OnGestureListen
             locked[i]=true;
         }
         plays.set(400,1400,650,1700);
-        Toast.makeText(getContext(), "Tieni premuto su un brick per bloccarlo", Toast.LENGTH_SHORT).show();
+        mess = getResources().getString(R.string.custom_advice);
+        Toast.makeText(getContext(), mess, Toast.LENGTH_SHORT).show();
 
     }
 
@@ -152,7 +154,8 @@ public class CustomLevel extends View implements GestureDetector.OnGestureListen
         if(plays.contains((int)e.getX(),(int)e.getY())){
             Activity b = (Activity) getContext();
             saveLevel();
-            Toast.makeText(getContext(), "Saved", Toast.LENGTH_SHORT).show();
+            mess =  getResources().getString(R.string.saved);
+            Toast.makeText(getContext(), mess, Toast.LENGTH_SHORT).show();
             b.onBackPressed();
 
         }
@@ -175,7 +178,8 @@ public class CustomLevel extends View implements GestureDetector.OnGestureListen
                     j++;
                     break;
                 }
-                Toast.makeText(getContext(), "Blocca tutti i brick prima", Toast.LENGTH_SHORT).show();
+                mess =  getResources().getString(R.string.lock_bricks);
+                Toast.makeText(getContext(), mess, Toast.LENGTH_SHORT).show();
                 break;
             }
             ispressed = true;

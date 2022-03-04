@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Arkanoid</string>
+    <string name="lock_bricks">¡Bloquea todos los ladrillos primero!</string>
+    <string name="saved">Salvado !</string>
+    <string name="custom_advice">Mantenga presionado un ladrillo para bloquearlo</string>
+    <string name="hard">DURO</string>
+    <string name="medium">MEDIO</string>
+    <string name="easy">FÁCIL</string>
+    <string name="input_mode">Deslice o toque para elegir el modo de entrada</string>
+    <string name="accelerometer">Accelerometer</string>
+    <string name="option">Opción</string>
+    <string name="play">JUGAR</string>
+    <string name="language">Elige tu idioma</string>
+</resources>
