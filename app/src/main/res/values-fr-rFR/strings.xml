@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Arkanoid</string>
+    <string name="play">JOUER</string>
+    <string name="option">Option</string>
+    <string name="accelerometer">Accéléromètre</string>
+    <string name="input_mode">Balayez ou appuyez pour choisir le mode de saisie</string>
+    <string name="medium">MOYEN</string>
+    <string name="easy">FACILE</string>
+    <string name="hard">DUR</string>
+    <string name="custom_advice">Appuyez longuement sur une brique pour la bloquer</string>
+    <string name="saved">Enregistré !</string>
+    <string name="lock_bricks">Bloquez d\'abord toutes les briques !</string>
+    <string name="language">Choisissez votre langue</string>
+</resources>
