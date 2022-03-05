@@ -1,11 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Arkanoid</string>
     <string name="play">PLAY</string>
     <string name="option">Option</string>
-    <string name="record" translatable="false">Record</string>
-    <string name="touch_screen" translatable="false">Touch Screen</string>
     <string name="accelerometer">Accelerometer</string>
-    <string name="joystick" translatable="false">Gamepad</string>
     <string name="input_mode">Swipe or tap to chose the input mode</string>
     <string name="easy">EASY</string>
     <string name="medium">MEDIUM</string>

@@ -222,15 +222,49 @@ public class Game extends View implements SensorEventListener, View.OnTouchListe
         int a = difficulty == 1 ? 3 : difficulty == 2 ? 5 : 7;
         int maxY = difficulty == 1 ? 6 : difficulty == 2 ? 7 : 8;
         int maxX = difficulty == 1 ? 5 : difficulty == 2 ? 6 : 7;
-        for(int i = 0 ; i < a ; i++){
-            if (difficulty==1) {
-                powerUps.add(new PowerUp(context, ((int)(Math.random()*(maxX-1))+1)*200,((int)(Math.random()*(maxY-3))+3)*130));
-            } else if (difficulty==2) {
-                powerUps.add(new PowerUp(context, ((int)(Math.random()*(maxX-1))+1)*160,((int)(Math.random()*(maxY-3))+3)*120));
-            } else if (difficulty==3) {
-                powerUps.add(new PowerUp(context, ((int)(Math.random()*(maxX-1))+1)*140,((int)(Math.random()*(maxY-3))+3)*110));
+        PowerUp pn = null;
+        boolean flag ;
+        for(int i = 0; i < a; i++) {
+            flag = false;
+            while (!flag) {
+                if (difficulty == 1) {
+                    pn = new PowerUp(context, ((int) (Math.random() * (maxX - 1)) + 1) * 200, ((int) (Math.random() * (maxY - 3)) + 3) * 130);
+                } else if (difficulty == 2) {
+                    pn = new PowerUp(context, ((int) (Math.random() * (maxX - 1)) + 1) * 160, ((int) (Math.random() * (maxY - 3)) + 3) * 120);
+                } else {
+                    pn = new PowerUp(context, ((int) (Math.random() * (maxX - 1)) + 1) * 140, ((int) (Math.random() * (maxY - 3)) + 3) * 110);
+                }
+                flag = ceckCoordinates(pn);
+                if (flag) {
+                    powerUps.add(pn);
+                }
             }
         }
+    }
+
+    //serve a confrontare le posizioni già generate con le nuove random per evitare che vengano
+    //prodotte coordinate duplicate
+
+    private boolean ceckCoordinates(PowerUp powerUp){
+        boolean flag = true;
+        int i=1;
+        if(powerUps.isEmpty()){
+            flag = true;
+        }else{
+            for(PowerUp p: powerUps){
+                if(powerUp.getX()==p.getX()){
+                    if(powerUp.getY()==p.getY()){
+                        flag = false;
+                    }
+                }else{
+                    i++;
+                }
+                if((i==powerUps.size())&&(flag)){
+                    flag = true;
+                }
+            }
+        }
+        return flag;
     }
 
     //set background
