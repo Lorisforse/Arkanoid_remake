@@ -86,9 +86,16 @@ public class Ball {
         return d < 80;
     }
 
+    //fa rimbalzare la pallina dal paddle
+    protected void goUpFromPaddle(){
+        if(ySpeed>0){
+            turnYSpeed();
+        }
+    }
+
     // if the ball collided with the fall, it will change direction
     protected void SuddenlyPaddle(float xPaddle, float yPaddle) {
-        if (isClose(xPaddle, yPaddle, getX(), getY())) changeDirection();
+        if (isClose(xPaddle, yPaddle, getX(), getY())) goUpFromPaddle();
     }
 
     // if the ball collided with a brick, it will change direction
