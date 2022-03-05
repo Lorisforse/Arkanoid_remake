@@ -238,6 +238,7 @@ public class Game extends View implements SensorEventListener, View.OnTouchListe
 
     //serve a confrontare le posizioni già generate con le nuove random per evitare che vengano
     //prodotte coordinate duplicate
+
     private boolean ceckCoordinates(PowerUp powerUp){
         boolean flag = true;
         int i=1;
