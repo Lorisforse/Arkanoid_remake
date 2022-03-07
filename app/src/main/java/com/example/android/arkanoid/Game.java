@@ -118,12 +118,13 @@ public class Game extends View implements SensorEventListener {
         potenza3= false;
 
         //create a new Joystick
-        joystick = new Joystick(size.x / 2, size.y - 200, 70,  40);//
+        joystick = new Joystick(size.x / 2, size.y - 200, 70,  40);
 
 
         generateBricks(context);
-        generatePowerUps(context);
-
+        if(difficulty!=4){
+            generatePowerUps(context);
+        }
     }
 
     @Override
@@ -433,7 +434,9 @@ public class Game extends View implements SensorEventListener {
         ball.createSpeed();
         list = new ArrayList<Brick>();
         generateBricks(context);
-        generatePowerUps(context);
+        if(difficulty!=4){
+            generatePowerUps(context);
+        }
     }
 
     // find out if the player won or not
