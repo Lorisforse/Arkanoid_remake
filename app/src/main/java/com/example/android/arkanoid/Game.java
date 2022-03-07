@@ -29,7 +29,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 
-public class Game extends View implements SensorEventListener, View.OnTouchListener {
+public class Game extends View implements SensorEventListener {
 
     private Joystick joystick;
     private Bitmap background;
@@ -123,7 +123,6 @@ public class Game extends View implements SensorEventListener, View.OnTouchListe
 
         generateBricks(context);
         generatePowerUps(context);
-        this.setOnTouchListener(this);
 
     }
 
@@ -425,20 +424,7 @@ public class Game extends View implements SensorEventListener, View.OnTouchListe
     public void onAccuracyChanged(Sensor sensor, int accuracy) {
     }
 
-    //serves to suspend the game in case of a new game
-    @Override
-    public boolean onTouch(View v, MotionEvent event) {
-        if (gameOver == true && start == false) {
-            score = 0;
-            lifes = 3;
-            resetLevel();
-            gameOver = false;
 
-        } else {
-            start = true;
-        }
-        return false;
-    }
 
     // sets the game to start
     private void resetLevel() {
@@ -496,21 +482,32 @@ public class Game extends View implements SensorEventListener, View.OnTouchListe
 
     @Override //event for joystick
     public boolean onTouchEvent(MotionEvent event) {
-        if(gameMode==2){
-            switch(event.getAction()) {
+        if (gameMode !=1) {
+            switch (event.getAction()) {
+                case MotionEvent.ACTION_DOWN:
+                    gameOver();
+                    if (!start || gameOver == true)
+                        start = true;
                 case MotionEvent.ACTION_MOVE:
-                    paddle.setX(event.getX());
-                    if (paddle.getX() > size.x - 240) {
-                        paddle.setX(size.x - 235);
-                    } else if (paddle.getX() < 20) {
-                        paddle.setX(20);
+                    if (gameMode == 2) {
+                        if (start) {
+
+                            paddle.setX(event.getX());
+                            if (paddle.getX() > size.x - 240) {
+                                paddle.setX(size.x - 235);
+                            } else if (paddle.getX() < 20) {
+                                paddle.setX(20);
+                            }
+                        }
                     }
+                    return true;
             }
-            return true;
         }
         if(gameMode ==1) {
             switch (event.getAction()) {
                 case MotionEvent.ACTION_DOWN:
+                    gameOver();
+                    start=true;
                     if (joystick.isPressed((double) event.getX())) {
                         joystick.setIsPressed(true);
                     }
@@ -572,4 +569,12 @@ public class Game extends View implements SensorEventListener, View.OnTouchListe
         return result;
     }
 
+    public void gameOver(){
+        if (gameOver == true && start == false) {
+            score = 0;
+            lifes = 3;
+            resetLevel();
+            gameOver = false;
+        }
+    }
 }
