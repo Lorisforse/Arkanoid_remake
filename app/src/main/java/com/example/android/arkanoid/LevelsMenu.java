@@ -8,6 +8,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
+import java.io.InputStream;
+
 public class LevelsMenu extends AppCompatActivity {
     int gameMode;
     @Override
@@ -35,9 +37,13 @@ public class LevelsMenu extends AppCompatActivity {
     }
 
     public void playCustom(View view) {
-
-        openMainActivity(view, 4);
-
+        try{
+            InputStream inputStream = this.openFileInput("brick.txt");
+            inputStream.close();
+            openMainActivity(view, 4);
+        }catch (Exception e){
+            Toast.makeText(this, "Crea prima un livello con il tasto \"+\"",Toast.LENGTH_SHORT).show();
+        }
     }
 
 
