@@ -314,7 +314,8 @@ public class Game extends View implements SensorEventListener {
             gameOver = true;
             start = false;
             invalidate();
-            sound.playGameOver();
+            if(Constants.getFlag())
+                sound.playGameOver();
             Intent intent = new Intent(context, GameOver.class);
             intent.putExtra("gameMode", gameMode);
             intent.putExtra("difficulty", difficulty);
@@ -349,7 +350,8 @@ public class Game extends View implements SensorEventListener {
             for (int i = 0; i < list.size(); i++) {
                 Brick b = list.get(i);
                 if (ball.SuddenlyBrick(b.getX(), b.getY())) {
-                    sound.playBrick();
+                    if(Constants.getFlag())
+                        sound.playBrick();
                     if ((b.getLives() >= 1)&&(!potenza1)) {
                         ball.changeDirection();
                         b.changeSkin();
@@ -374,19 +376,23 @@ public class Game extends View implements SensorEventListener {
                 if(p.isNear(paddle.getX(),paddle.getY())){
                     switch (p.getEffect()){
                         case 0:
-                            sound.playLife();
+                            if(Constants.getFlag())
+                                sound.playLife();
                             lifes++;
                             break;
                         case 1:
-                            sound.playFire();
+                            if(Constants.getFlag())
+                                sound.playFire();
                             potenza1 =true;
                             break;
                         case 2:
-                            sound.playPaddle();
+                            if(Constants.getFlag())
+                                sound.playPaddle();
                             potenza2 = true;
                             break;
                         case 3:
-                            sound.playIce();
+                            if(Constants.getFlag())
+                                sound.playIce();
                             potenza3 = true;
                             ball.slowDown();
                             break;
@@ -448,7 +454,8 @@ public class Game extends View implements SensorEventListener {
     private void win() {
         if (list.isEmpty()) {
             ++level;
-            sound.playWin();
+            if(Constants.getFlag())
+                sound.playWin();
             resetLevel();
             ball.increaseSpeed(level);
             start = false;
