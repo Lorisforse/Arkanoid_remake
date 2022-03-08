@@ -27,7 +27,6 @@ public class Brick extends View {
 
 
     public void changeSkin(){
-        color = (int) (Math.random() * 9);
         switch (color) {
             case 0:
                 brick = BitmapFactory.decodeResource(getResources(), R.drawable.brick_00_cracked);

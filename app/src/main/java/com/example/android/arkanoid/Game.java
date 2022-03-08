@@ -29,7 +29,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 
-public class Game extends View implements SensorEventListener, View.OnTouchListener {
+public class Game extends View implements SensorEventListener {
 
     private Joystick joystick;
     private Bitmap background;
@@ -118,13 +118,13 @@ public class Game extends View implements SensorEventListener, View.OnTouchListe
         potenza3= false;
 
         //create a new Joystick
-        joystick = new Joystick(size.x / 2, size.y - 200, 70,  40);//
+        joystick = new Joystick(size.x / 2, size.y - 200, 70,  40);
 
 
         generateBricks(context);
-        generatePowerUps(context);
-        this.setOnTouchListener(this);
-
+        if(difficulty!=4){
+            generatePowerUps(context);
+        }
     }
 
     @Override
@@ -222,15 +222,49 @@ public class Game extends View implements SensorEventListener, View.OnTouchListe
         int a = difficulty == 1 ? 3 : difficulty == 2 ? 5 : 7;
         int maxY = difficulty == 1 ? 6 : difficulty == 2 ? 7 : 8;
         int maxX = difficulty == 1 ? 5 : difficulty == 2 ? 6 : 7;
-        for(int i = 0 ; i < a ; i++){
-            if (difficulty==1) {
-                powerUps.add(new PowerUp(context, ((int)(Math.random()*(maxX-1))+1)*200,((int)(Math.random()*(maxY-3))+3)*130));
-            } else if (difficulty==2) {
-                powerUps.add(new PowerUp(context, ((int)(Math.random()*(maxX-1))+1)*160,((int)(Math.random()*(maxY-3))+3)*120));
-            } else if (difficulty==3) {
-                powerUps.add(new PowerUp(context, ((int)(Math.random()*(maxX-1))+1)*140,((int)(Math.random()*(maxY-3))+3)*110));
+        PowerUp pn = null;
+        boolean flag ;
+        for(int i = 0; i < a; i++) {
+            flag = false;
+            while (!flag) {
+                if (difficulty == 1) {
+                    pn = new PowerUp(context, ((int) (Math.random() * (maxX - 1)) + 1) * 200, ((int) (Math.random() * (maxY - 3)) + 3) * 130);
+                } else if (difficulty == 2) {
+                    pn = new PowerUp(context, ((int) (Math.random() * (maxX - 1)) + 1) * 160, ((int) (Math.random() * (maxY - 3)) + 3) * 120);
+                } else {
+                    pn = new PowerUp(context, ((int) (Math.random() * (maxX - 1)) + 1) * 140, ((int) (Math.random() * (maxY - 3)) + 3) * 110);
+                }
+                flag = ceckCoordinates(pn);
+                if (flag) {
+                    powerUps.add(pn);
+                }
             }
         }
+    }
+
+    //serve a confrontare le posizioni già generate con le nuove random per evitare che vengano
+    //prodotte coordinate duplicate
+
+    private boolean ceckCoordinates(PowerUp powerUp){
+        boolean flag = true;
+        int i=1;
+        if(powerUps.isEmpty()){
+            flag = true;
+        }else{
+            for(PowerUp p: powerUps){
+                if(powerUp.getX()==p.getX()){
+                    if(powerUp.getY()==p.getY()){
+                        flag = false;
+                    }
+                }else{
+                    i++;
+                }
+                if((i==powerUps.size())&&(flag)){
+                    flag = true;
+                }
+            }
+        }
+        return flag;
     }
 
     //set background
@@ -391,20 +425,7 @@ public class Game extends View implements SensorEventListener, View.OnTouchListe
     public void onAccuracyChanged(Sensor sensor, int accuracy) {
     }
 
-    //serves to suspend the game in case of a new game
-    @Override
-    public boolean onTouch(View v, MotionEvent event) {
-        if (gameOver == true && start == false) {
-            score = 0;
-            lifes = 3;
-            resetLevel();
-            gameOver = false;
 
-        } else {
-            start = true;
-        }
-        return false;
-    }
 
     // sets the game to start
     private void resetLevel() {
@@ -413,7 +434,9 @@ public class Game extends View implements SensorEventListener, View.OnTouchListe
         ball.createSpeed();
         list = new ArrayList<Brick>();
         generateBricks(context);
-        generatePowerUps(context);
+        if(difficulty!=4){
+            generatePowerUps(context);
+        }
     }
 
     // find out if the player won or not
@@ -462,21 +485,32 @@ public class Game extends View implements SensorEventListener, View.OnTouchListe
 
     @Override //event for joystick
     public boolean onTouchEvent(MotionEvent event) {
-        if(gameMode==2){
-            switch(event.getAction()) {
+        if (gameMode !=1) {
+            switch (event.getAction()) {
+                case MotionEvent.ACTION_DOWN:
+                    gameOver();
+                    if (!start || gameOver == true)
+                        start = true;
                 case MotionEvent.ACTION_MOVE:
-                    paddle.setX(event.getX());
-                    if (paddle.getX() > size.x - 240) {
-                        paddle.setX(size.x - 235);
-                    } else if (paddle.getX() < 20) {
-                        paddle.setX(20);
+                    if (gameMode == 2) {
+                        if (start) {
+
+                            paddle.setX(event.getX());
+                            if (paddle.getX() > size.x - 240) {
+                                paddle.setX(size.x - 235);
+                            } else if (paddle.getX() < 20) {
+                                paddle.setX(20);
+                            }
+                        }
                     }
+                    return true;
             }
-            return true;
         }
         if(gameMode ==1) {
             switch (event.getAction()) {
                 case MotionEvent.ACTION_DOWN:
+                    gameOver();
+                    start=true;
                     if (joystick.isPressed((double) event.getX())) {
                         joystick.setIsPressed(true);
                     }
@@ -538,4 +572,12 @@ public class Game extends View implements SensorEventListener, View.OnTouchListe
         return result;
     }
 
+    public void gameOver(){
+        if (gameOver == true && start == false) {
+            score = 0;
+            lifes = 3;
+            resetLevel();
+            gameOver = false;
+        }
+    }
 }
