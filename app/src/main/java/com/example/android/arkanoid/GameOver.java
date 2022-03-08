@@ -1,33 +1,30 @@
 package com.example.android.arkanoid;
 
-import android.content.pm.ActivityInfo;
+import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 
-public class MainActivity extends AppCompatActivity {
-
+public class GameOver extends AppCompatActivity {
+    private int gameMode;
+    private int difficulty;
     private Game game;
-    private UpdateThread myThread;
-    private Handler updateHandler;
-    int gameMode;
-    int difficulty;
     private CustomLevel customLevel;
+    private Handler updateHandler;
+    private UpdateThread myThread;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.game_over);
+        gameMode = getIntent().getIntExtra("gameMode",0);
+        difficulty = getIntent().getIntExtra("difficulty",1);
 
+    }
 
-        gameMode=getIntent().getIntExtra("gameMode",0);
-        difficulty=getIntent().getIntExtra("difficulty",1);
-
-        // set the screen orientation
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-
-        // create a new game
+    public void tryAgain(View view) {
         if(difficulty==0){
             customLevel = new CustomLevel(this);
             setContentView(customLevel);
@@ -43,6 +40,13 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    public void back(View view) {
+        Intent intent = new Intent(this,MainMenu.class);
+        intent.putExtra("gameMode", gameMode);
+        startActivity(intent);
+    }
+
+
     private void createHandler() {
         updateHandler = new Handler() {
             public void handleMessage(Message msg) {
@@ -53,17 +57,5 @@ public class MainActivity extends AppCompatActivity {
         };
     }
 
-    protected void onPause() {
-        super.onPause();
-        if(difficulty!=0)
-            game.stopSensing();
-
-    }
-
-    protected void onResume() {
-        super.onResume();
-        if(difficulty!=0)
-            game.runScanning();
-    }
 
 }

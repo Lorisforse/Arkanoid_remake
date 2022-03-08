@@ -14,6 +14,7 @@
         <activity android:name=".MainActivity" />
         <activity android:name=".MainMenu" />
         <activity android:name=".LevelsMenu" />
+        <activity android:name=".GameOver"/>
         <activity android:name=".SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

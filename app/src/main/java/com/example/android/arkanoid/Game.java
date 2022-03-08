@@ -1,6 +1,7 @@
 package com.example.android.arkanoid;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -314,6 +315,10 @@ public class Game extends View implements SensorEventListener {
             start = false;
             invalidate();
             sound.playGameOver();
+            Intent intent = new Intent(context, GameOver.class);
+            intent.putExtra("gameMode", gameMode);
+            intent.putExtra("difficulty", difficulty);
+            context.startActivity(intent);
         } else {
             lifes--;
             ball.setX(size.x / 2);
