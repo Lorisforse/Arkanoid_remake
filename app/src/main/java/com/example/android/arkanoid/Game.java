@@ -8,11 +8,14 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Point;
+import android.graphics.Rect;
 import android.graphics.RectF;
+import android.graphics.Typeface;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.support.v4.content.res.ResourcesCompat;
 import android.view.Display;
 import android.view.MotionEvent;
 import android.view.View;
@@ -37,6 +40,10 @@ public class Game extends View implements SensorEventListener {
     private Bitmap redBall;
     private Bitmap stretchedOut;
     private Bitmap paddle_p;
+
+    private Rect quit;
+    private Rect resume;
+    private Rect loser;
 
     private Display display;
     private Point size;
@@ -94,6 +101,10 @@ public class Game extends View implements SensorEventListener {
         this.difficulty = difficulty;
         level = 0;
         sound = new SoundPlayer(context);
+
+        //load font
+        Typeface myFont = ResourcesCompat.getFont(context,R.font.audiowide);
+        paint.setTypeface(myFont);
 
         //start a gameOver to find out if the game is standing and if the player has lost
         start = false;
@@ -178,9 +189,23 @@ public class Game extends View implements SensorEventListener {
 
         //in case of loss draw "Game over!"
         if (gameOver) {
-            paint.setColor(Color.RED);
-            paint.setTextSize(100);
-            canvas.drawText("Game over!", size.x / 4, size.y / 2, paint);
+            if (gameOver) {
+                loser = new Rect(size.x/8,size.y/2-110,size.x*7/8,size.y/2+50);
+                quit = new Rect(size.x/4-70,size.y/2+100,size.x/4+210,size.y/2+250);
+                resume = new Rect((size.x*3/5)-90,(size.y/2)+100,(size.x*3/4)+100,size.y/2+250);
+                paint.setColor(Color.BLACK);
+                canvas.drawRect(loser,paint);
+                paint.setTextSize(130);
+                paint.setColor(Color.RED);
+                canvas.drawText("Game Over!",size.x/8,size.y/2,paint);
+                paint.setColor(Color.TRANSPARENT);
+                canvas.drawRect(quit,paint);
+                canvas.drawRect(resume,paint);
+                paint.setTextSize(100);
+                paint.setColor(Color.WHITE);
+                canvas.drawText("Quit!",size.x/4-60,size.y/2+200,paint);
+                canvas.drawText("Retry",(size.x*3/5)-70,size.y/2+200,paint);
+            }
         }
     }
 
@@ -316,10 +341,6 @@ public class Game extends View implements SensorEventListener {
             invalidate();
             if(Constants.getFlag())
                 sound.playGameOver();
-            Intent intent = new Intent(context, GameOver.class);
-            intent.putExtra("gameMode", gameMode);
-            intent.putExtra("difficulty", difficulty);
-            context.startActivity(intent);
         } else {
             lifes--;
             ball.setX(size.x / 2);
@@ -497,6 +518,15 @@ public class Game extends View implements SensorEventListener {
 
     @Override //event for joystick
     public boolean onTouchEvent(MotionEvent event) {
+        if(gameOver){
+            if(quit.contains((int)event.getX(),(int)event.getY())){
+                Intent intent = new Intent(context, MainMenu.class);
+                context.startActivity(intent);
+                start = false;
+            }else if(resume.contains((int)event.getX(),(int)event.getY())){
+                resetLevel();
+            }
+        }
         if (gameMode !=1) {
             switch (event.getAction()) {
                 case MotionEvent.ACTION_DOWN:
