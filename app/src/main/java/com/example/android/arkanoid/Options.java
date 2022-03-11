@@ -23,18 +23,7 @@ public class Options extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_options);
         seekValue=0;
-
-        SharedPreferences sharedPref = this.getPreferences(Context.MODE_PRIVATE);
-        edt = sharedPref.edit();
-
-        gamemode = findViewById(R.id.gameMode);
-        try{
-            seekValue= sharedPref.getInt("gameMode", 0);
-        }catch(Exception e){
-            e.printStackTrace();
-        }
-        gamemode.setProgress(seekValue);
-
+        setPreferences();
 
     }
 
@@ -45,24 +34,26 @@ public class Options extends AppCompatActivity {
             case R.id.italiano:
                 if(checked)
                     setLocate("it");
-                setContentView(R.layout.activity_options);
                 break;
             case R.id.francese:
                 if(checked)
                     setLocate("fr");
-                setContentView(R.layout.activity_options);
                 break;
             case R.id.spagnolo:
                 if(checked)
                     setLocate("es");
-                setContentView(R.layout.activity_options);
                 break;
             case R.id.inglese:
                 if(checked)
                     setLocate("en");
-                setContentView(R.layout.activity_options);
                 break;
         }
+        seekValue = gamemode.getProgress();
+        edt.putInt("gameMode", seekValue);
+        edt.apply();
+        setContentView(R.layout.activity_options);
+        setPreferences();
+
     }
 
     //funzione che imposta nelle preferenze dell'app, la lingua selezionata
@@ -83,8 +74,22 @@ public class Options extends AppCompatActivity {
         Intent intent = new Intent(this,MainMenu.class);
         seekValue = gamemode.getProgress();
         edt.putInt("gameMode", seekValue);
-        edt.apply();;
+        edt.apply();
         intent.putExtra("gameMode", seekValue);
         startActivity(intent);
+    }
+
+    //funzione che recupera le preferenze espresse precedentemente
+    private void setPreferences(){
+        SharedPreferences sharedPref = this.getPreferences(Context.MODE_PRIVATE);
+        edt = sharedPref.edit();
+        gamemode = findViewById(R.id.gameMode);
+        try{
+            seekValue= sharedPref.getInt("gameMode", 0);
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        gamemode.setProgress(seekValue);
+
     }
 }
