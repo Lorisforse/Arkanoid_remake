@@ -76,7 +76,6 @@ public class Options extends AppCompatActivity {
         edt.putInt("gameMode", seekValue);
         edt.apply();
         intent.putExtra("gameMode", seekValue);
-        startActivity(intent);
     }
 
     //funzione che recupera le preferenze espresse precedentemente
