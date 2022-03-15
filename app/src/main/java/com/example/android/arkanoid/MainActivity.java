@@ -1,5 +1,7 @@
 package com.example.android.arkanoid;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.os.Handler;
 import android.os.Message;
@@ -11,16 +13,15 @@ public class MainActivity extends AppCompatActivity {
     private Game game;
     private UpdateThread myThread;
     private Handler updateHandler;
-    int gameMode;
     int difficulty;
     private CustomLevel customLevel;
+    SharedPreferences.Editor edt;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-
-        gameMode=getIntent().getIntExtra("gameMode",0);
+        checkGameMode();
         difficulty=getIntent().getIntExtra("difficulty",1);
 
         // set the screen orientation
@@ -31,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
             customLevel = new CustomLevel(this);
             setContentView(customLevel);
         }else{
-            game = new Game(this, 3, 0, gameMode, difficulty);
+            game = new Game(this, 3, 0, Constants.getGameMode(), difficulty);
             setContentView(game);
 
             //create a handler and thread
@@ -42,6 +43,20 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+
+    private void checkGameMode() {
+        SharedPreferences sharedPref = this.getPreferences(Context.MODE_PRIVATE);
+        if (Constants.getGameMode() == 4) {
+            if (sharedPref.getInt("gameMode", 4) == 4)
+                Constants.setGameMode(0);
+            else
+                Constants.setGameMode(sharedPref.getInt("gameMode", 4));
+        }else{
+            edt = sharedPref.edit();
+            edt.putInt("gameMode", Constants.getGameMode());
+            edt.apply();
+        }
+    }
     private void createHandler() {
         updateHandler = new Handler() {
             public void handleMessage(Message msg) {

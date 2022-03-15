@@ -11,12 +11,10 @@ import android.widget.Toast;
 import java.io.InputStream;
 
 public class LevelsMenu extends AppCompatActivity {
-    int gameMode;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.difficulty_screen);
-        gameMode = getIntent().getIntExtra("gameMode",0);
 
     }
 
@@ -49,7 +47,6 @@ public class LevelsMenu extends AppCompatActivity {
 
     private void openMainActivity(View view, int difficulty) {
         Intent intent = new Intent(this,MainActivity.class);
-        intent.putExtra("gameMode", gameMode);
         intent.putExtra("difficulty", difficulty);
         startActivity(intent);
     }

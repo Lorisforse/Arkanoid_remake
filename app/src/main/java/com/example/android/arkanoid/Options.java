@@ -1,7 +1,6 @@
 package com.example.android.arkanoid;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.os.Bundle;
@@ -22,7 +21,6 @@ public class Options extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_options);
-        seekValue=0;
         setPreferences();
 
     }
@@ -71,11 +69,10 @@ public class Options extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        Intent intent = new Intent(this,MainMenu.class);
         seekValue = gamemode.getProgress();
         edt.putInt("gameMode", seekValue);
         edt.apply();
-        intent.putExtra("gameMode", seekValue);
+        Constants.setGameMode(seekValue);
     }
 
     //funzione che recupera le preferenze espresse precedentemente
@@ -83,12 +80,11 @@ public class Options extends AppCompatActivity {
         SharedPreferences sharedPref = this.getPreferences(Context.MODE_PRIVATE);
         edt = sharedPref.edit();
         gamemode = findViewById(R.id.gameMode);
-        try{
-            seekValue= sharedPref.getInt("gameMode", 0);
-        }catch(Exception e){
-            e.printStackTrace();
-        }
-        gamemode.setProgress(seekValue);
 
+        if(sharedPref.getInt("gameMode",4)==4){
+            seekValue=0;
+        }else{
+            gamemode.setProgress(sharedPref.getInt("gameMode",4));
+        }
     }
 }
