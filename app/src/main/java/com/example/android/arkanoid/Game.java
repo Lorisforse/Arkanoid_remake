@@ -23,7 +23,6 @@ import android.view.WindowManager;
 import android.widget.Toast;
 
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -260,7 +259,7 @@ public class Game extends View implements SensorEventListener {
                 } else {
                     pn = new PowerUp(context, ((int) (Math.random() * (maxX - 1)) + 1) * 140, ((int) (Math.random() * (maxY - 3)) + 3) * 110);
                 }
-                flag = ceckCoordinates(pn);
+                flag = checkCoordinates(pn);
                 if (flag) {
                     powerUps.add(pn);
                 }
@@ -271,7 +270,7 @@ public class Game extends View implements SensorEventListener {
     //serve a confrontare le posizioni già generate con le nuove random per evitare che vengano
     //prodotte coordinate duplicate
 
-    private boolean ceckCoordinates(PowerUp powerUp){
+    private boolean checkCoordinates(PowerUp powerUp){
         boolean flag = true;
         int i=1;
         if(powerUps.isEmpty()){
@@ -357,14 +356,15 @@ public class Game extends View implements SensorEventListener {
             joystick.update();//
             paddle.update(joystick);//
         }
+
         if (start) {
             //check if the paddle touch the edges
+
             if(paddle.getX() <= 0)
                 paddle.setX(0);
 
             if(paddle.getX()>= 870)
                 paddle.setX(870);
-
             win();
             checkEdges();
             ball.SuddenlyPaddle(paddle.getX(), paddle.getY());
@@ -538,8 +538,8 @@ public class Game extends View implements SensorEventListener {
                         if (start) {
 
                             paddle.setX(event.getX());
-                            if (paddle.getX() > size.x - 240) {
-                                paddle.setX(size.x - 235);
+                            if (paddle.getX() > size.x - 210) {
+                                paddle.setX(size.x - 210);
                             } else if (paddle.getX() < 20) {
                                 paddle.setX(20);
                             }

@@ -81,10 +81,11 @@ public class Options extends AppCompatActivity {
         SharedPreferences sharedPref = this.getPreferences(Context.MODE_PRIVATE);
         edt = sharedPref.edit();
         gamemode = findViewById(R.id.gameMode);
-
-        if (sharedPref.getInt("gameMode", 4) == 4) {
+        seekValue = sharedPref.getInt("gameMode", 4);
+        if (seekValue == 4) {
             seekValue = 0;
         }
+        gamemode.setProgress(seekValue);
     }
 
     @Override
