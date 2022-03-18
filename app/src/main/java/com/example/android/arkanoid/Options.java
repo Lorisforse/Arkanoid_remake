@@ -17,6 +17,7 @@ public class Options extends AppCompatActivity {
     SeekBar gamemode;
     int seekValue;
     SharedPreferences.Editor edt;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,24 +26,24 @@ public class Options extends AppCompatActivity {
 
     }
 
-    public void onRadioButtonClicked(View view){
-        boolean checked = ((RadioButton)view).isChecked();
+    public void onRadioButtonClicked(View view) {
+        boolean checked = ((RadioButton) view).isChecked();
 
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.italiano:
-                if(checked)
+                if (checked)
                     setLocate("it");
                 break;
             case R.id.francese:
-                if(checked)
+                if (checked)
                     setLocate("fr");
                 break;
             case R.id.spagnolo:
-                if(checked)
+                if (checked)
                     setLocate("es");
                 break;
             case R.id.inglese:
-                if(checked)
+                if (checked)
                     setLocate("en");
                 break;
         }
@@ -62,7 +63,7 @@ public class Options extends AppCompatActivity {
         Locale locale = new Locale(language);
         Locale.setDefault(locale);
         configuration.setLocale(locale);
-        resources.updateConfiguration(configuration,metrics);
+        resources.updateConfiguration(configuration, metrics);
     }
 
 
@@ -76,15 +77,39 @@ public class Options extends AppCompatActivity {
     }
 
     //funzione che recupera le preferenze espresse precedentemente
-    private void setPreferences(){
+    private void setPreferences() {
         SharedPreferences sharedPref = this.getPreferences(Context.MODE_PRIVATE);
         edt = sharedPref.edit();
         gamemode = findViewById(R.id.gameMode);
 
-        if(sharedPref.getInt("gameMode",4)==4){
-            seekValue=0;
-        }else{
-            gamemode.setProgress(sharedPref.getInt("gameMode",4));
+        if (sharedPref.getInt("gameMode", 4) == 4) {
+            seekValue = 0;
         }
+    }
+
+    @Override
+    public void onResume() {
+        switchSound();
+        super.onResume();
+    }
+
+    public void onPause() {
+        switchSound();
+        super.onPause();
+    }
+
+    public void switchSound() {
+        if (Constants.getFlag()) {
+
+            Constants.sound.s_menu.pause();
+            Constants.setFlag(false);
+            Constants.setSoundPosition(Constants.sound.s_menu.getCurrentPosition());
+        } else {
+            Constants.sound = new SoundPlayer(this);
+            Constants.sound.s_menu.seekTo(Constants.getSoundPosition());
+            Constants.sound.playMenu();
+            Constants.setFlag(true);
+        }
+
     }
 }

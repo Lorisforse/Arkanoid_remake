@@ -7,7 +7,6 @@ import android.view.View;
 import android.widget.ImageView;
 
 public class MainMenu extends AppCompatActivity {
-    private SoundPlayer sound;
     ImageView music;
 
     @Override
@@ -15,31 +14,34 @@ public class MainMenu extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_menu);
         music = findViewById(R.id.sound);
-
-        if (!Constants.getFlag()) {
-            sound = new SoundPlayer(this);
-            sound.playMenu();
-            Constants.setFlag(true);
-        }
+        Constants.sound = new SoundPlayer(this);
 
 
         music.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(Constants.getFlag()){
+                if (Constants.getFlag()) {
                     music.setImageResource(android.R.drawable.ic_lock_silent_mode);
-                }else{
+                } else {
                     music.setImageResource(android.R.drawable.ic_lock_silent_mode_off);
                 }
                 switchSound();
-
             }
         });
-
-
     }
 
 
+
+    public void onPause(){
+        switchSound();
+        super.onPause();
+    }
+
+    @Override
+    public void onResume(){
+        switchSound();
+        super.onResume();
+    }
     public void openDifficultyScreen(View view) {
         Intent intent = new Intent(this, LevelsMenu.class);
         startActivity(intent);
@@ -58,12 +60,14 @@ public class MainMenu extends AppCompatActivity {
     public void switchSound(){
         if(Constants.getFlag()){
 
-            sound.s_menu.stop();
+            Constants.sound.s_menu.pause();
             Constants.setFlag(false);
+            Constants.setSoundPosition(Constants.sound.s_menu.getCurrentPosition());
         }
-        else if(!Constants.getFlag()){
-            sound = new SoundPlayer(this);
-            sound.playMenu();
+        else {
+            Constants.sound = new SoundPlayer(this);
+            Constants.sound.s_menu.seekTo(Constants.getSoundPosition());
+            Constants.sound.playMenu();
             Constants.setFlag(true);
         }
     }
