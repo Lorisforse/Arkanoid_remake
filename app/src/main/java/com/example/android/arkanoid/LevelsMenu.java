@@ -39,11 +39,23 @@ public class LevelsMenu extends AppCompatActivity {
             InputStream inputStream = this.openFileInput("brick.txt");
             inputStream.close();
             openMainActivity(view, 4);
-        }catch (Exception e){
-            Toast.makeText(this, "Crea prima un livello con il tasto \"+\"",Toast.LENGTH_SHORT).show();
+        } catch (Exception e) {
+            Toast.makeText(this, "Crea prima un livello con il tasto \"+\"", Toast.LENGTH_SHORT).show();
         }
     }
 
+    public void deleteLevel(View view) {
+        try {
+            InputStream inputStream = this.openFileInput("brick.txt");
+            inputStream.close();
+            this.deleteFile("brick.txt");
+            Toast.makeText(this, "Cancellato", Toast.LENGTH_SHORT).show();
+        } catch (Exception e) {
+            Toast.makeText(this, "Non ci sono livelli", Toast.LENGTH_SHORT).show();
+
+        }
+
+    }
 
     private void openMainActivity(View view, int difficulty) {
         Intent intent = new Intent(this,MainActivity.class);
