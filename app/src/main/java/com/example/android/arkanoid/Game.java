@@ -352,19 +352,19 @@ public class Game extends View implements SensorEventListener {
 
     //each step checks whether there is a collision, a loss or a win, etc.
     public void update() {
+        //check if the paddle touch the edges
+        if(paddle.getX() <= 0)
+            paddle.setX(0);
+
+        if(paddle.getX()>= 870)
+            paddle.setX(870);
+
         if(gameMode ==1){
             joystick.update();//
             paddle.update(joystick);//
         }
 
         if (start) {
-            //check if the paddle touch the edges
-
-            if(paddle.getX() <= 0)
-                paddle.setX(0);
-
-            if(paddle.getX()>= 870)
-                paddle.setX(870);
             win();
             checkEdges();
             ball.SuddenlyPaddle(paddle.getX(), paddle.getY());

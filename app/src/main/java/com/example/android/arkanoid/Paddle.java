@@ -14,6 +14,7 @@ public class Paddle {
         this.y = y;
     }
 
+
     public float getX() {
         return x;
     }

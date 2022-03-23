@@ -17,7 +17,6 @@ public class Joystick {
     private boolean isPressed;
     private double actuatorX;
 
-
     public Joystick(int centerPositionX, int centerPositionY, int outerCircleRadius, int innerCircleRadius){
 
         //outer and inner circle make up the joystick
@@ -32,11 +31,11 @@ public class Joystick {
 
         //paint of circle
         outerCirclePaint = new Paint();
-        outerCirclePaint.setColor(Color.GRAY);
+        outerCirclePaint.setColor(Color.rgb(61,12,60));
         outerCirclePaint.setStyle(Paint.Style.FILL_AND_STROKE);
 
         innerCirclePaint = new Paint();
-        innerCirclePaint.setColor(Color.BLUE);
+        innerCirclePaint.setColor(Color.DKGRAY);
         innerCirclePaint.setStyle(Paint.Style.FILL_AND_STROKE);
     }
 
