@@ -62,7 +62,7 @@ public class SoundPlayer {
         s_gameOver.start();
     }
     public void playBrick(){
-      //s_brick.start();
+
       soundPool.play(s_brick, 1.0f, 1.0f, 1, 0, 1.0f);
     }
 
@@ -73,15 +73,14 @@ public class SoundPlayer {
 
     public void playPaddle(){
       s_paddle.start();
-        //soundPool.play(s_paddle, 1.0f, 1.0f, 1, 0, 1.0f);
+
     }
 
     public void playMenu() {
-       s_menu.start();
-       s_menu.setVolume(0.3f,0.3f);
-       s_menu.setLooping(true);
-      //  soundPool.play(s_menu, 1.0f, 1.0f,1,0,1.0f);
+        if (Constants.musicActive) {
+            s_menu.start();
+            s_menu.setVolume(0.3f, 0.3f);
+            s_menu.setLooping(true);
         }
-
-
+    }
 }

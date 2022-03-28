@@ -126,17 +126,15 @@ public class Record extends AppCompatActivity {
     }
 
     public void switchSound(){
-        if(Constants.getFlag()){
+        if(Constants.sound.s_menu.isPlaying()){
 
             Constants.sound.s_menu.pause();
-            Constants.setFlag(false);
             Constants.setSoundPosition(Constants.sound.s_menu.getCurrentPosition());
         }
         else {
-            Constants.sound = new SoundPlayer(this);
+        
             Constants.sound.s_menu.seekTo(Constants.getSoundPosition());
             Constants.sound.playMenu();
-            Constants.setFlag(true);
         }
     }
 }
