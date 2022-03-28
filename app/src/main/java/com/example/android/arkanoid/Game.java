@@ -363,7 +363,6 @@ public class Game extends View implements SensorEventListener {
             joystick.update();//
             paddle.update(joystick);//
         }
-
         if (start) {
             win();
             checkEdges();
