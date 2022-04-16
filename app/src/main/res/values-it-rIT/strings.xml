@@ -12,4 +12,8 @@
     <string name="saved">Salvato !</string>
     <string name="lock_bricks">Blocca prima tutti i brick !</string>
     <string name="language">Seleziona la tua lingua</string>
+    <string name="quit">Esci!</string>
+    <string name="resume">Riprendi</string>
+    <string name="retry">Riprova</string>
+    <string name="pause">Pausa</string>
 </resources>

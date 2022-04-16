@@ -12,4 +12,8 @@
     <string name="saved">Saved !</string>
     <string name="lock_bricks">Block all bricks first !</string>
     <string name="language">Select you language</string>
+    <string name="quit">Quit!</string>
+    <string name="resume">Resume</string>
+    <string name="retry">Retry</string>
+    <string name="pause">Pause</string>
 </resources>

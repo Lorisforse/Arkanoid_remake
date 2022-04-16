@@ -39,10 +39,12 @@ public class Game extends View implements SensorEventListener {
     private Bitmap redBall;
     private Bitmap stretchedOut;
     private Bitmap paddle_p;
+    private Bitmap pause;
 
     private Rect quit;
     private Rect resume;
     private Rect loser;
+    private Rect rPause;
 
     private Display display;
     private Point size;
@@ -66,6 +68,7 @@ public class Game extends View implements SensorEventListener {
     private int level;
     private boolean start;
     private boolean gameOver;
+    private boolean isPaused;
     private Context context;
     private int gameMode;
     private int difficulty;
@@ -80,6 +83,7 @@ public class Game extends View implements SensorEventListener {
     int[] brickY;
     String [] arrayX;
     String [] arrayY;
+
 
     /*
     0= joystick abilitato
@@ -108,6 +112,7 @@ public class Game extends View implements SensorEventListener {
         //start a gameOver to find out if the game is standing and if the player has lost
         start = false;
         gameOver = false;
+        isPaused = false;
 
         //creates an accelerometer and a SensorManager
         sManager = (SensorManager) context.getSystemService(Context.SENSOR_SERVICE);
@@ -119,6 +124,9 @@ public class Game extends View implements SensorEventListener {
         redBall = BitmapFactory.decodeResource(getResources(), R.drawable.pinkball);
         paddle_p = BitmapFactory.decodeResource(getResources(), R.drawable.paddle);
 
+        pause = BitmapFactory.decodeResource(getResources(),R.drawable.pause);
+
+
         //creates a new ball, paddle, and list of bricks
         ball = new Ball(size.x / 2, size.y - 480, difficulty);
         paddle = new Paddle(size.x / 2, size.y - 400);
@@ -127,6 +135,9 @@ public class Game extends View implements SensorEventListener {
         potenza1= false;
         potenza2= false;
         potenza3= false;
+
+        quit = new Rect();
+        resume = new Rect();
 
         //create a new Joystick
         joystick = new Joystick(size.x / 2, size.y - 200, 70,  40);
@@ -186,25 +197,44 @@ public class Game extends View implements SensorEventListener {
         canvas.drawText("" + lifes, 400, 100, paint);
         canvas.drawText("" + score, 700, 100, paint);
 
+        rPause = new Rect(size.x-100,10,size.x-10,100);
+        canvas.drawBitmap(pause,null,rPause,paint);
+
         //in case of loss draw "Game over!"
         if (gameOver) {
-            if (gameOver) {
-                loser = new Rect(size.x/8,size.y/2-110,size.x*7/8,size.y/2+50);
-                quit = new Rect(size.x/4-70,size.y/2+100,size.x/4+210,size.y/2+250);
-                resume = new Rect((size.x*3/5)-90,(size.y/2)+100,(size.x*3/4)+100,size.y/2+250);
-                paint.setColor(Color.BLACK);
-                canvas.drawRect(loser,paint);
-                paint.setTextSize(130);
-                paint.setColor(Color.RED);
-                canvas.drawText("Game Over!",size.x/8,size.y/2,paint);
-                paint.setColor(Color.TRANSPARENT);
-                canvas.drawRect(quit,paint);
-                canvas.drawRect(resume,paint);
-                paint.setTextSize(100);
-                paint.setColor(Color.WHITE);
-                canvas.drawText("Quit!",size.x/4-60,size.y/2+200,paint);
-                canvas.drawText("Retry",(size.x*3/5)-70,size.y/2+200,paint);
-            }
+            loser = new Rect(size.x/8,size.y/2-110,size.x*7/8,size.y/2+50);
+            quit = new Rect(size.x/4-70,size.y/2+100,size.x/4+210,size.y/2+250);
+            resume = new Rect((size.x*3/5)-90,(size.y/2)+100,(size.x*3/4)+100,size.y/2+250);
+            paint.setColor(Color.BLACK);
+            canvas.drawRect(loser,paint);
+            paint.setTextSize(130);
+            paint.setColor(Color.RED);
+            canvas.drawText(getResources().getString(R.string.game_over),size.x/8,size.y/2,paint);
+            paint.setColor(Color.TRANSPARENT);
+            canvas.drawRect(quit,paint);
+            canvas.drawRect(resume,paint);
+            paint.setTextSize(100);
+            paint.setColor(Color.WHITE);
+            canvas.drawText(getResources().getString(R.string.quit),size.x/4-60,size.y/2+200,paint);
+            canvas.drawText(getResources().getString(R.string.retry),(size.x*3/5)-70,size.y/2+200,paint);
+        }
+        if (isPaused){
+            loser = new Rect(size.x/8,size.y/2-110,size.x*7/8,size.y/2+50);
+            quit = new Rect(size.x/4-70,size.y/2+100,size.x/4+210,size.y/2+250);
+            resume = new Rect((size.x*3/5)-90,(size.y/2)+100,(size.x*3/4)+100,size.y/2+250);
+            paint.setColor(Color.BLACK);
+            canvas.drawRect(loser,paint);
+            paint.setTextSize(130);
+            paint.setColor(Color.RED);
+            canvas.drawText(getResources().getString(R.string.pause),size.x/8,size.y/2,paint);
+            paint.setColor(Color.TRANSPARENT);
+            canvas.drawRect(quit,paint);
+            canvas.drawRect(resume,paint);
+            paint.setTextSize(100);
+            paint.setColor(Color.WHITE);
+            canvas.drawText(getResources().getString(R.string.quit),size.x/4-60,size.y/2+200,paint);
+            canvas.drawText(getResources().getString(R.string.resume),(size.x*3/5)-70,size.y/2+200,paint);
+
         }
     }
 
@@ -457,7 +487,6 @@ public class Game extends View implements SensorEventListener {
     }
 
 
-
     // sets the game to start
     private void resetLevel() {
         ball.setX(size.x / 2);
@@ -517,56 +546,80 @@ public class Game extends View implements SensorEventListener {
 
     @Override //event for joystick
     public boolean onTouchEvent(MotionEvent event) {
-        if(gameOver){
+        if(rPause.contains((int)event.getX(),(int)event.getY())){
+            if(isPaused) {
+                isPaused = false;
+                start = true;
+            }else {
+                isPaused = true;
+                start = false;
+                stopSensing();
+            }
+        }
+
+        if(isPaused){
             if(quit.contains((int)event.getX(),(int)event.getY())){
                 Intent intent = new Intent(context, MainMenu.class);
                 context.startActivity(intent);
                 start = false;
             }else if(resume.contains((int)event.getX(),(int)event.getY())){
-                resetLevel();
+                isPaused = false;
+                start = true;
             }
-        }
-        if (gameMode !=1) {
-            switch (event.getAction()) {
-                case MotionEvent.ACTION_DOWN:
+        }else{
+            if(gameOver){
+                if(quit.contains((int)event.getX(),(int)event.getY())){
+                    Intent intent = new Intent(context, MainMenu.class);
+                    context.startActivity(intent);
+                    start = false;
+                }else if(resume.contains((int)event.getX(),(int)event.getY())){
                     gameOver();
-                    if (!start || gameOver == true)
-                        start = true;
-                case MotionEvent.ACTION_MOVE:
-                    if (gameMode == 2) {
-                        if (start) {
+                }
+            }else {
+                if (gameMode != 1) {
+                    switch (event.getAction()) {
+                        case MotionEvent.ACTION_DOWN:
+                            gameOver();
+                            if (!start || gameOver == true)
+                                start = true;
+                        case MotionEvent.ACTION_MOVE:
+                            if (gameMode == 2) {
+                                if (start) {
 
-                            paddle.setX(event.getX());
-                            if (paddle.getX() > size.x - 210) {
-                                paddle.setX(size.x - 210);
-                            } else if (paddle.getX() < 20) {
-                                paddle.setX(20);
+                                    paddle.setX(event.getX());
+                                    if (paddle.getX() > size.x - 210) {
+                                        paddle.setX(size.x - 210);
+                                    } else if (paddle.getX() < 20) {
+                                        paddle.setX(20);
+                                    }
+                                }
                             }
-                        }
+                            return true;
                     }
-                    return true;
+                }
+                if (gameMode == 1) {
+                    switch (event.getAction()) {
+                        case MotionEvent.ACTION_DOWN:
+                            gameOver();
+                            start = true;
+                            if (joystick.isPressed((double) event.getX())) {
+                                joystick.setIsPressed(true);
+                            }
+                            return true;
+                        case MotionEvent.ACTION_MOVE:
+                            if (joystick.getIsPressed()) {
+                                joystick.setActuator((double) event.getX());
+                            }
+                            return true;
+                        case MotionEvent.ACTION_UP:
+                            joystick.setIsPressed(false);
+                            joystick.resetActuator();
+                            return true;
+                    }
+                }
             }
         }
-        if(gameMode ==1) {
-            switch (event.getAction()) {
-                case MotionEvent.ACTION_DOWN:
-                    gameOver();
-                    start=true;
-                    if (joystick.isPressed((double) event.getX())) {
-                        joystick.setIsPressed(true);
-                    }
-                    return true;
-                case MotionEvent.ACTION_MOVE:
-                    if (joystick.getIsPressed()) {
-                        joystick.setActuator((double) event.getX());
-                    }
-                    return true;
-                case MotionEvent.ACTION_UP:
-                    joystick.setIsPressed(false);
-                    joystick.resetActuator();
-                    return true;
-            }
-        }
+
         return super.onTouchEvent(event);
     }
 
@@ -621,4 +674,5 @@ public class Game extends View implements SensorEventListener {
             gameOver = false;
         }
     }
+
 }

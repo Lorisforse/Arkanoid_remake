@@ -12,4 +12,8 @@
     <string name="option">Opción</string>
     <string name="play">JUGAR</string>
     <string name="language">Elige tu idioma</string>
+    <string name="retry">Rever</string>
+    <string name="resume">Resumir</string>
+    <string name="quit">Dejar</string>
+    <string name="pause">Pausa</string>
 </resources>
