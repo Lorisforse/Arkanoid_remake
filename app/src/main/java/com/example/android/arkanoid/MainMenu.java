@@ -1,20 +1,79 @@
 package com.example.android.arkanoid;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
+
+import androidx.annotation.DrawableRes;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.SharedPreferences;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.Toast;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class MainMenu extends AppCompatActivity {
     ImageView music;
-
+    ImageView wifi;
+    EditText username;
+    String playerName="";
+    private static final String TAG = "OfflineActivity";
+    FirebaseDatabase database;
+    DatabaseReference playerRef;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_menu);
         music = findViewById(R.id.sound);
+        wifi = findViewById(R.id.wifi);
+        username = findViewById(R.id.username);
         Constants.sound = new SoundPlayer(this);
+        database = FirebaseDatabase.getInstance();
+
+        //Check if the player exists and get reference
+        SharedPreferences preferences = getSharedPreferences("PREFS", 0);
+        playerName = preferences.getString("playerName","");
+
+
+        //la prima volta che apri l'app non viene eseguito questo if
+        if(!playerName.equals("")){
+            playerRef = database.getReference("players/" + playerName);
+            addEventListener();
+            playerRef.setValue("");
+        }
+
+        wifi.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(playerName.equals("")){
+                    if((username.getText()).toString().equals("")){
+                        username.setVisibility(View.VISIBLE);
+                        wifi.setImageResource(android.R.drawable.ic_menu_save);
+                    }
+                    else if(!((username.getText()).toString().equals(""))){
+                        username.setVisibility(View.INVISIBLE);
+                        playerName = username.getText().toString();
+                        playerRef= database.getReference("players/" + playerName);
+                        addEventListener();
+                        playerRef.setValue("");
+                        wifi.setImageResource(R.drawable.wifi);
+                        Toast.makeText(MainMenu.this, "Logged as: " + playerName,Toast.LENGTH_SHORT).show();
+                    }
+                }else
+                    Toast.makeText(MainMenu.this, "Already logged as: " + playerName,Toast.LENGTH_SHORT).show();
+
+            }
+        });
 
 
         music.setOnClickListener(new View.OnClickListener() {
@@ -31,6 +90,39 @@ public class MainMenu extends AppCompatActivity {
             }
         });
     }
+
+
+
+
+    private void addEventListener() {
+        //read from database
+        playerRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                //success = continue to the next screen after saving the player name
+                if (!playerName.equals("")) {
+                    SharedPreferences preferences = getSharedPreferences("PREFS", 0);
+                    SharedPreferences.Editor editor = preferences.edit();
+                    editor.putString("playerName", playerName);
+                    editor.apply();
+
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+                Toast.makeText(MainMenu.this, "ERRORE", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+
+
+
+
+
+
 
 
 
@@ -71,4 +163,6 @@ public class MainMenu extends AppCompatActivity {
             Constants.sound.playMenu();
         }
     }
+
+
 }

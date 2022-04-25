@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout  xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -28,14 +28,15 @@
         android:contentDescription=""
         android:onClick="openDifficultyScreen"
         android:scaleType="centerInside"
-        android:tint="#EE00E5FF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView"
         app:layout_constraintVertical_bias="0.031"
-        app:srcCompat="@drawable/play" />
+        app:srcCompat="@drawable/play"
+        app:tint="#EE00E5FF"
+        tools:ignore="SpeakableTextPresentCheck" />
 
     <TextView
         android:id="@+id/textView6"
@@ -57,13 +58,13 @@
         android:contentDescription="Open options"
         android:onClick="openOptions"
         android:scaleType="centerCrop"
-        android:tint="#7F0AAA"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/imageButton7"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/newGame"
-        app:srcCompat="@drawable/option" />
+        app:srcCompat="@drawable/option"
+        app:tint="#7F0AAA" />
 
     <TextView
         android:id="@+id/textView"
@@ -87,13 +88,13 @@
         android:contentDescription="Open record"
         android:onClick="openRecord"
         android:scaleType="centerCrop"
-        android:tint="#EDFF0000"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/imageButton6"
         app:layout_constraintTop_toBottomOf="@+id/newGame"
-        app:srcCompat="@drawable/podium" />
+        app:srcCompat="@drawable/podium"
+        app:tint="#EDFF0000" />
 
     <TextView
         android:id="@+id/textView5"
@@ -109,6 +110,17 @@
         app:layout_constraintTop_toBottomOf="@+id/imageButton7" />
 
     <ImageView
+        android:id="@+id/wifi"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        app:layout_constraintEnd_toStartOf="@+id/imageView"
+        app:layout_constraintHorizontal_bias="0.891"
+        app:layout_constraintStart_toEndOf="@+id/imageView"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/wifi" />
+
+    <ImageView
         android:id="@+id/sound"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -117,4 +129,25 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@android:drawable/ic_lock_silent_mode_off" />
 
-</android.support.constraint.ConstraintLayout>
+
+    <EditText
+        android:id="@+id/username"
+        android:layout_width="223dp"
+        android:layout_height="60dp"
+        android:background="@android:color/transparent"
+        android:ems="10"
+        android:hint="username"
+        android:inputType="textPersonName"
+        android:textAlignment="center"
+        android:textColor="#FFFFFF"
+        android:textColorHint="#FFFDD0"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/imageView"
+        app:layout_constraintEnd_toStartOf="@+id/imageView"
+        app:layout_constraintHorizontal_bias="0.507"
+        app:layout_constraintStart_toEndOf="@+id/imageView"
+        app:layout_constraintTop_toBottomOf="@+id/imageView"
+        app:layout_constraintVertical_bias="0.869" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

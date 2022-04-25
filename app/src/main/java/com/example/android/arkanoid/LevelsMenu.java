@@ -3,19 +3,31 @@ package com.example.android.arkanoid;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import java.io.InputStream;
 
 public class LevelsMenu extends AppCompatActivity {
+    String playerName ="";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.difficulty_screen);
+        setContentView(R.layout.activity_levels_menu);
+//get the player name and assign his room name to the player name
+        SharedPreferences preferences = getSharedPreferences("PREFS", 0);
+        playerName = preferences.getString("playerName", "");
+        Toast.makeText(LevelsMenu.this, "Already logged as: " + playerName,Toast.LENGTH_SHORT).show();
 
+    }
+
+    public void online(View view){
+        Intent intent = new Intent(this,Rooms.class);
+        startActivity(intent);
     }
 
     public void easy(View view) {

@@ -2,6 +2,7 @@ package com.example.android.arkanoid;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -15,12 +16,20 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
-import android.support.v4.content.res.ResourcesCompat;
 import android.view.Display;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.core.content.res.ResourcesCompat;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.io.BufferedReader;
 import java.io.FileOutputStream;
@@ -90,8 +99,31 @@ public class Game extends View implements SensorEventListener {
     1= accellerometro abilitato
     2= touchscreen abilitato
     */
+    //FIREBASE
+
+    FirebaseDatabase database;
+
+    DatabaseReference messageRef;
+    DatabaseReference messageRef2;
+    String playerName ="";
+    String roomName ="";
+    String role ="";
+    Ball ball2;
+    Bitmap redball2;
+
+
     public Game(Context context, int lifes, int score, int gameMode, int difficulty) {
         super(context);
+        //FIREBASE
+        SharedPreferences preferences = context.getSharedPreferences("PREFS", 0);
+        playerName = preferences.getString("playerName", "");
+        roomName = preferences.getString("roomName", "");
+        role = preferences.getString("role","");
+        database = FirebaseDatabase.getInstance();
+
+
+
+        //END FIREBASE
         paint = new Paint();
 
         brickX= new int[20];
@@ -102,6 +134,8 @@ public class Game extends View implements SensorEventListener {
         this.score = score;
         this.gameMode = gameMode;
         this.difficulty = difficulty;
+        if(difficulty==5)
+            this.lifes=1;
         level = 0;
         sound = new SoundPlayer(context);
 
@@ -125,10 +159,11 @@ public class Game extends View implements SensorEventListener {
         paddle_p = BitmapFactory.decodeResource(getResources(), R.drawable.paddle);
 
         pause = BitmapFactory.decodeResource(getResources(),R.drawable.pause);
-
+        redball2 = BitmapFactory.decodeResource(getResources(), R.drawable.redball);
 
         //creates a new ball, paddle, and list of bricks
         ball = new Ball(size.x / 2, size.y - 480, difficulty);
+        ball2 = new Ball(size.x / 2, size.y - 480, difficulty);
         paddle = new Paddle(size.x / 2, size.y - 400);
         list = new ArrayList<Brick>();
         powerUps = new ArrayList<PowerUp>();
@@ -164,9 +199,11 @@ public class Game extends View implements SensorEventListener {
             redBall = BitmapFactory.decodeResource(getResources(), R.drawable.pinkball);
         paint.setColor(Color.RED);
         canvas.drawBitmap(redBall, ball.getX(), ball.getY(), paint);
+        if(difficulty==5)
+            canvas.drawBitmap(redball2, ball2.getX(), ball2.getY(),paint);
 
         // draw paddle
-        if(potenza2==true)
+        if(potenza2)
             piuGrande=100;
         else
             piuGrande=0;
@@ -201,12 +238,13 @@ public class Game extends View implements SensorEventListener {
         canvas.drawBitmap(pause,null,rPause,paint);
 
         //in case of loss draw "Game over!"
-        if (gameOver) {
-            loser = new Rect(size.x/8,size.y/2-110,size.x*7/8,size.y/2+50);
-            quit = new Rect(size.x/4-70,size.y/2+100,size.x/4+210,size.y/2+250);
-            resume = new Rect((size.x*3/5)-90,(size.y/2)+100,(size.x*3/4)+100,size.y/2+250);
+
+        if (gameOver && difficulty!=5) {
+            loser = new Rect(size.x / 8, size.y / 2 - 110, size.x * 7 / 8, size.y / 2 + 50);
+            quit = new Rect(size.x / 4 - 70, size.y / 2 + 100, size.x / 4 + 210, size.y / 2 + 250);
+            resume = new Rect((size.x * 3 / 5) - 90, (size.y / 2) + 100, (size.x * 3 / 4) + 100, size.y / 2 + 250);
             paint.setColor(Color.BLACK);
-            canvas.drawRect(loser,paint);
+            canvas.drawRect(loser, paint);
             paint.setTextSize(130);
             paint.setColor(Color.RED);
             canvas.drawText(getResources().getString(R.string.game_over),size.x/8,size.y/2,paint);
@@ -217,6 +255,9 @@ public class Game extends View implements SensorEventListener {
             paint.setColor(Color.WHITE);
             canvas.drawText(getResources().getString(R.string.quit),size.x/4-60,size.y/2+200,paint);
             canvas.drawText(getResources().getString(R.string.retry),(size.x*3/5)-70,size.y/2+200,paint);
+			}else if(gameOver){
+
+            //todo aggiungere il menu di fine partita
         }
         if (isPaused){
             loser = new Rect(size.x/8,size.y/2-110,size.x*7/8,size.y/2+50);
@@ -235,6 +276,17 @@ public class Game extends View implements SensorEventListener {
             canvas.drawText(getResources().getString(R.string.quit),size.x/4-60,size.y/2+200,paint);
             canvas.drawText(getResources().getString(R.string.resume),(size.x*3/5)-70,size.y/2+200,paint);
 
+        }
+ if(difficulty==5){
+
+            messageRef = database.getReference(("rooms/" + roomName + "/"+ role + "/X"));
+            messageRef.setValue((int)ball.getX());
+            messageRef = database.getReference(("rooms/" + roomName + "/"+ role + "/Y"));
+
+            messageRef.setValue((int)ball.getY());
+
+            checkXListener();
+            checkYListener();
         }
     }
 
@@ -264,6 +316,7 @@ public class Game extends View implements SensorEventListener {
                         list.add(new Brick(context, j * 160, i * 120, lives < 2 ? 2 : 1));
                         break;
                     case 3:
+                    case 5:
                         lives = new Random().nextInt(10);
                         list.add(new Brick(context, j * 140, i * 110, lives == 0 ? 3 : lives < 5 ? 2 : 1));
                         break;
@@ -274,6 +327,8 @@ public class Game extends View implements SensorEventListener {
 
     //fill the powerUps list
     private  void generatePowerUps(Context context){
+        if(difficulty==5)
+            return;
         int a = difficulty == 1 ? 3 : difficulty == 2 ? 5 : 7;
         int maxY = difficulty == 1 ? 6 : difficulty == 2 ? 7 : 8;
         int maxX = difficulty == 1 ? 5 : difficulty == 2 ? 6 : 7;
@@ -284,7 +339,7 @@ public class Game extends View implements SensorEventListener {
             while (!flag) {
                 if (difficulty == 1) {
                     pn = new PowerUp(context, ((int) (Math.random() * (maxX - 1)) + 1) * 200, ((int) (Math.random() * (maxY - 3)) + 3) * 130);
-                } else if (difficulty == 2) {
+                } else if (difficulty == 2 || difficulty ==5) {
                     pn = new PowerUp(context, ((int) (Math.random() * (maxX - 1)) + 1) * 160, ((int) (Math.random() * (maxY - 3)) + 3) * 120);
                 } else {
                     pn = new PowerUp(context, ((int) (Math.random() * (maxX - 1)) + 1) * 140, ((int) (Math.random() * (maxY - 3)) + 3) * 110);
@@ -674,5 +729,54 @@ public class Game extends View implements SensorEventListener {
             gameOver = false;
         }
     }
+
+    //FIREBASE
+
+    private void checkXListener(){
+        if(role.equals("host"))
+            messageRef = database.getReference(("rooms/" + roomName + "/guest" + "/X"));
+        else if(role.equals("guest"))
+            messageRef = database.getReference(("rooms/" + roomName + "/host" + "/X"));
+
+        messageRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(!(snapshot.getValue() == null)){
+                    ball2.setX(Integer.parseInt(snapshot.getValue().toString()));
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+            }
+        });
+    }
+
+    private void checkYListener(){
+        if(role.equals("host"))
+            messageRef2 = database.getReference(("rooms/" + roomName + "/guest" + "/Y"));
+        else if(role.equals("guest"))
+            messageRef2 = database.getReference(("rooms/" + roomName + "/host" + "/Y"));
+
+        messageRef2.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(!(snapshot.getValue() == null)){
+                    ball2.setY(Integer.parseInt(snapshot.getValue().toString()));
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+            }
+        });
+    }
+
+
+
+
+
+
+    //END FIREBASE
 
 }

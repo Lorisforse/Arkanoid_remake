@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "392988094266",
+    "firebase_url": "https://provearkanoid-10141-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "provearkanoid-10141",
+    "storage_bucket": "provearkanoid-10141.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:392988094266:android:09a836a185989af943ea03",
+        "android_client_info": {
+          "package_name": "com.example.android.arkanoid"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "392988094266-vbavh1n31ot3g019tpi2r8cq9688hpv6.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.android.arkanoid",
+            "certificate_hash": "f57ac66577f509a54f6dd8e0949bb55dfb488f9b"
+          }
+        },
+        {
+          "client_id": "392988094266-kpk5gscnpobolgmf82lm13jq31ms5lhm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCV7vRfCHjXbXTbvLzH75hc2CDed-Pzvkc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "392988094266-kpk5gscnpobolgmf82lm13jq31ms5lhm.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

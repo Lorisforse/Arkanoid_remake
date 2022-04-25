@@ -14,6 +14,8 @@ public class Ball {
         this.x = x;
         this.y = y;
         this.difficulty = difficulty;
+        if(difficulty==5)
+            this.difficulty=3;
         minX = 7;
         minY = -23;
         createSpeed();
