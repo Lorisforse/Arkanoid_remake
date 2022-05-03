@@ -12,12 +12,14 @@ public class Brick extends View {
     private float y;
     private int color;
     private int lives;
+    private boolean breakable;
 
-    public Brick(Context context, float x, float y, int lives) {
+    public Brick(Context context, float x, float y, int lives, boolean breakable) {
         super(context);
         this.x = x;
         this.y = y;
         this.lives = lives;
+        this.breakable = breakable;
         skin();
     }
     public Brick(Context context) {
@@ -61,6 +63,11 @@ public class Brick extends View {
 
     //assigns a random image to the brick
     public void skin() {
+
+        if (this.breakable == false) {
+            brick = BitmapFactory.decodeResource(getResources(), R.drawable.brick_09);
+            return;
+        }
         color = (int) (Math.random() * 9);
         switch (color) {
             case 0:
@@ -119,6 +126,10 @@ public class Brick extends View {
 
     public void setLives(int lives) {
         this.lives = lives;
+    }
+
+    public boolean getBreakable(){
+        return this.breakable;
     }
 
     public Bitmap getBrick() {

@@ -61,6 +61,7 @@ public class Game extends View implements SensorEventListener {
 
     private Ball ball;
     private ArrayList<Brick> list;
+    private int unbreakableBricks = 0;
     private Paddle paddle;
 
     private ArrayList<PowerUp> powerUps;
@@ -300,25 +301,30 @@ public class Game extends View implements SensorEventListener {
             for (int f = 0; f < (brickX.length) - 1; f++) {
                 brickX = splitAndConvert(arrayX, arrayX.length);
                 brickY = splitAndConvert(arrayY, arrayY.length);
-                list.add(new Brick(context, brickX[f], brickY[f], 1));
+                list.add(new Brick(context, brickX[f], brickY[f], 1, true));
             }
         }
         for (int i = 3; i < maxY; i++) {
             for (int j = 1; j < maxX; j++) {
                 int lives = 0;
+                int breakable = 0;
                 switch (difficulty) {
                     case 1:
                         lives = new Random().nextInt(4);
-                        list.add(new Brick(context, j * 200, i * 130, lives == 0 ? 2 : 1));
+                        list.add(new Brick(context, j * 200, i * 130, lives == 0 ? 2 : 1, true));
                         break;
                     case 2:
                         lives = new Random().nextInt(4);
-                        list.add(new Brick(context, j * 160, i * 120, lives < 2 ? 2 : 1));
+                        breakable = new Random().nextInt(20);
+                        list.add(new Brick(context, j * 160, i * 120, lives < 2 ? 2 : 1, breakable < 2 ? false : true));
+                        unbreakableBricks = breakable < 2 ? unbreakableBricks + 1 : unbreakableBricks;
                         break;
                     case 3:
                     case 5:
                         lives = new Random().nextInt(10);
-                        list.add(new Brick(context, j * 140, i * 110, lives == 0 ? 3 : lives < 5 ? 2 : 1));
+                        breakable = new Random().nextInt(20);
+                        list.add(new Brick(context, j * 140, i * 110, lives == 0 ? 3 : lives < 5 ? 2 : 1, breakable < 2 ? false : true));
+                        unbreakableBricks = breakable < 2 ? unbreakableBricks + 1 : unbreakableBricks;
                         break;
                 }
             }
@@ -457,21 +463,25 @@ public class Game extends View implements SensorEventListener {
                 if (ball.SuddenlyBrick(b.getX(), b.getY())) {
                     if(Constants.sound.s_menu.isPlaying())
                         sound.playBrick();
-                    if ((b.getLives() >= 1)&&(!potenza1)) {
-                        ball.changeDirection();
-                        b.changeSkin();
-                        b.setLives(b.getLives() - 1);
-                    } else {
-                        for(int j = 0; j < powerUps.size(); j ++){
-                            PowerUp p = powerUps.get(j);
-                            if((p.getY()==b.getY())&&(p.getX()==b.getX())) {
-                                p.hurryUp();
-                            }
-                        }
-                        if(!potenza1)
+                    if (b.getBreakable() == true) {
+                        if ((b.getLives() >= 1) && (!potenza1)) {
                             ball.changeDirection();
-                        list.remove(i);
-                        score = difficulty == 1 ? score + 80 : difficulty == 2 ? score + 40 : score + 20;
+                            b.changeSkin();
+                            b.setLives(b.getLives() - 1);
+                        } else {
+                            for (int j = 0; j < powerUps.size(); j++) {
+                                PowerUp p = powerUps.get(j);
+                                if ((p.getY() == b.getY()) && (p.getX() == b.getX())) {
+                                    p.hurryUp();
+                                }
+                            }
+                            if (!potenza1)
+                                ball.changeDirection();
+                            list.remove(i);
+                            score = difficulty == 1 ? score + 80 : difficulty == 2 ? score + 40 : score + 20;
+                        }
+                    } else {
+                        ball.changeDirection();
                     }
                 }
 
@@ -548,6 +558,7 @@ public class Game extends View implements SensorEventListener {
         ball.setY(size.y - 480);
         ball.createSpeed();
         list = new ArrayList<Brick>();
+        unbreakableBricks = 0;
         generateBricks(context);
         if(difficulty!=4){
             generatePowerUps(context);
@@ -556,7 +567,7 @@ public class Game extends View implements SensorEventListener {
 
     // find out if the player won or not
     private void win() {
-        if (list.isEmpty()) {
+        if (list.size() <= unbreakableBricks) {
             ++level;
             if(Constants.sound.s_menu.isPlaying())
                 sound.playWin();
