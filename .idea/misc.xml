@@ -4,6 +4,18 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/Utente/Desktop/Esame_Android/app/src/main/res/layout/activity_splash_screen.xml" value="0.14583333333333334" />
+        <entry key="..\:/Users/nicol/AndroidStudioProjects/Esame_Android/app/src/main/res/layout-land/activity_levels_menu.xml" value="0.19047619047619047" />
+        <entry key="..\:/Users/nicol/AndroidStudioProjects/Esame_Android/app/src/main/res/layout-land/activity_main_menu.xml" value="0.2" />
+        <entry key="..\:/Users/nicol/AndroidStudioProjects/Esame_Android/app/src/main/res/layout-land/activity_options.xml" value="0.264" />
+        <entry key="..\:/Users/nicol/AndroidStudioProjects/Esame_Android/app/src/main/res/layout-land/activity_splash_screen.xml" value="0.19047619047619047" />
+        <entry key="..\:/Users/nicol/AndroidStudioProjects/Esame_Android/app/src/main/res/layout/activity_levels_menu.xml" value="0.1875" />
+        <entry key="..\:/Users/nicol/AndroidStudioProjects/Esame_Android/app/src/main/res/layout/activity_main.xml" value="0.1875" />
+        <entry key="..\:/Users/nicol/AndroidStudioProjects/Esame_Android/app/src/main/res/layout/activity_main_menu.xml" value="0.1875" />
+        <entry key="..\:/Users/nicol/AndroidStudioProjects/Esame_Android/app/src/main/res/layout/activity_options.xml" value="0.1875" />
+        <entry key="..\:/Users/nicol/AndroidStudioProjects/Esame_Android/app/src/main/res/layout/activity_record.xml" value="0.1875" />
+        <entry key="..\:/Users/nicol/AndroidStudioProjects/Esame_Android/app/src/main/res/layout/activity_rooms.xml" value="0.1875" />
+        <entry key="..\:/Users/nicol/AndroidStudioProjects/Esame_Android/app/src/main/res/layout/activity_splash_screen.xml" value="0.1875" />
+        <entry key="..\:/Users/nicol/AndroidStudioProjects/Esame_Android/app/src/main/res/layout/row.xml" value="0.1875" />
       </map>
     </option>
   </component>

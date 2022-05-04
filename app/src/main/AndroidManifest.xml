@@ -14,7 +14,8 @@
             android:exported="false" />
         <activity android:name=".Options" />
         <activity android:name=".Record" />
-        <activity android:name=".MainActivity" />
+        <activity android:name=".MainActivity"
+            android:screenOrientation="portrait"/>
         <activity android:name=".MainMenu" />
         <activity android:name=".LevelsMenu" />
         <activity
