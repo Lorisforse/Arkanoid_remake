@@ -31,19 +31,23 @@ public class CustomLevel extends View implements GestureDetector.OnGestureListen
     private int[] x;
     private int[] y;
     private Bitmap[] b_brick;
+    private Bitmap paddle;
     private GestureDetector detector;
     //RECT PER I SINGOLI BRICK
     private Rect[] r;
     private Rect[] r2;
     boolean locked[];
     private final static int TOTAL_BRICK =20;
-    boolean ispressed;
+    boolean isPressed[];
     private int j;
+    private int k;
     private Brick brick;
     private Bitmap play;
     private Rect plays;
     private String mess;
-
+    boolean paddleLock;
+    int paddleX,paddleY;
+    private Rect paddleR;
     //COSTRUTTORE
     public CustomLevel (Context context)  {
         super(context);
@@ -51,14 +55,18 @@ public class CustomLevel extends View implements GestureDetector.OnGestureListen
         readBackground(context);
         detector=new GestureDetector(context, this);
 
-
+        paddleX=600;
+        paddleY=20;
+        paddleLock=true;
         j=-1;
+        k=1;
         x = new int[TOTAL_BRICK];
         y = new int[TOTAL_BRICK];
         b_brick = new Bitmap[TOTAL_BRICK];
         r = new Rect[TOTAL_BRICK];
         r2 = new Rect[3];
         locked = new boolean[TOTAL_BRICK];
+        isPressed = new boolean[3];
         for(int i=0; i<r2.length;i++)
             r2[i] = new Rect();
         for(int i=0; i<TOTAL_BRICK;i++)
@@ -67,6 +75,8 @@ public class CustomLevel extends View implements GestureDetector.OnGestureListen
         play = BitmapFactory.decodeResource(getResources(), R.drawable.visto);
         play = Bitmap.createScaledBitmap(play, 200,200,false);
         plays= new Rect();
+        paddleR = new Rect();
+        paddle = BitmapFactory.decodeResource(getResources(), R.drawable.paddle);
 
 
         for(int i=0; i<TOTAL_BRICK; i++){
@@ -75,7 +85,8 @@ public class CustomLevel extends View implements GestureDetector.OnGestureListen
             b_brick[i] = Bitmap.createScaledBitmap(b_brick[i],105,85,false);
             locked[i]=true;
         }
-        plays.set(400,1400,650,1700);
+        plays.set(410,1900,630,2100);
+
         mess = getResources().getString(R.string.custom_advice);
         Toast.makeText(getContext(), mess, Toast.LENGTH_SHORT).show();
 
@@ -90,14 +101,21 @@ public class CustomLevel extends View implements GestureDetector.OnGestureListen
         }
         canvas.drawBitmap(stretchedOut, 0, 0, paint);
         r2[0].set(0,10,125,115);
+        r2[1].set(590,10,810,80);
+        //canvas.drawRect(r2[1],paint);
 
-        if(ispressed){
+        if(isPressed[0]){
             paint.setColor(Color.YELLOW);
             canvas.drawRect(r2[0],paint);
+        }
+        if(isPressed[1]){
+            paint.setColor(Color.YELLOW);
+            canvas.drawRect(r2[1],paint);
         }
         paint.setColor(Color.WHITE);
         paint.setTextSize(60);
         canvas.drawText("X "+(TOTAL_BRICK-j-1),130,70,paint);
+        canvas.drawText("X "+(k),850,70,paint);
 
 
         //DRAW BRICK
@@ -106,7 +124,9 @@ public class CustomLevel extends View implements GestureDetector.OnGestureListen
             canvas.drawBitmap(b_brick[i],x[i]+10, y[i]+20, paint);
         }
 
-        canvas.drawBitmap(play, size.x/2-110,1400,paint);
+        canvas.drawBitmap(play, null, plays,paint);
+        paddleR.set(paddleX, paddleY,paddleX+200, paddleY+50);
+        canvas.drawBitmap(paddle,null,paddleR,paint);
     }
 
     @Override
@@ -115,12 +135,18 @@ public class CustomLevel extends View implements GestureDetector.OnGestureListen
         switch( event.getAction() ){
             case MotionEvent.ACTION_DOWN:
             case MotionEvent.ACTION_MOVE:
+                if(!paddleLock && !r2[1].contains((int)event.getX(),(int)event.getY())){
+                    paddleX = (int) (event.getX()- paddle.getWidth()/3);
+                    paddleY = (int) (event.getY()- paddle.getHeight()/3);
+            }
                 for(int i=0; i<TOTAL_BRICK; i++){
                     if(!locked[i] && !r2[0].contains((int)event.getX(),(int)event.getY())){
                         x[i] = (int) (event.getX()- b_brick[i].getWidth()/2);
                         y[i] = (int) (event.getY()- b_brick[i].getHeight()/2);
                     }
-                    ispressed=false;
+                    isPressed[0] =false;
+                    isPressed[1] = false;
+
                 }
                 invalidate();
 
@@ -154,22 +180,27 @@ public class CustomLevel extends View implements GestureDetector.OnGestureListen
         if(plays.contains((int)e.getX(),(int)e.getY())){
             Activity b = (Activity) getContext();
             saveLevel();
+            savePaddle();
             mess =  getResources().getString(R.string.saved);
             Toast.makeText(getContext(), mess, Toast.LENGTH_SHORT).show();
             b.onBackPressed();
 
         }
 
+        if(r2[1].contains((int)e.getX(),(int)e.getY())&&k==1){
+            paddleLock=false;
+            isPressed[1]=true;
+        }
         //Selector brick pressed
 
         if(j==TOTAL_BRICK-1)
             return false;
-        if(r2[0].contains((int)e.getX(),(int)e.getY())){
+        if(r2[0].contains((int)e.getX(),(int)e.getY())&&(paddleLock)){
             //First brick
             if(locked[0]&&j==-1){
                 locked[0]=false;
                 j++;
-                ispressed=true;
+                isPressed[0] =true;
                 return false;
             }
             while (j < TOTAL_BRICK) {
@@ -182,7 +213,7 @@ public class CustomLevel extends View implements GestureDetector.OnGestureListen
                 Toast.makeText(getContext(), mess, Toast.LENGTH_SHORT).show();
                 break;
             }
-            ispressed = true;
+            isPressed[0] = true;
         }
         return false;
     }
@@ -201,6 +232,13 @@ public class CustomLevel extends View implements GestureDetector.OnGestureListen
                 locked[i]=false;
             }
         }
+        if(paddleR.contains((int)e.getX(),(int)e.getY()) && !paddleLock){
+            k=0;
+            paddleLock=true;
+
+        }
+        else if(paddleR.contains((int)e.getX(),(int)e.getY()) && paddleLock)
+            paddleLock=false;
 
     }
 
@@ -209,6 +247,16 @@ public class CustomLevel extends View implements GestureDetector.OnGestureListen
         return false;
     }
 
+    public void savePaddle(){
+        try {
+            FileOutputStream fOut = getContext().openFileOutput("paddle.txt", Context.MODE_PRIVATE);
+            OutputStreamWriter osw = new OutputStreamWriter(fOut);
+            osw.write(String.valueOf(paddleY));
+            osw.close();
+        } catch (IOException ioe) {
+            ioe.printStackTrace();
+        }
+    }
 
     public void saveLevel() {
         String weight;

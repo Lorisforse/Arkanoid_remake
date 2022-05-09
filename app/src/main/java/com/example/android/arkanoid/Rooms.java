@@ -46,7 +46,8 @@ public class Rooms extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_rooms);database = FirebaseDatabase.getInstance();
+        setContentView(R.layout.activity_rooms);
+        database = FirebaseDatabase.getInstance();
 
          intent = new Intent(getApplicationContext(), MainActivity.class);
         //get the player name and assign his room name to the player name

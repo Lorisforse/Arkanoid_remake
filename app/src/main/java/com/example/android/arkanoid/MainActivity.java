@@ -24,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
     private UpdateThread myThread;
     private Handler updateHandler;
     int difficulty;
+    int lifes;
     private CustomLevel customLevel;
     SharedPreferences.Editor edt;
 
@@ -66,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
 
         checkGameMode();
         difficulty=getIntent().getIntExtra("difficulty",1);
-
+        lifes= getIntent().getIntExtra("lifes",3);
         // set the screen orientation
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
@@ -75,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
             customLevel = new CustomLevel(this);
             setContentView(customLevel);
         }else{
-            game = new Game(this, 3, 0, Constants.getGameMode(), difficulty);
+            game = new Game(this, lifes, 0, Constants.getGameMode(), difficulty);
             setContentView(game);
 
             //create a handler and thread

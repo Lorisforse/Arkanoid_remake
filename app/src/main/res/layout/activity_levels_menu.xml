@@ -13,8 +13,8 @@
         android:layout_width="55dp"
         android:layout_height="50dp"
         android:background="#00006EB5"
-        android:onClick="custom"
         android:contentDescription="Create custom level"
+        android:onClick="custom"
         app:layout_constraintBottom_toTopOf="@+id/button"
         app:layout_constraintEnd_toStartOf="@+id/newGame"
         app:layout_constraintStart_toStartOf="parent"
@@ -28,8 +28,8 @@
         android:layout_width="55dp"
         android:layout_height="50dp"
         android:background="#00006EB5"
-        android:onClick="deleteLevel"
         android:contentDescription="Delete custom level"
+        android:onClick="deleteLevel"
         app:layout_constraintBottom_toTopOf="@+id/button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/newGame"
@@ -121,4 +121,35 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/newGame" />
+
+    <SeekBar
+        android:id="@+id/difficulty"
+        style="@style/Widget.AppCompat.SeekBar.Discrete"
+        android:layout_width="188dp"
+        android:layout_height="33dp"
+        android:max="2"
+        android:progress="0"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/newGame"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.627"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.491" />
+
+    <TextView
+        android:id="@+id/diff"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="36dp"
+        android:text="Lifes"
+        android:visibility="invisible"
+        android:textColor="#FFFFFF"
+        app:layout_constraintBottom_toTopOf="@+id/imageButton"
+        app:layout_constraintEnd_toStartOf="@+id/difficulty"
+        app:layout_constraintHorizontal_bias="0.729"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.493" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

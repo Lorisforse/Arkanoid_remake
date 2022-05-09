@@ -82,6 +82,14 @@ public class Game extends View implements SensorEventListener {
     private Context context;
     private int gameMode;
     private int difficulty;
+    /*
+    0= custom
+    1= easy
+    2= medium
+    3= hard
+    4= playcustom
+    5= online
+     */
     private int grandezza=200;
     private float setpaddle;
     private boolean potenza3;//iceball
@@ -182,7 +190,8 @@ public class Game extends View implements SensorEventListener {
         generateBricks(context);
         if(difficulty!=4){
             generatePowerUps(context);
-        }
+        }else
+            readPaddle();
     }
 
     @Override
@@ -518,6 +527,10 @@ public class Game extends View implements SensorEventListener {
                 }
             }
             ball.hurryUp();
+            if (!start && difficulty == 4)
+                ball.setY(paddle.getY() - 80);
+
+
         }
     }
 
@@ -689,7 +702,27 @@ public class Game extends View implements SensorEventListener {
         return super.onTouchEvent(event);
     }
 
+    public void readPaddle(){
+        try {
+            InputStream inputStream = context.openFileInput("paddle.txt");
+            String receiveString;
 
+            if ( inputStream != null ) {
+                InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
+                BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+                StringBuilder stringBuilder = new StringBuilder();
+                while ( (receiveString = bufferedReader.readLine()) != null ) {
+                    stringBuilder.append("").append(receiveString);
+                }
+                paddle.setY(Integer.parseInt(stringBuilder.toString()));
+                ball.setY(paddle.getY()-80);
+
+                inputStream.close();
+            }
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
     public void readBrick(){
         String result = "";
