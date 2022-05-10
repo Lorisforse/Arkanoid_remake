@@ -153,7 +153,10 @@ public class MainActivity extends AppCompatActivity {
     }
 //FIREBASE
 private void addRoomEventListener(){
-    messageRef = database.getReference("rooms/" + roomName + "/host" + "/name");
+        if(role.equals("host"))
+            messageRef = database.getReference("rooms/" + roomName + "/guest" + "/name");
+        else
+            messageRef = database.getReference("rooms/" + roomName + "/host" + "/name");
 
     messageRef.addValueEventListener(new ValueEventListener() {
 
@@ -161,7 +164,7 @@ private void addRoomEventListener(){
         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
             //message received
             if(dataSnapshot.getValue(String.class) == null)
-                Toast.makeText(MainActivity.this, "Host disconnesso", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, "Avversario disconnesso", Toast.LENGTH_SHORT).show();
         }
 
         @Override

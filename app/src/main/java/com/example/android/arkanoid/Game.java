@@ -118,7 +118,9 @@ public class Game extends View implements SensorEventListener {
     String roomName ="";
     String role ="";
     Ball ball2;
-    Bitmap redball2;
+    Bitmap redBall2;
+    String over;
+    String resumeRetry;
 
 
     public Game(Context context, int lifes, int score, int gameMode, int difficulty) {
@@ -168,7 +170,7 @@ public class Game extends View implements SensorEventListener {
         paddle_p = BitmapFactory.decodeResource(getResources(), R.drawable.paddle);
 
         pause = BitmapFactory.decodeResource(getResources(),R.drawable.pause);
-        redball2 = BitmapFactory.decodeResource(getResources(), R.drawable.redball);
+        redBall2 = BitmapFactory.decodeResource(getResources(), R.drawable.redball);
 
         //creates a new ball, paddle, and list of bricks
         ball = new Ball(size.x / 2, size.y - 480, difficulty);
@@ -203,14 +205,14 @@ public class Game extends View implements SensorEventListener {
         canvas.drawBitmap(stretchedOut, 0, 0, paint);
 
         //draw the ball
-        if(potenza1==true){
+        if(potenza1){
             redBall = BitmapFactory.decodeResource(getResources(), R.drawable.fireball);
         }else
             redBall = BitmapFactory.decodeResource(getResources(), R.drawable.pinkball);
         paint.setColor(Color.RED);
         canvas.drawBitmap(redBall, ball.getX(), ball.getY(), paint);
         if(difficulty==5)
-            canvas.drawBitmap(redball2, ball2.getX(), ball2.getY(),paint);
+            canvas.drawBitmap(redBall2, ball2.getX(), ball2.getY(),paint);
 
         // draw paddle
         if(potenza2)
@@ -249,43 +251,25 @@ public class Game extends View implements SensorEventListener {
 
         //in case of loss draw "Game over!"
 
-        if (gameOver && difficulty!=5) {
-            loser = new Rect(size.x / 8, size.y / 2 - 110, size.x * 7 / 8, size.y / 2 + 50);
-            quit = new Rect(size.x / 4 - 70, size.y / 2 + 100, size.x / 4 + 210, size.y / 2 + 250);
-            resume = new Rect((size.x * 3 / 5) - 90, (size.y / 2) + 100, (size.x * 3 / 4) + 100, size.y / 2 + 250);
-            paint.setColor(Color.BLACK);
-            canvas.drawRect(loser, paint);
-            paint.setTextSize(130);
-            paint.setColor(Color.RED);
-            canvas.drawText(getResources().getString(R.string.game_over),size.x/8,size.y/2,paint);
-            paint.setColor(Color.TRANSPARENT);
-            canvas.drawRect(quit,paint);
-            canvas.drawRect(resume,paint);
-            paint.setTextSize(100);
-            paint.setColor(Color.WHITE);
-            canvas.drawText(getResources().getString(R.string.quit),size.x/4-60,size.y/2+200,paint);
-            canvas.drawText(getResources().getString(R.string.retry),(size.x*3/5)-70,size.y/2+200,paint);
-			}else if(gameOver){
 
-            //todo aggiungere il menu di fine partita
+        if (gameOver) {
+            if(ball2.getY() != 0){
+                ball.setY(0);
+                ball.setX(0);
+            }
+            over = getResources().getString(R.string.game_over);
+            if (difficulty == 5) {
+                over = "Hai perso";
+                if (ball2.getY() == 0)
+                    over = "Hai vinto";
+            }
+            resumeRetry = getResources().getString(R.string.retry);
+            menu(canvas);
         }
-        if (isPaused){
-            loser = new Rect(size.x/8,size.y/2-110,size.x*7/8,size.y/2+50);
-            quit = new Rect(size.x/4-70,size.y/2+100,size.x/4+210,size.y/2+250);
-            resume = new Rect((size.x*3/5)-90,(size.y/2)+100,(size.x*3/4)+100,size.y/2+250);
-            paint.setColor(Color.BLACK);
-            canvas.drawRect(loser,paint);
-            paint.setTextSize(130);
-            paint.setColor(Color.RED);
-            canvas.drawText(getResources().getString(R.string.pause),size.x/8,size.y/2,paint);
-            paint.setColor(Color.TRANSPARENT);
-            canvas.drawRect(quit,paint);
-            canvas.drawRect(resume,paint);
-            paint.setTextSize(100);
-            paint.setColor(Color.WHITE);
-            canvas.drawText(getResources().getString(R.string.quit),size.x/4-60,size.y/2+200,paint);
-            canvas.drawText(getResources().getString(R.string.resume),(size.x*3/5)-70,size.y/2+200,paint);
-
+        if (isPaused) {
+            over = getResources().getString(R.string.pause);
+            resumeRetry=getResources().getString(R.string.resume);
+            menu(canvas);
         }
  if(difficulty==5){
 
@@ -472,7 +456,7 @@ public class Game extends View implements SensorEventListener {
                 if (ball.SuddenlyBrick(b.getX(), b.getY())) {
                     if(Constants.sound.s_menu.isPlaying())
                         sound.playBrick();
-                    if (b.getBreakable() == true) {
+                    if (b.getBreakable()) {
                         if ((b.getLives() >= 1) && (!potenza1)) {
                             ball.changeDirection();
                             b.changeSkin();
@@ -659,7 +643,7 @@ public class Game extends View implements SensorEventListener {
                     switch (event.getAction()) {
                         case MotionEvent.ACTION_DOWN:
                             gameOver();
-                            if (!start || gameOver == true)
+                            if (!start || gameOver)
                                 start = true;
                         case MotionEvent.ACTION_MOVE:
                             if (gameMode == 2) {
@@ -726,7 +710,7 @@ public class Game extends View implements SensorEventListener {
 
     public void readBrick(){
         String result = "";
-        String result2[];
+        String[] result2;
         try {
             InputStream inputStream = context.openFileInput("brick.txt");
 
@@ -766,9 +750,11 @@ public class Game extends View implements SensorEventListener {
     }
 
     public void gameOver(){
-        if (gameOver == true && start == false) {
+        if (gameOver && !start) {
             score = 0;
             lifes = 3;
+            if(difficulty==5)
+                lifes=1;
             resetLevel();
             gameOver = false;
         }
@@ -822,5 +808,24 @@ public class Game extends View implements SensorEventListener {
 
 
     //END FIREBASE
+
+
+    public void menu(Canvas canvas){
+        loser = new Rect(size.x / 8, size.y / 2 - 110, size.x * 7 / 8, size.y / 2 + 50);
+        quit = new Rect(size.x / 4 - 70, size.y / 2 + 100, size.x / 4 + 210, size.y / 2 + 250);
+        resume = new Rect((size.x * 3 / 5) - 90, (size.y / 2) + 100, (size.x * 3 / 4) + 100, size.y / 2 + 250);
+        paint.setColor(Color.BLACK);
+        canvas.drawRect(loser, paint);
+        paint.setTextSize(130);
+        paint.setColor(Color.RED);
+        canvas.drawText(over, size.x / 8, size.y / 2, paint);
+        paint.setColor(Color.TRANSPARENT);
+        canvas.drawRect(quit, paint);
+        canvas.drawRect(resume, paint);
+        paint.setTextSize(100);
+        paint.setColor(Color.WHITE);
+        canvas.drawText(getResources().getString(R.string.quit), size.x / 4 - 60, size.y / 2 + 200, paint);
+        canvas.drawText(resumeRetry, (size.x * 3 / 5) - 70, size.y / 2 + 200, paint);
+    }
 
 }
