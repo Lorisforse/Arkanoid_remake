@@ -132,6 +132,10 @@ public class Brick extends View {
         return this.breakable;
     }
 
+    public void setBreakable(boolean breakable) {
+        this.breakable = breakable;
+    }
+
     public Bitmap getBrick() {
         return brick;
     }

@@ -266,7 +266,7 @@ public class Game extends View implements SensorEventListener {
             resumeRetry = getResources().getString(R.string.retry);
             menu(canvas);
         }
-        if (isPaused) {
+        if (isPaused&&(!gameOver)) {
             over = getResources().getString(R.string.pause);
             resumeRetry=getResources().getString(R.string.resume);
             menu(canvas);

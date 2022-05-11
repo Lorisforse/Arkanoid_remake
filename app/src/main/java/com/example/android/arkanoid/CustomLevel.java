@@ -80,6 +80,7 @@ public class CustomLevel extends View implements GestureDetector.OnGestureListen
 
 
         for(int i=0; i<TOTAL_BRICK; i++){
+            brick.setBreakable(true);
             brick.skin();
             b_brick[i] = brick.getBrick();
             b_brick[i] = Bitmap.createScaledBitmap(b_brick[i],105,85,false);
