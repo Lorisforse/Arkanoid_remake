@@ -27,6 +27,7 @@ public class MainMenu extends AppCompatActivity {
     ImageView wifi;
     EditText username;
     String playerName="";
+    ImageButton share;
     private static final String TAG = "OfflineActivity";
     FirebaseDatabase database;
     DatabaseReference playerRef;
@@ -37,6 +38,7 @@ public class MainMenu extends AppCompatActivity {
         music = findViewById(R.id.sound);
         wifi = findViewById(R.id.wifi);
         username = findViewById(R.id.username);
+        share = findViewById(R.id.share);
         Constants.sound = new SoundPlayer(this);
         database = FirebaseDatabase.getInstance();
 
@@ -52,6 +54,12 @@ public class MainMenu extends AppCompatActivity {
             playerRef.setValue("");
         }
 
+        share.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                shareTextOnly("Ti sfido ad un duello su Arkanoid --> scaricalo da qui:@linkPlayStore");
+            }
+        });
         wifi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -120,7 +128,22 @@ public class MainMenu extends AppCompatActivity {
 
 
 
+    private void shareTextOnly(String title) {
+        String sharebody = title;
 
+        // The value which we will sending through data via
+        // other applications is defined
+        // via the Intent.ACTION_SEND
+        Intent intent = new Intent(Intent.ACTION_SEND);
+
+        // setting type of data shared as text
+        intent.setType("text/plain");
+        intent.putExtra(Intent.EXTRA_SUBJECT, "Subject Here");
+
+        // Adding the text to share using putExtra
+        intent.putExtra(Intent.EXTRA_TEXT, sharebody);
+        startActivity(Intent.createChooser(intent, "Share Via"));
+    }
 
 
 
