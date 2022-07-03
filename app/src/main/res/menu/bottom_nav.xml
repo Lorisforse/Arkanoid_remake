@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/home"
+        android:icon="@drawable/home_selector"
+        android:title="@string/home" />
+
+    <item
+        android:id="@+id/customize"
+        android:icon="@drawable/custom_level_selector"
+        android:title="@string/customize" />
+
+    <item
+        android:id="@+id/score"
+        android:icon="@drawable/stars_selector"
+        android:title="@string/score" />
+
+    <item
+        android:id="@+id/options"
+        android:icon="@drawable/settings_selector"
+        android:title="@string/settings" />
+
+</menu>

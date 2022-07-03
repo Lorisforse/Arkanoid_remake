@@ -7,13 +7,13 @@
     <string name="hard">DURO</string>
     <string name="medium">MEDIO</string>
     <string name="easy">FÁCIL</string>
-    <string name="input_mode">Deslice o toque para elegir el modo de entrada</string>
-    <string name="accelerometer">Accelerometer</string>
-    <string name="option">Opción</string>
     <string name="play">JUGAR</string>
-    <string name="language">Elige tu idioma</string>
     <string name="retry">Rever</string>
     <string name="resume">Resumir</string>
     <string name="quit">Dejar</string>
     <string name="pause">Pausa</string>
+    <string name="italian">Italiano</string>
+    <string name="english">inglés</string>
+    <string name="spanish">Español</string>
+    <string name="french">Francés</string>
 </resources>

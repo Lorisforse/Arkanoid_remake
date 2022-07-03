@@ -2,18 +2,18 @@
 <resources>
     <string name="app_name">Arkanoid</string>
     <string name="play">GIOCA</string>
-    <string name="option">Opzioni</string>
-    <string name="accelerometer">Accelerometro</string>
-    <string name="input_mode">Scorri o premi per scegliere il tipo di input</string>
-    <string name="easy">FACILE</string>
-    <string name="medium">NORMALE</string>
-    <string name="hard">DIFFICILE</string>
+    <string name="easy">POCO</string>
+    <string name="medium">ME LA CAVO</string>
+    <string name="hard">MOLTO FORTE</string>
     <string name="custom_advice">Premi e tieni premuto su un brick per bloccarlo</string>
     <string name="saved">Salvato !</string>
     <string name="lock_bricks">Blocca prima tutti i brick !</string>
-    <string name="language">Seleziona la tua lingua</string>
     <string name="quit">Esci!</string>
     <string name="resume">Riprendi</string>
     <string name="retry">Riprova</string>
     <string name="pause">Pausa</string>
+    <string name="italian">Italiano</string>
+    <string name="english">Inglese</string>
+    <string name="spanish">Spagnolo</string>
+    <string name="french">Francese</string>
 </resources>

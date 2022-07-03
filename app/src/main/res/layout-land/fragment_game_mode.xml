@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/frameLayout3"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".GameModeFragment">
+
+    <TextView
+        android:id="@+id/textView11"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="77dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="76dp"
+        android:fontFamily="@font/chakrapetchmedium"
+        android:gravity="top"
+        android:lineSpacingExtra="-7sp"
+        android:text="@string/gamemode_question"
+        android:textColor="#FFFFFF"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/back"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="306dp"
+        android:background="@drawable/chevron_left_24px"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/guide"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginStart="306dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="30dp"
+        android:background="@drawable/info_24px"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.595"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/button6"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/dinamico"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <Button
+        android:id="@+id/dinamico"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="164dp"
+        android:layout_marginEnd="5dp"
+        android:background="@drawable/ic_bottonenew"
+        android:fontFamily="@font/chakrapetchbold"
+        android:letterSpacing="0.03"
+        android:paddingHorizontal="45dp"
+        android:shadowColor="#4D0B1E24"
+        android:shadowDx="0"
+        android:shadowDy="4"
+
+        android:shadowRadius="9"
+        android:text="@string/dynamic"
+        android:textColor="#F2FFFFFF"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toStartOf="@+id/controller"
+        app:layout_constraintStart_toEndOf="@+id/touch"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/touch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="164dp"
+        android:background="@drawable/ic_bottonenew"
+        android:fontFamily="@font/chakrapetchbold"
+        android:letterSpacing="0.03"
+        android:paddingHorizontal="45dp"
+        android:shadowColor="#4D0B1E24"
+        android:shadowDx="0"
+        android:shadowDy="4"
+        android:shadowRadius="9"
+        android:text="@string/touch"
+        android:textColor="#F2FFFFFF"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/controller"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_marginTop="164dp"
+        android:layout_marginEnd="10dp"
+        android:background="@drawable/ic_bottonenew"
+        android:fontFamily="@font/chakrapetchbold"
+        android:letterSpacing="0.03"
+        android:paddingHorizontal="45dp"
+        android:shadowColor="#4D0B1E24"
+        android:shadowDx="0"
+        android:shadowDy="4"
+        android:shadowRadius="9"
+        android:text="@string/controller"
+        android:textColor="#F2FFFFFF"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

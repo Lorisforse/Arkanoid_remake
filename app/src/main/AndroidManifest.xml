@@ -4,20 +4,14 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@drawable/pinkball"
+        android:icon="@drawable/arkanoid_icon"
         android:label="@string/app_name"
-        android:roundIcon="@drawable/pinkball"
+        android:roundIcon="@drawable/arkanoid_icon"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity
-            android:name=".Rooms"
-            android:exported="false" />
-        <activity android:name=".Options" />
-        <activity android:name=".Record" />
         <activity android:name=".MainActivity"
             android:screenOrientation="portrait"/>
         <activity android:name=".MainMenu" />
-        <activity android:name=".LevelsMenu" />
         <activity
             android:name=".SplashScreen"
             android:exported="true">

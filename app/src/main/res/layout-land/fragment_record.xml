@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".RecordFragment">
+
+    <ListView
+        android:id="@+id/listRecord"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="false"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="90dp"
+        android:divider="@android:color/transparent"
+        android:dividerHeight="30sp"
+        android:letterSpacing="0.03"
+        android:paddingHorizontal="45dp"
+        android:paddingStart="250dp"
+        android:paddingEnd="72dp"
+        android:shadowColor="#4D0B1E24"
+        android:shadowDx="0"
+        android:shadowDy="4"
+        android:shadowRadius="9"
+
+        >
+
+    </ListView>
+
+    <TextView
+        android:id="@+id/textView9"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="300dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="170dp"
+        android:fontFamily="@font/chakrapetchmedium"
+        android:gravity="top"
+        android:lineSpacingExtra="13sp"
+        android:text="@string/score"
+        android:textAllCaps="true"
+        android:textColor="#FFFFFF"
+        android:textSize="24sp"
+        android:translationY="-6.4sp" />
+
+
+</RelativeLayout>

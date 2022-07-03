@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".RoomsFragment">
+
+    <ListView
+        android:id="@+id/listRooms"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="false"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="90dp"
+        android:divider="@android:color/transparent"
+        android:dividerHeight="30sp"
+        android:paddingStart="60dp"
+        android:paddingEnd="72dp" />
+    <Button
+        android:id="@+id/back"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="306dp"
+        android:background="@drawable/chevron_left_24px"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.363"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/background"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:alpha="0.8"
+        android:background="#0B1E24" />
+
+    <Button
+        android:id="@+id/rooms_play"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/ic_bottonenew"
+        android:text="@string/create_room"
+        android:textColor="#FFFFFF"
+        android:letterSpacing="0.03"
+        android:shadowDx="0"
+        android:shadowDy="4"
+        android:shadowColor="#4D0B1E24"
+        android:shadowRadius="9"
+        android:paddingHorizontal="45dp"/>
+
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="117dp"
+        android:layout_height="91dp"
+        android:layout_centerInParent="true"
+        android:visibility="invisible"
+        android:indeterminateTint="@color/colorPrimary"/>
+
+    <TextView
+        android:id="@+id/loading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/progressBar"
+        android:layout_centerHorizontal="true"
+        android:text="@string/waiting_for_opponent"
+        android:textColor="@android:color/white"
+        android:visibility="invisible" />
+
+    <TextView
+        android:id="@+id/textView9"
+        android:layout_width="134dp"
+        android:layout_height="44dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="113dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="113dp"
+        android:fontFamily="@font/chakrapetchmedium"
+        android:lineSpacingExtra="13sp"
+        android:text="@string/rooms"
+        android:textAlignment="center"
+        android:textAllCaps="true"
+        android:textColor="#FFFFFF"
+        android:textSize="24sp"
+        android:translationY="-6.4sp" />
+
+
+</RelativeLayout>

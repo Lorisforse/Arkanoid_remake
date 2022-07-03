@@ -1,165 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout  xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/backgroundgen"
+    android:background="@drawable/home"
     tools:context=".MainMenu">
 
+    <FrameLayout
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/navigationView" />
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="wrap_content"
-        android:layout_height="300dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"
-        app:srcCompat="@drawable/logo" />
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/navigationView"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:layout_alignParentBottom="true"
+        android:background="#0B1E24"
+        android:paddingHorizontal="20dp"
+        android:theme="@style/Widget.BottomNavigationView"
+        app:itemBackground="?selectableItemBackgroundBorderless"
+        app:itemHorizontalTranslationEnabled="true"
+        app:itemIconSize="24dp"
+        app:itemIconTint="@drawable/bottom_navigation_selector"
+        app:itemTextColor="@color/colorPrimary"
+        app:menu="@menu/bottom_nav" />
 
-    <ImageButton
-        android:id="@+id/newGame"
-        android:layout_width="150dp"
-        android:layout_height="110dp"
-        android:background="#00006EB5"
-        android:contentDescription=""
-        android:onClick="openDifficultyScreen"
-        android:scaleType="centerInside"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView"
-        app:layout_constraintVertical_bias="0.031"
-        app:srcCompat="@drawable/play"
-        app:tint="#EE00E5FF"
-        tools:ignore="SpeakableTextPresentCheck" />
-
-    <TextView
-        android:id="@+id/textView6"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/audiowide"
-        android:text="@string/play"
-        android:textColor="#EE00E5FF"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="@+id/newGame"
-        app:layout_constraintStart_toStartOf="@+id/newGame"
-        app:layout_constraintTop_toBottomOf="@+id/newGame" />
-
-    <ImageButton
-        android:id="@+id/imageButton6"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:background="#00006EB5"
-        android:contentDescription="Open options"
-        android:onClick="openOptions"
-        android:scaleType="centerCrop"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/imageButton7"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/newGame"
-        app:srcCompat="@drawable/option"
-        app:tint="#7F0AAA" />
-
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:fontFamily="@font/audiowide"
-        android:text="@string/option"
-        android:textAlignment="center"
-        android:textColor="#7F0AAA"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="@+id/imageButton6"
-        app:layout_constraintStart_toStartOf="@+id/imageButton6"
-        app:layout_constraintTop_toBottomOf="@+id/imageButton6" />
-
-    <ImageButton
-        android:id="@+id/imageButton7"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:background="#00006EB5"
-        android:contentDescription="Open record"
-        android:onClick="openRecord"
-        android:scaleType="centerCrop"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/imageButton6"
-        app:layout_constraintTop_toBottomOf="@+id/newGame"
-        app:srcCompat="@drawable/podium"
-        app:tint="#EDFF0000" />
-
-    <TextView
-        android:id="@+id/textView5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="2dp"
-        android:fontFamily="@font/audiowide"
-        android:text="@string/record"
-        android:textColor="#EDFF0000"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="@+id/imageButton7"
-        app:layout_constraintStart_toStartOf="@+id/imageButton7"
-        app:layout_constraintTop_toBottomOf="@+id/imageButton7" />
-
-    <ImageView
-        android:id="@+id/wifi"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-
-        app:layout_constraintEnd_toStartOf="@+id/imageView"
-        app:layout_constraintHorizontal_bias="0.891"
-        app:layout_constraintStart_toEndOf="@+id/imageView"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/wifi" />
-
-    <ImageView
-        android:id="@+id/sound"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="4dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@android:drawable/ic_lock_silent_mode_off" />
-
-
-    <EditText
-        android:id="@+id/username"
-        android:layout_width="223dp"
-        android:layout_height="60dp"
-        android:background="@android:color/transparent"
-        android:ems="10"
-        android:hint="username"
-        android:inputType="textPersonName"
-        android:textAlignment="center"
-        android:textColor="#FFFFFF"
-        android:textColorHint="#FFFDD0"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toTopOf="@+id/imageView"
-        app:layout_constraintEnd_toStartOf="@+id/imageView"
-        app:layout_constraintHorizontal_bias="0.507"
-        app:layout_constraintStart_toEndOf="@+id/imageView"
-        app:layout_constraintTop_toBottomOf="@+id/imageView"
-        app:layout_constraintVertical_bias="0.869" />
-
-    <ImageButton
-        android:id="@+id/share"
-        android:layout_width="65dp"
-        android:layout_height="56dp"
-        android:background="@android:color/transparent"
-        android:contentDescription="Share the app"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView"
-        app:srcCompat="@android:drawable/ic_menu_share" />
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</RelativeLayout>

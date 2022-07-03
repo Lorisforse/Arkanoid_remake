@@ -1,22 +1,58 @@
 <resources>
     <string name="app_name">Arkanoid</string>
     <string name="play">PLAY</string>
-    <string name="option">Option</string>
     <string name="record" translatable="false">Record</string>
-    <string name="touch_screen" translatable="false">Touch Screen</string>
-    <string name="accelerometer">Accelerometer</string>
-    <string name="joystick" translatable="false">Gamepad</string>
-    <string name="input_mode">Swipe or tap to chose the input mode</string>
-    <string name="easy">EASY</string>
-    <string name="medium">MEDIUM</string>
-    <string name="hard">HARD</string>
-    <string name="custom_advice">Press and hold on a brick to block it</string>
-    <string name="saved">Saved !</string>
-    <string name="lock_bricks">Block all bricks first !</string>
-    <string name="language">Select you language</string>
-    <string name="quit">Quit!</string>
-    <string name="resume">Resume</string>
-    <string name="retry">Retry</string>
+    <string name="easy">POCO</string>
+    <string name="medium">ME LA CAVO</string>
+    <string name="hard">MOLTO FORTE</string>
+    <string name="custom_advice">Premi e tieni premuto su un brick per bloccarlo.</string>
+    <string name="saved">Salvato !</string>
+    <string name="lock_bricks">Blocca prima tutti i brick</string>
+    <string name="quit">Esci</string>
+    <string name="resume">Riprendi</string>
+    <string name="retry">Riprova</string>
     <string name="game_over" translatable="false">Game Over !</string>
-    <string name="pause">Pause</string>
+    <string name="pause">Pausa</string>
+    <string name="game_mode" translatable="false">GIOCO</string>
+    <string name="language" translatable="false">LINGUA</string>
+    <string name="audio" translatable="false">AUDIO</string>
+    <string name="guide" translatable="false">GUIDA</string>
+    <string name="home" translatable="false">Home</string>
+    <string name="online" translatable="false">GIOCA ONLINE</string>
+    <string name="points" translatable="false">Punti</string>
+    <string name="customize" translatable="false">Personalizza</string>
+    <string name="score" translatable="false">Classifica</string>
+    <string name="settings" translatable="false">Impostazioni</string>
+    <string name="italian">ITALIANO</string>
+    <string name="english">INGLESE</string>
+    <string name="spanish">SPAGNOLO</string>
+    <string name="french">FRANCESE</string>
+    <string name="language_question" translatable="false">CHE LINGUA PREFERISCI?</string>
+    <string name="gamemode_question" translatable="false">COME GIOCHI\n SOLITAMENTE?</string>
+    <string name="touch" translatable="false">TOUCH</string>
+    <string name="controller" translatable="false">CONTROLLER</string>
+    <string name="dynamic" translatable="false">DINAMICO</string>
+    <string name="create" translatable="false">CREA</string>
+    <string name="delete" translatable="false">ELIMINA</string>
+    <string name="touch_info" translatable="false">Seleziona la modalità touch per utililizzare il tuo dito.\nScorri sullo schermo per far muovere il paddle di conseguenza</string>
+    <string name="controller_info" translatable="false">Seleziona la modalità controller per utililizzare il tuo controller.\nScorri sullo schermo per far muovere il controller di conseguenza</string>
+    <string name="dynamic_info" translatable="false">Seleziona la modalità controller per utililizzare l accellerometro.\nInclina il dispositivo per far muovere il paddle di conseguenza</string>
+    <string name="exit_question" translatable="false">VUOI VERAMENTE \nUSCIRE?</string>
+    <string name="no" translatable="false">NO</string>
+    <string name="si" translatable="false">SI</string>
+    <string name="waiting_for_opponent" translatable="false">IN ATTESA DI UN GIOCATORE</string>
+    <string name="create_room" translatable="false">CREA STANZA</string>
+    <string name="rooms" translatable="false">STANZE</string>
+    <string name="game" translatable="false">GIOCO</string>
+    <string name="plot" translatable="false">TRAMA</string>
+    <string name="plot_text" translatable="false">Durante un viaggio nello spazio, l\'astronave madre \"Arkanoid\" viene attaccata e distrutta da una misteriosa forza esterna\;\nLa piccola astronave \"Vaus\" riesce a scappare, ma rimane poi intrappolata in una piega spazio\-temporale.</string>
+    <string name="gameplay" translatable="false">COME GIOCARE</string>
+    <string name="gameplay_text" translatable="false">Muovi il paddle posto in fondo allo schermo per non far cadere la pallina, il tuo obiettivo è di distruggere tutti i brick presenti senza perdere tutte le vite.</string>
+    <string name="Power_up" translatable="false">POWER-UP</string>
+    <string name="power_up_text" translatable="false">Raccogli i potenziamenti per poter completare il livello più facilmente:\n-Palla infuocata = Distrugge tutti i brick che incontra sul suo cammino finchè non tocca il soffitto.\n-Ingranditore = Ingrandisce il paddle per poter prendere più facilmente la pallina.\n-Rallentatore = Rallenta la pallina per poterla gestire più facilmente.\n-+1 Vita = aggiunge una vita a quelle attualmente in possesso</string>
+    <string name="back" translatable="false">BACK</string>
+    <string name="difficulty" translatable="false">QUANTO SEI FORTE?</string>
+    <string name="nickname" translatable="false">Nickname</string>
+    <string name="youLose" translatable="false">Hai perso</string>
+    <string name="youWin" translatable="false">Hai vinto</string>
 </resources>

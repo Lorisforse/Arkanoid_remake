@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Arkanoid</string>
+    <string name="pause">Pause</string>
+    <string name="retry">Retry</string>
+    <string name="quit">Retry</string>
+    <string name="resume">Resume</string>
+    <string name="lock_bricks">Block all bricks first !</string>
+    <string name="saved">Saved !</string>
+    <string name="custom_advice">Press and hold on a brick to block it</string>
+    <string name="hard">HARD</string>
+    <string name="medium">MEDIUM</string>
+    <string name="easy">EASY</string>
+    <string name="play">PLAY</string>
+
+    <string name="italian">Italian</string>
+    <string name="english">English</string>
+    <string name="spanish">Spanish</string>
+    <string name="french">French</string>
+</resources>

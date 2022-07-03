@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/frameLayout2"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".LanguageFragment">
+
+
+    <Button
+        android:id="@+id/italian"
+        android:layout_width="227dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="66dp"
+        android:layout_marginTop="192dp"
+        android:layout_marginEnd="66dp"
+        android:layout_marginBottom="397dp"
+        android:background="@drawable/ic_bottonenew"
+        android:fontFamily="@font/chakrapetchbold"
+        android:letterSpacing="0.03"
+        android:paddingHorizontal="45dp"
+        android:shadowColor="#4D0B1E24"
+        android:shadowDx="0"
+        android:shadowDy="4"
+
+        android:shadowRadius="9"
+        android:text="@string/italian"
+        android:textColor="#FFFFFF"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/english"
+        android:layout_width="227dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/ic_bottonenew"
+        android:fontFamily="@font/chakrapetchbold"
+        android:text="@string/english"
+        android:textColor="#FFFFFF"
+        android:textSize="20sp"
+        android:letterSpacing="0.03"
+        android:shadowDx="0"
+        android:shadowDy="4"
+        android:shadowColor="#4D0B1E24"
+        android:shadowRadius="9"
+        android:paddingHorizontal="45dp"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/italian" />
+
+    <Button
+        android:id="@+id/spanish"
+        android:layout_width="227dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/ic_bottonenew"
+        android:fontFamily="@font/chakrapetchbold"
+        android:text="@string/spanish"
+        android:textColor="#FFFFFF"
+        android:textSize="20sp"
+        android:letterSpacing="0.03"
+        android:shadowDx="0"
+        android:shadowDy="4"
+        android:shadowColor="#4D0B1E24"
+        android:shadowRadius="9"
+        android:paddingHorizontal="45dp"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/english" />
+
+    <Button
+        android:id="@+id/francais"
+        android:layout_width="227dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="9dp"
+        android:background="@drawable/ic_bottonenew"
+        android:fontFamily="@font/chakrapetchbold"
+        android:text="@string/french"
+        android:textColor="#FFFFFF"
+        android:textSize="20sp"
+        android:letterSpacing="0.03"
+        android:shadowDx="0"
+        android:shadowDy="4"
+        android:shadowColor="#4D0B1E24"
+        android:shadowRadius="9"
+        android:paddingHorizontal="45dp"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/spanish" />
+
+    <Button
+        android:id="@+id/back"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="306dp"
+        android:background="@drawable/chevron_left_24px"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.363"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/button5"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/francais"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <TextView
+        android:id="@+id/textView11"
+        android:layout_width="204dp"
+        android:layout_height="55dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="78dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="78dp"
+        android:fontFamily="@font/chakrapetchmedium"
+        android:gravity="top"
+        android:lineSpacingExtra="-7sp"
+        android:text="@string/language_question"
+        android:textColor="#FFFFFF"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/close"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginStart="136dp"
+        android:layout_marginTop="484dp"
+        android:layout_marginEnd="200dp"
+        android:background="@drawable/close_24px"
+        app:layout_constraintBottom_toTopOf="@+id/button5"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.945" />
+
+    <Button
+        android:id="@+id/check"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginStart="200dp"
+        android:layout_marginTop="484dp"
+        android:layout_marginEnd="136dp"
+        android:background="@drawable/check_24px"
+        app:layout_constraintBottom_toTopOf="@+id/button5"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.647"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.945" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

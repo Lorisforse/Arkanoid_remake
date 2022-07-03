@@ -3,9 +3,9 @@ package com.example.android.arkanoid;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -64,8 +64,8 @@ public class MainActivity extends AppCompatActivity {
         }
 
 
-
         checkGameMode();
+
         difficulty=getIntent().getIntExtra("difficulty",1);
         lifes= getIntent().getIntExtra("lifes",3);
         // set the screen orientation

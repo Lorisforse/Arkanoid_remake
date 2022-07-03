@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/frameLayout5"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ExitFragment">
+
+    <View
+        android:id="@+id/view_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:alpha="0.8"
+        android:background="#0B1E24"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView18"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="77dp"
+        android:layout_marginTop="220dp"
+        android:layout_marginEnd="77dp"
+        android:layout_marginBottom="465dp"
+        android:text="@string/exit_question"
+        android:textSize="24sp"
+        android:textColor="#F2FFFFFF"
+        android:letterSpacing="0.03"
+        android:shadowDx="0"
+        android:shadowDy="4"
+        android:shadowColor="#4D0B1E24"
+        android:shadowRadius="9"
+        android:fontFamily="@font/chakrapetchbold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/no"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="66dp"
+        android:layout_marginTop="306dp"
+        android:layout_marginEnd="66dp"
+        android:layout_marginBottom="283dp"
+        android:background="@drawable/ic_bottonenew"
+        android:text="@string/no"
+        android:letterSpacing="0.03"
+        android:shadowDx="0"
+        android:shadowDy="4"
+        android:shadowColor="#4D0B1E24"
+        android:shadowRadius="9"
+        android:fontFamily="@font/chakrapetchbold"
+        android:textSize="20sp"
+        android:textColor="#F2FFFFFF"
+
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/view_image"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/view_image" />
+
+    <Button
+        android:id="@+id/yes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="66dp"
+        android:layout_marginTop="369dp"
+        android:layout_marginEnd="66dp"
+        android:layout_marginBottom="220dp"
+        android:text="@string/si"
+        android:background="@drawable/ic_bottonenew"
+        android:letterSpacing="0.03"
+        android:shadowDx="0"
+        android:shadowDy="4"
+        android:shadowColor="#4D0B1E24"
+        android:shadowRadius="9"
+        android:fontFamily="@font/chakrapetchbold"
+        android:textSize="20sp"
+        android:textColor="#F2FFFFFF"
+
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/view_image" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

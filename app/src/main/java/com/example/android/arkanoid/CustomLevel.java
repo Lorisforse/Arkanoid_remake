@@ -72,8 +72,9 @@ public class CustomLevel extends View implements GestureDetector.OnGestureListen
         for(int i=0; i<TOTAL_BRICK;i++)
             r[i] = new Rect();
         brick = new Brick(context);
-        play = BitmapFactory.decodeResource(getResources(), R.drawable.visto);
-        play = Bitmap.createScaledBitmap(play, 200,200,false);
+        play = BitmapFactory.decodeResource(getResources(), R.drawable.done);
+
+        //play = Bitmap.createScaledBitmap(play, 200,200,false);
         plays= new Rect();
         paddleR = new Rect();
         paddle = BitmapFactory.decodeResource(getResources(), R.drawable.paddle);
@@ -157,7 +158,7 @@ public class CustomLevel extends View implements GestureDetector.OnGestureListen
 
     //set background
     private void readBackground(Context context) {
-        background = Bitmap.createBitmap(BitmapFactory.decodeResource(this.getResources(), R.drawable.backgroundgen));
+        background = Bitmap.createBitmap(BitmapFactory.decodeResource(this.getResources(), R.drawable.home));
         WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
         display = wm.getDefaultDisplay();
         size = new Point();

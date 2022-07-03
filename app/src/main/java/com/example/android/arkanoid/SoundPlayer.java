@@ -1,9 +1,9 @@
 package com.example.android.arkanoid;
+
 import android.content.Context;
 import android.media.AudioManager;
-import android.media.SoundPool;
 import android.media.MediaPlayer;
-import java.io.IOException;
+import android.media.SoundPool;
 
 public class SoundPlayer {
 

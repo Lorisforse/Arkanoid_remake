@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/frameLayout2"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".SettingsFragment">
+
+
+    <Button
+        android:id="@+id/gamemode"
+        android:drawableEnd="@drawable/sports_esports_24px"
+        android:letterSpacing="0.03"
+        android:shadowDx="0"
+        android:shadowDy="4"
+        android:shadowColor="#4D0B1E24"
+        android:shadowRadius="9"
+        android:paddingHorizontal="45dp"
+        android:fontFamily="@font/chakrapetchbold"
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="66dp"
+        android:layout_marginTop="197dp"
+        android:layout_marginEnd="66dp"
+        android:layout_marginBottom="392dp"
+        android:background="@drawable/ic_bottonenew"
+        android:text="@string/game_mode"
+        android:textColor="#F2FFFFFF"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/language"
+        android:drawableEnd="@drawable/g_translate_24px"
+        android:letterSpacing="0.03"
+        android:shadowDx="0"
+        android:shadowDy="4"
+        android:shadowColor="#4D0B1E24"
+        android:shadowRadius="9"
+        android:paddingHorizontal="45dp"
+
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="66dp"
+        android:layout_marginTop="260dp"
+        android:layout_marginEnd="66dp"
+        android:layout_marginBottom="329dp"
+        android:background="@drawable/ic_bottonenew"
+        android:fontFamily="@font/chakrapetchbold"
+        android:text="@string/language"
+        android:textColor="#FFFFFF"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/audio"
+        android:letterSpacing="0.03"
+        android:shadowDx="0"
+        android:shadowDy="4"
+        android:shadowColor="#4D0B1E24"
+        android:shadowRadius="9"
+        android:paddingHorizontal="45dp"
+        android:drawableEnd="@drawable/volume_up_24px"
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="66dp"
+        android:layout_marginTop="323dp"
+        android:layout_marginEnd="66dp"
+        android:layout_marginBottom="266dp"
+        android:background="@drawable/ic_bottonenew"
+        android:fontFamily="@font/chakrapetchbold"
+        android:text="@string/audio"
+        android:textColor="#FFFFFF"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/info"
+        android:letterSpacing="0.03"
+        android:shadowDx="0"
+        android:shadowDy="4"
+        android:shadowColor="#4D0B1E24"
+        android:shadowRadius="9"
+        android:paddingHorizontal="45dp"
+        android:drawableEnd="@drawable/info_24px"
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="66dp"
+        android:layout_marginTop="386dp"
+        android:layout_marginEnd="66dp"
+        android:layout_marginBottom="203dp"
+        android:background="@drawable/ic_bottonenew"
+        android:fontFamily="@font/chakrapetchbold"
+        android:text="@string/guide"
+        android:textColor="#FFFFFF"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView10"
+        android:layout_width="wrap_content"
+        android:layout_height="44dp"
+        android:layout_marginStart="99dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="99dp"
+        android:layout_marginBottom="566dp"
+        android:fontFamily="@font/chakrapetchmedium"
+        android:text="@string/settings"
+        android:textColor="#FFFFFF"
+        android:textSize="28sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

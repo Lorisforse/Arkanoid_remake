@@ -104,8 +104,8 @@ public class Game extends View implements SensorEventListener {
 
 
     /*
-    0= joystick abilitato
-    1= accellerometro abilitato
+    1= joystick abilitato
+    0 accellerometro abilitato
     2= touchscreen abilitato
     */
     //FIREBASE
@@ -166,7 +166,7 @@ public class Game extends View implements SensorEventListener {
         readBackground(context);
 
         // create a bitmap for the ball and paddle
-        redBall = BitmapFactory.decodeResource(getResources(), R.drawable.pinkball);
+        redBall = BitmapFactory.decodeResource(getResources(), R.drawable.blueball);
         paddle_p = BitmapFactory.decodeResource(getResources(), R.drawable.paddle);
 
         pause = BitmapFactory.decodeResource(getResources(),R.drawable.pause);
@@ -208,7 +208,7 @@ public class Game extends View implements SensorEventListener {
         if(potenza1){
             redBall = BitmapFactory.decodeResource(getResources(), R.drawable.fireball);
         }else
-            redBall = BitmapFactory.decodeResource(getResources(), R.drawable.pinkball);
+            redBall = BitmapFactory.decodeResource(getResources(), R.drawable.blueball);
         paint.setColor(Color.RED);
         canvas.drawBitmap(redBall, ball.getX(), ball.getY(), paint);
         if(difficulty==5)
@@ -259,9 +259,9 @@ public class Game extends View implements SensorEventListener {
             }
             over = getResources().getString(R.string.game_over);
             if (difficulty == 5) {
-                over = "Hai perso";
+                over = getResources().getString(R.string.youLose);
                 if (ball2.getY() == 0)
-                    over = "Hai vinto";
+                    over = getResources().getString(R.string.youWin);
             }
             resumeRetry = getResources().getString(R.string.retry);
             menu(canvas);
@@ -378,7 +378,7 @@ public class Game extends View implements SensorEventListener {
 
     //set background
     private void readBackground(Context context) {
-        background = Bitmap.createBitmap(BitmapFactory.decodeResource(this.getResources(), R.drawable.background_score));
+        background = Bitmap.createBitmap(BitmapFactory.decodeResource(this.getResources(), R.drawable.home));
         WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
         display = wm.getDefaultDisplay();
         size = new Point();
@@ -814,10 +814,8 @@ public class Game extends View implements SensorEventListener {
         loser = new Rect(size.x / 8, size.y / 2 - 110, size.x * 7 / 8, size.y / 2 + 50);
         quit = new Rect(size.x / 4 - 70, size.y / 2 + 100, size.x / 4 + 210, size.y / 2 + 250);
         resume = new Rect((size.x * 3 / 5) - 90, (size.y / 2) + 100, (size.x * 3 / 4) + 100, size.y / 2 + 250);
-        paint.setColor(Color.BLACK);
-        canvas.drawRect(loser, paint);
         paint.setTextSize(130);
-        paint.setColor(Color.RED);
+        paint.setColor(Color.WHITE);
         canvas.drawText(over, size.x / 8, size.y / 2, paint);
         paint.setColor(Color.TRANSPARENT);
         canvas.drawRect(quit, paint);
