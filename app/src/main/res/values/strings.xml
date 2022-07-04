@@ -17,7 +17,7 @@
     <string name="language">LINGUA</string>
     <string name="audio" translatable="false">AUDIO</string>
     <string name="guide">GUIDA</string>
-    <string name="home">HOME</string>
+    <string name="home" translatable="false">HOME</string>
     <string name="online">GIOCA ONLINE</string>
     <string name="points">Punti</string>
     <string name="customize">Livello Personalizzato</string>
@@ -57,5 +57,6 @@
     <string name="youWin">VITTORIA</string>
     <string name="option">Opzioni</string>
     <string name="accelerometer">Accelerometro</string>
+
     <string name="input_mode" translatable="false">Swipe or tap to chose the input mode</string>
 </resources>

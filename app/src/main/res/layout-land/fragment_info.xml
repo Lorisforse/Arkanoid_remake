@@ -5,13 +5,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true"
-    tools:context=".InfoFragment">
+    tools:context=".fragment.InfoFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/frameLayout4"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:context=".InfoFragment">
+        tools:context=".fragment.InfoFragment">
 
         <TextView
             android:id="@+id/textView19"

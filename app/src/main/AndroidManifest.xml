@@ -9,11 +9,11 @@
         android:roundIcon="@drawable/arkanoid_icon"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity"
+        <activity android:name=".javaClass_activity.MainActivity"
             android:screenOrientation="portrait"/>
-        <activity android:name=".MainMenu" />
+        <activity android:name=".javaClass_activity.MainMenu" />
         <activity
-            android:name=".SplashScreen"
+            android:name=".javaClass_activity.SplashScreen"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
