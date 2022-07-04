@@ -1,19 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Arkanoid</string>
     <string name="play">GIOCA</string>
-    <string name="easy">POCO</string>
-    <string name="medium">ME LA CAVO</string>
-    <string name="hard">MOLTO FORTE</string>
+    <string name="easy">FACILE</string>
+    <string name="medium">MEDIO</string>
+    <string name="hard">DIFFICILE</string>
     <string name="custom_advice">Premi e tieni premuto su un brick per bloccarlo</string>
     <string name="saved">Salvato !</string>
     <string name="lock_bricks">Blocca prima tutti i brick !</string>
-    <string name="quit">Esci!</string>
+    <string name="quit">Esci</string>
     <string name="resume">Riprendi</string>
     <string name="retry">Riprova</string>
     <string name="pause">Pausa</string>
-    <string name="italian">Italiano</string>
-    <string name="english">Inglese</string>
-    <string name="spanish">Spagnolo</string>
-    <string name="french">Francese</string>
+    <string name="italian">ITALIANO</string>
+    <string name="english">INGLESE</string>
+    <string name="spanish">SPAGNOLO</string>
+    <string name="french">FRANCESE</string>
+    <string name="option">Opzioni</string>
+    <string name="accelerometer">"Accelerometro "</string>
+    <string name="online">GIOCA ONLINE</string>
+    <string name="game_mode">GIOCA</string>
+    <string name="language">LINGUA</string>
+    <string name="guide">GUIDA</string>
+    <string name="points">Punti</string>
+    <string name="customize">Livello Personalizzato</string>
+    <string name="score">Classifica</string>
+    <string name="settings">Impostazioni</string>
+    <string name="gamemode_question">SELEZIONA INPUT</string>
+    <string name="create">CREA</string>
+    <string name="delete" translatable="false">ELIMINA</string>
+    <string name="touch_info">Seleziona la modalità touch per utililizzare il tuo dito. Scorri sullo schermo per far muovere il paddle di conseguenza</string>
+    <string name="controller_info">Seleziona la modalità controller per utililizzare il tuo controller.</string>
+    <string name="dynamic_info" translatable="false">Seleziona la modalità dinamica per utililizzare l accellerometro.\nInclina il dispositivo per far muovere il paddle di conseguenza</string>
+    <string name="exit_question" translatable="false">VUOI VERAMENTE \nUSCIRE?</string>
+    <string name="si">SI</string>
+    <string name="waiting_for_opponent">IN ATTESA DI UN GIOCATORE</string>
+    <string name="create_room" translatable="false">CREA STANZA</string>
+    <string name="rooms">STANZE</string>
+    <string name="game" translatable="false">GIOCO</string>
+    <string name="plot">TRAMA</string>
+    <string name="plot_text" translatable="false">Durante un viaggio nello spazio, l\'astronave madre \"Arkanoid\" viene attaccata e distrutta da una misteriosa forza esterna\\;\nLa piccola astronave \"Vaus\" riesce a scappare, ma rimane poi intrappolata in una piega spazio\\-temporale.</string>
+    <string name="gameplay" translatable="false">COME GIOCARE</string>
+    <string name="gameplay_text" translatable="false">Muovi il paddle posto in fondo allo schermo per non far cadere la pallina, il tuo obiettivo è di distruggere tutti i brick presenti senza perdere tutte le vite.</string>
+    <string name="power_up_text" translatable="false">Raccogli i potenziamenti per poter completare il livello più facilmente:\n-Palla infuocata = Distrugge tutti i brick che incontra sul suo cammino finchè non tocca il soffitto.\n-Ingranditore = Ingrandisce il paddle per poter prendere più facilmente la pallina.\n-Rallentatore = Rallenta la pallina per poterla gestire più facilmente.\n-+1 Vita = aggiunge una vita a quelle attualmente in possesso</string>
+    <string name="difficulty" translatable="false">SELEZIONA DIFFICOLTA</string>
+    <string name="youLose" translatable="false">SCONFITTA</string>
+    <string name="youWin" translatable="false">VITTORIA</string>
 </resources>

@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Arkanoid</string>
     <string name="play">JOUER</string>
     <string name="medium">MOYEN</string>
     <string name="easy">FACILE</string>
@@ -16,4 +15,34 @@
     <string name="english">Anglais</string>
     <string name="spanish">Espagnol</string>
     <string name="french">Français</string>
+    <string name="option">Choix</string>
+    <string name="accelerometer">Accéléromètre</string>
+    <string name="online">MULTIJOUER EN LIGNE</string>
+    <string name="game_mode">JOUER</string>
+    <string name="language">LINGUA</string>
+    <string name="guide">GUIDE</string>
+    <string name="points">Points</string>
+    <string name="customize">Niveau personnalisé</string>
+    <string name="score">Scores</string>
+    <string name="settings">Réglages</string>
+    <string name="gamemode_question">SÉLECTIONNEZ INPUT</string>
+    <string name="create">CRÉER</string>
+    <string name="delete">EFFACER</string>
+    <string name="touch_info" translatable="false">Sélectionnez le mode tactile pour utiliser votre doigt. Faites glisser l\'écran pour faire bouger la pagaie en conséquence</string>
+    <string name="controller_info">Sélectionnez le mode manette pour utiliser votre manette.\nFaites glisser l\'écran pour faire bouger le contrôleur en conséquence</string>
+    <string name="dynamic_info" translatable="false">Sélectionnez le mode manette pour utiliser votre manette.\nFaites glisser l\'écran pour faire bouger le contrôleur en conséquence</string>
+    <string name="exit_question">TU VEUX VRAIMENT\nSORTIR?</string>
+    <string name="si">OUI</string>
+    <string name="waiting_for_opponent">EN ATTENTE D\'UN JOUEUR</string>
+    <string name="create_room">CRÉER UNE CHAMBRE</string>
+    <string name="rooms">PIÈCES</string>
+    <string name="game">JEU</string>
+    <string name="plot">TERRAIN</string>
+    <string name="plot_text">Au cours d\'un voyage dans l\'espace, le vaisseau-mère \"Arkanoid\" est attaqué et détruit par une mystérieuse force extérieure \\;\nLe petit vaisseau spatial \"Vaus\" parvient à s\'échapper, mais est alors piégé dans un repli spatio-temporel.</string>
+    <string name="gameplay">COMMENT JOUER</string>
+    <string name="gameplay_text">Déplacez la palette en bas de l\'écran pour empêcher la balle de tomber, votre objectif est de détruire toutes les briques sans perdre toutes les vies.</string>
+    <string name="power_up_text">Collectez les power-ups pour faciliter la fin du niveau:\n-Fireball = Détruit toutes les briques sur son passage jusqu\'à ce qu\'il touche le plafond.\n- Loupe = Agrandit la raquette pour pouvoir prendre la balle plus facilement.\n- Ralenti = Ralentit la balle pour pouvoir la manipuler plus facilement.\n- + 1 Vie = ajoute une vie à ceux actuellement en possession</string>
+    <string name="difficulty">SÉLECTIONNER LA DIFFICULTÉ</string>
+    <string name="youLose">DÉFAITE</string>
+    <string name="youWin" translatable="false">LA VICTOIRE</string>
 </resources>

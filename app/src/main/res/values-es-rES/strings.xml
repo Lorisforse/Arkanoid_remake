@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Arkanoid</string>
     <string name="lock_bricks">¡Bloquea todos los ladrillos primero!</string>
     <string name="saved">Salvado !</string>
     <string name="custom_advice">Mantenga presionado un ladrillo para bloquearlo</string>
@@ -16,4 +15,34 @@
     <string name="english">inglés</string>
     <string name="spanish">Español</string>
     <string name="french">Francés</string>
+    <string name="option">Opciones</string>
+    <string name="accelerometer">Acelerómetro</string>
+    <string name="online">MULTIJUGADOR EN LINEA</string>
+    <string name="game_mode">JUGAR</string>
+    <string name="language">IDIOMA</string>
+    <string name="guide">" GUÍA"</string>
+    <string name="points">Puntos</string>
+    <string name="customize">Nivel personalizado</string>
+    <string name="score">Puntuaciones</string>
+    <string name="settings">Ajustes</string>
+    <string name="gamemode_question">SELECCIONA INPUT</string>
+    <string name="create">CREAR</string>
+    <string name="delete">ELIMINAR</string>
+    <string name="touch_info">Seleccione el modo táctil para usar su dedo. Deslice la pantalla para hacer que la paleta se mueva en consecuencia</string>
+    <string name="controller_info">Seleccione el modo de controlador para usar su controlador.\nDeslice la pantalla para hacer que el controlador se mueva en consecuencia</string>
+    <string name="dynamic_info">Seleccione el modo dinámico para usar el acelerómetro.\nIncline el dispositivo para hacer que la paleta se mueva en consecuencia</string>
+    <string name="exit_question">TU REALMENTE QUIERES\n¿SALIR?</string>
+    <string name="si">SI</string>
+    <string name="waiting_for_opponent">ESPERANDO UN JUGADOR</string>
+    <string name="create_room">CREAR SALA</string>
+    <string name="rooms">HABITACIONES</string>
+    <string name="game">JUEGO</string>
+    <string name="plot">GRÁFICO</string>
+    <string name="plot_text">Durante un viaje al espacio, la nave nodriza \"Arkanoid\" es atacada y destruida por una misteriosa fuerza externa \\;\nLa pequeña nave espacial \"Vaus\" logra escapar, pero luego queda atrapada en un pliegue espacio-temporal.</string>
+    <string name="gameplay">CÓMO JUGAR</string>
+    <string name="gameplay_text">Mueve la paleta en la parte inferior de la pantalla para evitar que la bola se caiga, tu objetivo es destruir todos los ladrillos sin perder todas las vidas.</string>
+    <string name="power_up_text">Recoge los potenciadores para que sea más fácil completar el nivel:\n-Bola de fuego = Destruye todos los ladrillos a su paso hasta tocar el techo.\n- Lupa = Agrandar el pádel para poder sacar la pelota con más facilidad.\n- Cámara lenta = Disminuye la velocidad de la pelota para poder manejarla con más facilidad.\n- + 1 de vida = añade una vida a las que se encuentran actualmente en posesión</string>
+    <string name="difficulty">SELECCIONE DIFICULTAD</string>
+    <string name="youLose">VENCER</string>
+    <string name="youWin" translatable="false">VICTORIA</string>
 </resources>

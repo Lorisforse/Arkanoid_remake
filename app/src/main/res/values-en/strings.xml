@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Arkanoid</string>
     <string name="pause">Pause</string>
     <string name="retry">Retry</string>
-    <string name="quit">Retry</string>
+    <string name="quit">Quit</string>
     <string name="resume">Resume</string>
     <string name="lock_bricks">Block all bricks first !</string>
     <string name="saved">Saved !</string>
@@ -13,8 +12,38 @@
     <string name="easy">EASY</string>
     <string name="play">PLAY</string>
 
-    <string name="italian">Italian</string>
-    <string name="english">English</string>
-    <string name="spanish">Spanish</string>
-    <string name="french">French</string>
+    <string name="italian">ITALIAN</string>
+    <string name="english">ENGLISH</string>
+    <string name="spanish">SPANISH</string>
+    <string name="french">FRENCH</string>
+    <string name="option">Option</string>
+    <string name="accelerometer">Accelerometer</string>
+    <string name="online">MULTIPLAYER ONLINE</string>
+    <string name="game_mode" translatable="false">PLAY</string>
+    <string name="language">LANGUAGE</string>
+    <string name="guide" translatable="false">GUIDE</string>
+    <string name="points" translatable="false">Points</string>
+    <string name="customize">Custom level</string>
+    <string name="score">Scores</string>
+    <string name="settings">Settings</string>
+    <string name="gamemode_question">SELECT INPUT</string>
+    <string name="create">CREATE</string>
+    <string name="delete">DELETE</string>
+    <string name="touch_info">Select the touch mode to use your finger. Swipe the screen to make the paddle move accordingly</string>
+    <string name="controller_info">Select the controller mode to use your controller.\nSwipe the screen to make the controller move accordingly</string>
+    <string name="dynamic_info">Select the dynamic mode to use the accelerometer.\nTilt the device to make the paddle move accordingly</string>
+    <string name="exit_question">YOU REALLY WANT\nGO OUT?</string>
+    <string name="si">YES</string>
+    <string name="waiting_for_opponent">WAITING FOR A PLAYER</string>
+    <string name="create_room">CREATE ROOM</string>
+    <string name="rooms">ROOMS</string>
+    <string name="game">GAME</string>
+    <string name="plot">PLOT</string>
+    <string name="plot_text">During a journey into space, the mother ship \"Arkanoid\" is attacked and destroyed by a mysterious external force \\;\nThe small spaceship \"Vaus\" manages to escape, but is then trapped in a space-temporal fold.</string>
+    <string name="gameplay">HOW TO PLAY</string>
+    <string name="gameplay_text">Move the paddle at the bottom of the screen to keep the ball from falling, your goal is to destroy all the bricks without losing all the lives.</string>
+    <string name="power_up_text">Collect the power-ups to make it easier to complete the level:\n-Fireball = Destroys all bricks in its path until it touches the ceiling.\n- Magnifier = Enlarges the paddle to be able to take the ball more easily.\n- Slow motion = Slows down the ball to be able to handle it more easily.\n- + 1 Life = adds a life to those currently in possession</string>
+    <string name="difficulty">SELECT DIFFICULTY</string>
+    <string name="youWin" translatable="false">VICTORY</string>
+    <string name="youLose">DEFEAT</string>
 </resources>
