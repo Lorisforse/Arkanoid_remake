@@ -106,7 +106,6 @@ public class CustomLevel extends View implements GestureDetector.OnGestureListen
         canvas.drawBitmap(stretchedOut, 0, 0, paint);
         r2[0].set(0,10,125,115);
         r2[1].set(590,10,810,80);
-        //canvas.drawRect(r2[1],paint);
 
         if(isPressed[0]){
             paint.setColor(Color.YELLOW);
@@ -140,8 +139,8 @@ public class CustomLevel extends View implements GestureDetector.OnGestureListen
             case MotionEvent.ACTION_DOWN:
             case MotionEvent.ACTION_MOVE:
                 if(!paddleLock && !r2[1].contains((int)event.getX(),(int)event.getY())){
-                    paddleX = (int) (event.getX()- paddle.getWidth()/3);
-                    paddleY = (int) (event.getY()- paddle.getHeight()/3);
+                    paddleX = (int) (event.getX()- paddle.getWidth()/10);
+                    paddleY = (int) (event.getY()- paddle.getHeight()/10);
             }
                 for(int i=0; i<TOTAL_BRICK; i++){
                     if(!locked[i] && !r2[0].contains((int)event.getX(),(int)event.getY())){
