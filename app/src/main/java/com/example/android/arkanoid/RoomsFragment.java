@@ -67,7 +67,7 @@ public class RoomsFragment extends Fragment implements View.OnClickListener{
 
         database = FirebaseDatabase.getInstance();
         viewImage = (ImageView) v.findViewById(R.id.background);
-        viewImage.getBackground().setAlpha(0);
+        viewImage.getBackground().mutate().mutate().setAlpha(0);
 
         back = (Button) v.findViewById(R.id.back);
 
@@ -146,7 +146,7 @@ public class RoomsFragment extends Fragment implements View.OnClickListener{
                 loading.setVisibility(View.VISIBLE);
                 listView.setEnabled(false);
 
-                viewImage.getBackground().setAlpha(255);
+                viewImage.getBackground().mutate().mutate().setAlpha(255);
 
 
             }
@@ -204,9 +204,7 @@ public class RoomsFragment extends Fragment implements View.OnClickListener{
         roomRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                //join the room
-                //button.setEnabled(true);
-                //Todo: togliere button enabled se non serve
+
             }
 
 

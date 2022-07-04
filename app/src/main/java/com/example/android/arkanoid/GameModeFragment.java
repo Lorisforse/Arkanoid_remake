@@ -36,9 +36,9 @@ public class GameModeFragment extends Fragment implements View.OnClickListener {
         back.setOnClickListener(this);
         guide.setOnClickListener(this);
 
-        touch.getBackground().setAlpha(64);
-        controller.getBackground().setAlpha(64);
-        dinamico.getBackground().setAlpha(64);
+        touch.getBackground().mutate().setAlpha(64);
+        controller.getBackground().mutate().setAlpha(64);
+        dinamico.getBackground().mutate().setAlpha(64);
 
         setPreferences();
         return v;
@@ -49,23 +49,23 @@ public class GameModeFragment extends Fragment implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.touch:
-                touch.getBackground().setAlpha(255);
-                controller.getBackground().setAlpha(64);
-                dinamico.getBackground().setAlpha(64);
+                touch.getBackground().mutate().setAlpha(255);
+                controller.getBackground().mutate().setAlpha(64);
+                dinamico.getBackground().mutate().setAlpha(64);
                 edt.putInt("gameMode", 2);
                 Constants.setGameMode(2);
                 break;
             case R.id.controller:
-                touch.getBackground().setAlpha(64);
-                controller.getBackground().setAlpha(255);
-                dinamico.getBackground().setAlpha(64);
+                touch.getBackground().mutate().setAlpha(64);
+                controller.getBackground().mutate().setAlpha(255);
+                dinamico.getBackground().mutate().setAlpha(64);
                 edt.putInt("gameMode", 1);
                 Constants.setGameMode(1);
                 break;
             case R.id.dinamico:
-                touch.getBackground().setAlpha(64);
-                controller.getBackground().setAlpha(64);
-                dinamico.getBackground().setAlpha(255);
+                touch.getBackground().mutate().setAlpha(64);
+                controller.getBackground().mutate().setAlpha(64);
+                dinamico.getBackground().mutate().setAlpha(255);
                 edt.putInt("gameMode", 0);
                 Constants.setGameMode(0);
                 break;
@@ -86,13 +86,13 @@ public class GameModeFragment extends Fragment implements View.OnClickListener {
         edt = sharedPref.edit();
         switch (sharedPref.getInt("gameMode", 4)) {
             case 0:
-                dinamico.getBackground().setAlpha(255);
+                dinamico.getBackground().mutate().setAlpha(255);
                 break;
             case 1:
-                controller.getBackground().setAlpha(255);
+                controller.getBackground().mutate().setAlpha(255);
                 break;
             case 2:
-                touch.getBackground().setAlpha(255);
+                touch.getBackground().mutate().setAlpha(255);
                 break;
         }
 

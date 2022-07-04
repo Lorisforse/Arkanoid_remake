@@ -27,7 +27,7 @@ public class ExitFragment extends Fragment implements View.OnClickListener {
         yes.setOnClickListener(this);
         no = (Button) v.findViewById(R.id.no);
         no.setOnClickListener(this);
-        yes.getBackground().setAlpha(64);
+        yes.getBackground().mutate().setAlpha(64);
         return v;
     }
 
@@ -38,8 +38,8 @@ public class ExitFragment extends Fragment implements View.OnClickListener {
                 getFragmentManager().popBackStackImmediate();
                 break;
             case R.id.yes:
-                yes.getBackground().setAlpha(255);
-                no.getBackground().setAlpha(64);
+                yes.getBackground().mutate().setAlpha(255);
+                no.getBackground().mutate().setAlpha(64);
                 Handler handler = new Handler();
                 handler.postDelayed(new Runnable() {
                     public void run() {

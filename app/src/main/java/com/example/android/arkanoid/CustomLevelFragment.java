@@ -1,5 +1,6 @@
 package com.example.android.arkanoid;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -33,33 +34,34 @@ public class CustomLevelFragment extends Fragment implements View.OnClickListene
         play.setOnClickListener(this);
         elimina.setOnClickListener(this);
 
-        crea.getBackground().setAlpha(64);
-        play.getBackground().setAlpha(255);
-        elimina.getBackground().setAlpha(64);
+        crea.getBackground().mutate().mutate().setAlpha(64);
+        play.getBackground().mutate().setAlpha(255);
+        elimina.getBackground().mutate().mutate().setAlpha(64);
 
 
         return v;
     }
 
+    @SuppressLint("NonConstantResourceId")
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.crea:
-                crea.getBackground().setAlpha(255);
-                play.getBackground().setAlpha(64);
-                elimina.getBackground().setAlpha(64);
+                crea.getBackground().mutate().setAlpha(255);
+                play.getBackground().mutate().setAlpha(64);
+                elimina.getBackground().mutate().setAlpha(64);
                 custom(v);
                 break;
             case R.id.play:
-                crea.getBackground().setAlpha(64);
-                play.getBackground().setAlpha(255);
-                elimina.getBackground().setAlpha(64);
+                crea.getBackground().mutate().setAlpha(64);
+                play.getBackground().mutate().setAlpha(255);
+                elimina.getBackground().mutate().setAlpha(64);
                 playCustom(v);
                 break;
             case R.id.elimina:
-                crea.getBackground().setAlpha(64);
-                play.getBackground().setAlpha(64);
-                elimina.getBackground().setAlpha(255);
+                crea.getBackground().mutate().setAlpha(64);
+                play.getBackground().mutate().setAlpha(64);
+                elimina.getBackground().mutate().setAlpha(255);
                 deleteLevel(v);
                 break;
         }
