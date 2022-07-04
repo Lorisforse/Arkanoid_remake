@@ -1,5 +1,6 @@
 package com.example.android.arkanoid;
 
+import android.annotation.SuppressLint;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -40,46 +41,55 @@ public class LanguageFragment extends Fragment implements View.OnClickListener{
         back.setOnClickListener(this);
         check.setOnClickListener(this);
         close.setOnClickListener(this);
-        italian.getBackground().setAlpha(64);
-        english.getBackground().setAlpha(64);
-        spanish.getBackground().setAlpha(64);
-        francais.getBackground().setAlpha(64);
+        italian.getBackground().mutate().setAlpha(64);
+        english.getBackground().mutate().setAlpha(64);
+        spanish.getBackground().mutate().setAlpha(64);
+        francais.getBackground().mutate().setAlpha(64);
         return v;
     }
 
+    @SuppressLint("NonConstantResourceId")
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-
             case R.id.italian:
                 setLocate("it");
-                Locale.getDefault().getDisplayLanguage();
-                italian.getBackground().setAlpha(255);
-                english.getBackground().setAlpha(64);
-                spanish.getBackground().setAlpha(64);
-                francais.getBackground().setAlpha(64);
+
+                italian.getBackground().mutate().setAlpha(255);
+                english.getBackground().mutate().setAlpha(64);
+                spanish.getBackground().mutate().setAlpha(64);
+                francais.getBackground().mutate().setAlpha(64);
+
 
                 break;
             case R.id.english:
                 setLocate("en");
-                italian.getBackground().setAlpha(64);
-                english.getBackground().setAlpha(255);
-                spanish.getBackground().setAlpha(64);
-                francais.getBackground().setAlpha(64);
+
+                italian.getBackground().mutate().setAlpha(64);
+                english.getBackground().mutate().setAlpha(255);
+                spanish.getBackground().mutate().setAlpha(64);
+                francais.getBackground().mutate().setAlpha(64);
+
                 break;
             case R.id.spanish:
                 setLocate("es");
-                italian.getBackground().setAlpha(64);
-                english.getBackground().setAlpha(64);
-                spanish.getBackground().setAlpha(255);
-                francais.getBackground().setAlpha(64);
+
+
+                italian.getBackground().mutate().setAlpha(64);
+                english.getBackground().mutate().setAlpha(64);
+                spanish.getBackground().mutate().setAlpha(255);
+                francais.getBackground().mutate().setAlpha(64);
+
                 break;
             case R.id.francais:
                 setLocate("fr");
-                italian.getBackground().setAlpha(64);
-                english.getBackground().setAlpha(64);
-                spanish.getBackground().setAlpha(64);
-                francais.getBackground().setAlpha(255);
+
+                italian.getBackground().mutate().setAlpha(64);
+                english.getBackground().mutate().setAlpha(64);
+                spanish.getBackground().mutate().setAlpha(64);
+                francais.getBackground().mutate().setAlpha(255);
+
+
                 break;
             case R.id.back:
             case R.id.close:
@@ -87,9 +97,9 @@ public class LanguageFragment extends Fragment implements View.OnClickListener{
                 requireActivity().getSupportFragmentManager().popBackStackImmediate();
                 break;
             case R.id.check:
-                if ((italian.getBackground().getAlpha() == english.getBackground().getAlpha()) == (spanish.getBackground().getAlpha() == francais.getBackground().getAlpha()))
-                    Toast.makeText(getContext(), "Scegli una lingua prima di confermare", Toast.LENGTH_SHORT).show();
-                else
+                //if ((italian.getBackground().getAlpha() == english.getBackground().getAlpha()) == (spanish.getBackground().getAlpha() == francais.getBackground().getAlpha()))
+                    //Toast.makeText(getContext(), "Scegli una lingua prima di confermare", Toast.LENGTH_SHORT).show();
+                //else
                     requireActivity().getSupportFragmentManager().popBackStackImmediate();
                 break;
         }

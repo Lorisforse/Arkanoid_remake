@@ -17,7 +17,7 @@
     <string name="language">LINGUA</string>
     <string name="audio" translatable="false">AUDIO</string>
     <string name="guide">GUIDA</string>
-    <string name="home" translatable="false">HOME</string>
+    <string name="home">HOME</string>
     <string name="online">GIOCA ONLINE</string>
     <string name="points">Punti</string>
     <string name="customize">Livello Personalizzato</string>

@@ -39,14 +39,14 @@ public class SettingsFragment extends Fragment implements View.OnClickListener {
         switch (v.getId()) {
             case R.id.audio:
                 if(Constants.sound.s_menu.isPlaying()){
-                    audio.getBackground().setAlpha(64);
+                    audio.getBackground().mutate().setAlpha(64);
                     Constants.sound.s_menu.pause();
                     Constants.musicActive=false;
                     Constants.setSoundPosition(Constants.sound.s_menu.getCurrentPosition());
                     audio.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.volume_off_24px, 0);
                 }
                 else {
-                    audio.getBackground().setAlpha(255);
+                    audio.getBackground().mutate().setAlpha(255);
                     audio.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.volume_up_24px, 0);
 
                     Constants.musicActive=true;
@@ -77,7 +77,7 @@ public class SettingsFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onResume() {
         if(!Constants.sound.s_menu.isPlaying()){
-            audio.getBackground().setAlpha(64);
+            audio.getBackground().mutate().setAlpha(64);
         }
         super.onResume();
     }

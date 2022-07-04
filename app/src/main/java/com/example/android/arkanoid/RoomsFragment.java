@@ -204,7 +204,9 @@ public class RoomsFragment extends Fragment implements View.OnClickListener{
         roomRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-
+                //join the room
+                //button.setEnabled(true);
+                //Todo: togliere button enabled se non serve
             }
 
 

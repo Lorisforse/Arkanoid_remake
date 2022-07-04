@@ -39,6 +39,10 @@ public class DifficultyFragment extends Fragment implements View.OnClickListener
         hard = (Button) v.findViewById(R.id.hard);
         hard.setOnClickListener(this);
 
+        easy.getBackground().mutate().setAlpha(64);
+        medium.getBackground().mutate().setAlpha(64);
+        hard.getBackground().mutate().setAlpha(64);
+
         intent = new Intent(getContext(), MainActivity.class);
         return v;
     }
@@ -48,14 +52,23 @@ public class DifficultyFragment extends Fragment implements View.OnClickListener
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.easy:
+                easy.getBackground().mutate().setAlpha(255);
+                medium.getBackground().mutate().setAlpha(64);
+                hard.getBackground().mutate().setAlpha(64);
                 intent.putExtra("difficulty", 1);
                 startActivity(intent);
                 break;
             case R.id.medium:
+                easy.getBackground().mutate().setAlpha(64);
+                medium.getBackground().mutate().setAlpha(255);
+                hard.getBackground().mutate().setAlpha(64);
                 intent.putExtra("difficulty", 2);
                 startActivity(intent);
                 break;
             case R.id.hard:
+                easy.getBackground().mutate().setAlpha(64);
+                medium.getBackground().mutate().setAlpha(64);
+                hard.getBackground().mutate().setAlpha(255);
                 intent.putExtra("difficulty", 3);
                 startActivity(intent);
                 break;
