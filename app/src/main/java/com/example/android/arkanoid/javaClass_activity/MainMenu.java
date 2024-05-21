@@ -1,6 +1,8 @@
 package com.example.android.arkanoid.javaClass_activity;
 
 import android.os.Bundle;
+import android.util.Log;
+import android.view.WindowManager;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -11,6 +13,7 @@ import com.example.android.arkanoid.fragment.CustomLevelFragment;
 import com.example.android.arkanoid.fragment.HomeFragment;
 import com.example.android.arkanoid.fragment.RecordFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.FirebaseApp;
 
 public class MainMenu extends AppCompatActivity {
 
@@ -18,10 +21,13 @@ public class MainMenu extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_menu);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
         //Setting Fragment
         BottomNavigationView navigation = findViewById(R.id.navigationView);
         navigation.setOnItemSelectedListener(mOnNavigationItemSelectedListener);
         loadFragment(new HomeFragment());
+        FirebaseApp.initializeApp(this);
 
         Constants.sound = new SoundPlayer(this);
 
