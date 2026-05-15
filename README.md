@@ -27,6 +27,7 @@ Un remake mobile del classico arcade **Arkanoid** per Android, con modalità mul
 ## Download
 
 [![Download APK](https://img.shields.io/badge/Download-APK%20v1.0.0-brightgreen?style=for-the-badge&logo=android)](https://github.com/Lorisforse/Arkanoid_remake/releases/download/V1.0.0/Arkanoid.remake.apk)
+[![GitHub Pages](https://img.shields.io/badge/Demo-GitHub%20Pages-blueviolet?style=for-the-badge&logo=github)](https://lorisforse.github.io/Arkanoid_remake/)
 
 ---
 
