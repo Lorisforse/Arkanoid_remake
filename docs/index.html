@@ -2,309 +2,368 @@
 <html lang="it">
 <head>
   <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Arkanoid Remake — Android</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"/>
+  <title>Arkanoid Remake — Play Demo</title>
   <style>
     :root {
       --bg: #0a0a1a;
-      --surface: #12122a;
-      --card: #1a1a35;
       --accent: #6c63ff;
-      --accent2: #ff6584;
       --text: #e0e0ff;
       --muted: #8888aa;
-      --border: #2a2a4a;
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    body {
+    html, body {
       background: var(--bg);
       color: var(--text);
       font-family: 'Segoe UI', system-ui, sans-serif;
-      line-height: 1.6;
+      min-height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
-
-    /* HERO */
-    .hero {
-      text-align: center;
-      padding: 80px 20px 60px;
-      background: radial-gradient(ellipse at top, #1a1060 0%, var(--bg) 70%);
-      border-bottom: 1px solid var(--border);
+    header {
+      width: 100%;
+      max-width: 520px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 14px 20px 10px;
     }
-    .hero .pixel-title {
-      font-size: clamp(2.5rem, 8vw, 5rem);
+    header h1 {
+      font-size: 1.2rem;
       font-weight: 900;
-      letter-spacing: 4px;
+      letter-spacing: 2px;
       text-transform: uppercase;
-      background: linear-gradient(135deg, #6c63ff, #ff6584, #ffda79);
+      background: linear-gradient(135deg, #6c63ff, #ff6584);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
-      text-shadow: none;
     }
-    .hero .subtitle {
-      margin-top: 12px;
-      font-size: 1.1rem;
-      color: var(--muted);
-      font-style: italic;
-      max-width: 620px;
-      margin-inline: auto;
-    }
-    .hero .badges {
-      margin-top: 24px;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      justify-content: center;
-    }
-    .badge {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 20px;
-      padding: 4px 14px;
+    header a {
       font-size: 0.78rem;
       color: var(--muted);
-      letter-spacing: 0.5px;
-    }
-    .badge.accent { border-color: var(--accent); color: var(--accent); }
-    .hero .cta {
-      margin-top: 36px;
-    }
-    .btn-download {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      background: linear-gradient(135deg, var(--accent), #9c59ff);
-      color: #fff;
-      padding: 14px 32px;
-      border-radius: 50px;
       text-decoration: none;
-      font-weight: 700;
-      font-size: 1.05rem;
-      letter-spacing: 0.5px;
-      transition: transform 0.15s, box-shadow 0.15s;
-      box-shadow: 0 4px 24px rgba(108,99,255,0.4);
+      border: 1px solid #2a2a4a;
+      padding: 4px 12px;
+      border-radius: 20px;
+      transition: color 0.2s, border-color 0.2s;
     }
-    .btn-download:hover { transform: translateY(-2px); box-shadow: 0 8px 32px rgba(108,99,255,0.55); }
-    .btn-download svg { width: 22px; height: 22px; fill: #fff; }
+    header a:hover { color: var(--accent); border-color: var(--accent); }
 
-    /* SCREENSHOTS */
-    .screenshots {
-      padding: 60px 20px;
+    #wrapper {
+      position: relative;
+      width: min(480px, 96vw);
+    }
+    canvas {
+      display: block;
+      width: 100%;
+      height: auto;
+      border-radius: 8px;
+      border: 1px solid #1e1e3a;
+      cursor: none;
+      touch-action: none;
+    }
+
+    #hint {
       text-align: center;
-    }
-    .section-title {
-      font-size: 1.6rem;
-      font-weight: 700;
-      margin-bottom: 32px;
-      color: var(--text);
-      text-transform: uppercase;
-      letter-spacing: 2px;
-    }
-    .section-title span { color: var(--accent); }
-    .screens-grid {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 16px;
-      justify-content: center;
-      max-width: 1100px;
-      margin-inline: auto;
-    }
-    .screen-item {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      overflow: hidden;
-      width: 200px;
-      transition: transform 0.2s, box-shadow 0.2s;
-    }
-    .screen-item:hover { transform: scale(1.04); box-shadow: 0 8px 32px rgba(108,99,255,0.3); }
-    .screen-item img { width: 100%; display: block; }
-    .screen-item .caption {
-      padding: 8px 10px;
       font-size: 0.78rem;
       color: var(--muted);
-      text-align: center;
+      margin-top: 10px;
+      padding: 0 8px 16px;
     }
-
-    /* FEATURES */
-    .features {
-      padding: 60px 20px;
-      background: var(--surface);
-      border-top: 1px solid var(--border);
-      border-bottom: 1px solid var(--border);
+    #hint kbd {
+      background: #1a1a35;
+      border: 1px solid #2a2a4a;
+      border-radius: 4px;
+      padding: 1px 6px;
+      font-size: 0.75rem;
     }
-    .features-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 20px;
-      max-width: 1000px;
-      margin-inline: auto;
-    }
-    .feature-card {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 24px 20px;
-      transition: border-color 0.2s;
-    }
-    .feature-card:hover { border-color: var(--accent); }
-    .feature-card .icon { font-size: 2rem; margin-bottom: 12px; }
-    .feature-card h3 { font-size: 1rem; font-weight: 700; margin-bottom: 6px; color: var(--text); }
-    .feature-card p { font-size: 0.88rem; color: var(--muted); }
-
-    /* TECH */
-    .tech {
-      padding: 60px 20px;
-      text-align: center;
-    }
-    .tech-grid {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-      justify-content: center;
-      max-width: 700px;
-      margin-inline: auto;
-    }
-    .tech-pill {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 8px 18px;
-      font-size: 0.88rem;
-      color: var(--text);
-    }
-    .tech-pill strong { color: var(--accent); }
-
-    /* FOOTER */
-    footer {
-      text-align: center;
-      padding: 32px 20px;
-      border-top: 1px solid var(--border);
-      color: var(--muted);
-      font-size: 0.85rem;
-    }
-    footer a { color: var(--accent); text-decoration: none; }
-    footer a:hover { text-decoration: underline; }
   </style>
 </head>
 <body>
 
-  <!-- HERO -->
-  <section class="hero">
-    <h1 class="pixel-title">Arkanoid Remake</h1>
-    <p class="subtitle">
-      La piccola astronave "Vaus" è intrappolata in una piega spazio-temporale.
-      Distruggi i blocchi, raccoglie i power-up e sfida i tuoi amici online.
-    </p>
-    <div class="badges">
-      <span class="badge accent">Android</span>
-      <span class="badge">Java</span>
-      <span class="badge">Firebase Multiplayer</span>
-      <span class="badge">Min SDK 21</span>
-      <span class="badge">v1.0.0</span>
-    </div>
-    <div class="cta">
-      <a class="btn-download" href="https://github.com/Lorisforse/Arkanoid_remake/releases/download/V1.0.0/Arkanoid.remake.apk">
-        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-          <path d="M5 20h14v-2H5v2zm7-18L5.33 9h3.84v5h5.66V9h3.84L12 2z"/>
-        </svg>
-        Scarica l'APK
-      </a>
-    </div>
-  </section>
+<header>
+  <h1>Arkanoid Remake</h1>
+  <a href="https://github.com/Lorisforse/Arkanoid_remake" target="_blank">GitHub ↗</a>
+</header>
 
-  <!-- SCREENSHOTS -->
-  <section class="screenshots">
-    <h2 class="section-title">Screen<span>shot</span></h2>
-    <div class="screens-grid">
-      <div class="screen-item">
-        <img src="../Screen/menu.jpg" alt="Menu principale"/>
-        <div class="caption">Menu principale</div>
-      </div>
-      <div class="screen-item">
-        <img src="../Screen/modalita.jpg" alt="Modalità"/>
-        <div class="caption">Modalità di gioco</div>
-      </div>
-      <div class="screen-item">
-        <img src="../Screen/opzioni.jpg" alt="Opzioni"/>
-        <div class="caption">Opzioni</div>
-      </div>
-      <div class="screen-item">
-        <img src="../Screen/gioco.jpg" alt="Partita"/>
-        <div class="caption">Partita in corso</div>
-      </div>
-      <div class="screen-item">
-        <img src="../Screen/guida.jpg" alt="Guida"/>
-        <div class="caption">Guida</div>
-      </div>
-      <div class="screen-item">
-        <img src="../Screen/custom.jpg" alt="Custom Level"/>
-        <div class="caption">Editor livello</div>
-      </div>
-    </div>
-  </section>
+<div id="wrapper">
+  <canvas id="game" width="480" height="700"></canvas>
+</div>
+<p id="hint">
+  <kbd>Mouse</kbd> / <kbd>Touch</kbd> per muovere · <kbd>Click</kbd> / <kbd>Tap</kbd> per lanciare
+</p>
 
-  <!-- FEATURES -->
-  <section class="features">
-    <h2 class="section-title" style="text-align:center">Funzionalit&agrave;</h2>
-    <div class="features-grid">
-      <div class="feature-card">
-        <div class="icon">🎮</div>
-        <h3>3 Difficoltà</h3>
-        <p>Facile, Medio e Difficile con mattoni resistenti e velocità progressiva della pallina.</p>
-      </div>
-      <div class="feature-card">
-        <div class="icon">🌐</div>
-        <h3>Multiplayer Online</h3>
-        <p>Crea o entra in una stanza e sfida un avversario in tempo reale tramite Firebase.</p>
-      </div>
-      <div class="feature-card">
-        <div class="icon">⚡</div>
-        <h3>Power-Up</h3>
-        <p>Palla di fuoco, palette allargata, palla di ghiaccio e vite extra da raccogliere.</p>
-      </div>
-      <div class="feature-card">
-        <div class="icon">🏗️</div>
-        <h3>Livello Personalizzato</h3>
-        <p>Disegna e salva la tua griglia di mattoni con il builder integrato.</p>
-      </div>
-      <div class="feature-card">
-        <div class="icon">🕹️</div>
-        <h3>3 Tipi di Controllo</h3>
-        <p>Touchscreen, joystick virtuale o accelerometro — scegli quello che preferisci.</p>
-      </div>
-      <div class="feature-card">
-        <div class="icon">🌍</div>
-        <h3>4 Lingue</h3>
-        <p>Interfaccia disponibile in Italiano, Inglese, Spagnolo e Francese.</p>
-      </div>
-    </div>
-  </section>
+<script>
+'use strict';
 
-  <!-- TECH -->
-  <section class="tech">
-    <h2 class="section-title">Tech <span>Stack</span></h2>
-    <div class="tech-grid">
-      <div class="tech-pill"><strong>Java 8</strong> · Android</div>
-      <div class="tech-pill"><strong>Firebase</strong> · Realtime DB</div>
-      <div class="tech-pill"><strong>SensorManager</strong> · Accelerometro</div>
-      <div class="tech-pill"><strong>MediaPlayer</strong> + <strong>SoundPool</strong></div>
-      <div class="tech-pill"><strong>SharedPreferences</strong> · File I/O</div>
-      <div class="tech-pill"><strong>FragmentManager</strong> · Navigation</div>
-      <div class="tech-pill"><strong>Custom Views</strong> · Rendering</div>
-    </div>
-  </section>
+const C   = document.getElementById('game');
+const ctx = C.getContext('2d');
+const W   = C.width;   // 480
+const H   = C.height;  // 700
 
-  <!-- FOOTER -->
-  <footer>
-    <p>
-      Sviluppato con &#x2764; da <a href="https://github.com/Lorisforse" target="_blank">Lorisforse</a>
-      &nbsp;|&nbsp;
-      <a href="https://github.com/Lorisforse/Arkanoid_remake" target="_blank">GitHub Repository</a>
-      &nbsp;|&nbsp;
-      Licenza MIT
-    </p>
-  </footer>
+// ─── CONSTANTS ───────────────────────────────────────────────────────────────
+const BCOLS = 8, BROWS = 6;
+const BW = 52, BH = 18, BPAD = 5;
+const BTOP  = 65;
+const BLEFT = (W - BCOLS * (BW + BPAD) + BPAD) / 2;
 
+const ROW_COLOR  = ['#ff4757','#ff6b81','#ffa502','#ffdd57','#2ed573','#70a1ff'];
+const ROW_PTS    = [ 20,       20,       15,       10,       8,        5      ];
+const ROW_LIVES  = [  2,        2,        1,        1,        1,        1      ];
+
+// ─── STATE ───────────────────────────────────────────────────────────────────
+let state, score, lives, bricks;
+
+const PAD = { w: 110, h: 12, x: 0, y: H - 50 };
+const BALL = { r: 7, x: 0, y: 0, dx: 0, dy: 0, speed: 4.8 };
+
+// ─── INIT ────────────────────────────────────────────────────────────────────
+function init() {
+  score  = 0;
+  lives  = 3;
+  PAD.x  = W / 2 - PAD.w / 2;
+  bricks = [];
+  for (let r = 0; r < BROWS; r++)
+    for (let c = 0; c < BCOLS; c++)
+      bricks.push({
+        x: BLEFT + c * (BW + BPAD),
+        y: BTOP  + r * (BH + BPAD),
+        row: r, alive: true,
+        lives: ROW_LIVES[r], maxLives: ROW_LIVES[r]
+      });
+  resetBall();
+  state = 'start';
+}
+
+function resetBall() {
+  BALL.x  = PAD.x + PAD.w / 2;
+  BALL.y  = PAD.y - BALL.r - 1;
+  BALL.dx = 0; BALL.dy = 0;
+}
+
+function launchBall() {
+  const ang = -Math.PI / 2 + (Math.random() - 0.5) * (Math.PI / 3);
+  BALL.dx = BALL.speed * Math.cos(ang);
+  BALL.dy = BALL.speed * Math.sin(ang);
+  state = 'playing';
+}
+
+// ─── UPDATE ──────────────────────────────────────────────────────────────────
+function update() {
+  if (state !== 'playing') return;
+
+  BALL.x += BALL.dx;
+  BALL.y += BALL.dy;
+
+  // Side & top walls
+  if (BALL.x - BALL.r <= 0)  { BALL.x = BALL.r;     BALL.dx =  Math.abs(BALL.dx); }
+  if (BALL.x + BALL.r >= W)  { BALL.x = W - BALL.r; BALL.dx = -Math.abs(BALL.dx); }
+  if (BALL.y - BALL.r <= 0)  { BALL.y = BALL.r;     BALL.dy =  Math.abs(BALL.dy); }
+
+  // Paddle
+  if (
+    BALL.dy > 0 &&
+    BALL.y + BALL.r >= PAD.y &&
+    BALL.y + BALL.r <= PAD.y + PAD.h + Math.abs(BALL.dy) + 2 &&
+    BALL.x >= PAD.x - BALL.r &&
+    BALL.x <= PAD.x + PAD.w + BALL.r
+  ) {
+    const cx  = PAD.x + PAD.w / 2;
+    const rel = Math.max(-1, Math.min(1, (BALL.x - cx) / (PAD.w / 2)));
+    const ang = rel * (Math.PI / 3);
+    BALL.dx = BALL.speed * Math.sin(ang);
+    BALL.dy = -Math.abs(BALL.speed * Math.cos(ang));
+    BALL.y  = PAD.y - BALL.r;
+    // prevent too-vertical ball
+    if (Math.abs(BALL.dx) < 0.6) BALL.dx = BALL.dx >= 0 ? 0.6 : -0.6;
+  }
+
+  // Lost ball
+  if (BALL.y - BALL.r > H) {
+    if (--lives <= 0) { state = 'gameover'; return; }
+    resetBall();
+    state = 'start';
+    return;
+  }
+
+  // Bricks
+  for (let i = 0; i < bricks.length; i++) {
+    const b = bricks[i];
+    if (!b.alive) continue;
+
+    const nx = Math.max(b.x, Math.min(BALL.x, b.x + BW));
+    const ny = Math.max(b.y, Math.min(BALL.y, b.y + BH));
+    const dx = BALL.x - nx, dy = BALL.y - ny;
+    if (dx * dx + dy * dy >= BALL.r * BALL.r) continue;
+
+    if (--b.lives <= 0) { b.alive = false; score += ROW_PTS[b.row]; }
+
+    // Bounce side
+    const oL = (BALL.x + BALL.r) - b.x,       oR = (b.x + BW) - (BALL.x - BALL.r);
+    const oT = (BALL.y + BALL.r) - b.y,        oB = (b.y + BH) - (BALL.y - BALL.r);
+    if (Math.min(oL, oR) < Math.min(oT, oB)) BALL.dx = -BALL.dx;
+    else                                       BALL.dy = -BALL.dy;
+    break;
+  }
+
+  if (bricks.every(b => !b.alive)) state = 'win';
+}
+
+// ─── DRAW ────────────────────────────────────────────────────────────────────
+function rr(x, y, w, h, r) {
+  ctx.beginPath();
+  ctx.moveTo(x + r, y);
+  ctx.lineTo(x + w - r, y); ctx.quadraticCurveTo(x + w, y, x + w, y + r);
+  ctx.lineTo(x + w, y + h - r); ctx.quadraticCurveTo(x + w, y + h, x + w - r, y + h);
+  ctx.lineTo(x + r, y + h); ctx.quadraticCurveTo(x, y + h, x, y + h - r);
+  ctx.lineTo(x, y + r); ctx.quadraticCurveTo(x, y, x + r, y);
+  ctx.closePath();
+}
+
+function drawBricks() {
+  for (const b of bricks) {
+    if (!b.alive) continue;
+    const alpha = b.maxLives > 1 ? 0.45 + 0.55 * (b.lives / b.maxLives) : 1;
+
+    // shadow glow
+    ctx.shadowColor = ROW_COLOR[b.row];
+    ctx.shadowBlur  = 6 * alpha;
+    ctx.globalAlpha = alpha;
+
+    ctx.fillStyle = ROW_COLOR[b.row];
+    rr(b.x, b.y, BW, BH, 3); ctx.fill();
+
+    // shine strip
+    ctx.shadowBlur = 0;
+    ctx.fillStyle  = 'rgba(255,255,255,0.18)';
+    rr(b.x + 3, b.y + 2, BW - 6, 5, 2); ctx.fill();
+
+    ctx.globalAlpha = 1;
+    ctx.shadowBlur  = 0;
+  }
+}
+
+function drawPaddle() {
+  const grd = ctx.createLinearGradient(PAD.x, PAD.y, PAD.x, PAD.y + PAD.h);
+  grd.addColorStop(0, '#a29bfe'); grd.addColorStop(1, '#6c5ce7');
+  ctx.shadowColor = '#6c5ce7'; ctx.shadowBlur = 14;
+  ctx.fillStyle = grd;
+  rr(PAD.x, PAD.y, PAD.w, PAD.h, 6); ctx.fill();
+  ctx.shadowBlur = 0;
+}
+
+function drawBall() {
+  ctx.shadowColor = '#ffdd57'; ctx.shadowBlur = 16;
+  ctx.beginPath();
+  ctx.arc(BALL.x, BALL.y, BALL.r, 0, Math.PI * 2);
+  ctx.fillStyle = '#ffdd57'; ctx.fill();
+  ctx.shadowBlur = 0;
+}
+
+function drawHUD() {
+  ctx.fillStyle = '#e0e0ff';
+  ctx.font = 'bold 15px monospace';
+  ctx.textAlign = 'left';
+  ctx.fillText('Score: ' + score, 12, 28);
+  ctx.textAlign = 'right';
+  const hearts = '♥'.repeat(lives) + '♡'.repeat(Math.max(0, 3 - lives));
+  ctx.fillStyle = '#ff6b81';
+  ctx.fillText(hearts, W - 12, 28);
+}
+
+function drawGrid() {
+  // faint horizontal line separating HUD
+  ctx.strokeStyle = '#1e1e3a';
+  ctx.lineWidth = 1;
+  ctx.beginPath(); ctx.moveTo(0, 38); ctx.lineTo(W, 38); ctx.stroke();
+}
+
+function drawOverlay(title, sub, btnLabel) {
+  ctx.fillStyle = 'rgba(5,5,20,0.72)';
+  ctx.fillRect(0, 0, W, H);
+
+  ctx.textAlign = 'center';
+  ctx.fillStyle = '#fff';
+  ctx.font = 'bold 38px monospace';
+  ctx.fillText(title, W / 2, H / 2 - 28);
+
+  if (sub) {
+    ctx.font = '18px monospace';
+    ctx.fillStyle = '#aaa';
+    ctx.fillText(sub, W / 2, H / 2 + 12);
+  }
+  if (btnLabel) {
+    ctx.shadowColor = '#6c63ff'; ctx.shadowBlur = 18;
+    ctx.fillStyle = '#6c5ce7';
+    rr(W / 2 - 90, H / 2 + 38, 180, 46, 8); ctx.fill();
+    ctx.shadowBlur = 0;
+    ctx.fillStyle = '#fff';
+    ctx.font = 'bold 18px monospace';
+    ctx.fillText(btnLabel, W / 2, H / 2 + 67);
+  }
+}
+
+function draw() {
+  // Background with subtle grid
+  ctx.fillStyle = '#0a0a1a';
+  ctx.fillRect(0, 0, W, H);
+
+  // Subtle dot grid
+  ctx.fillStyle = 'rgba(255,255,255,0.025)';
+  for (let x = 20; x < W; x += 30) for (let y = 20; y < H; y += 30) {
+    ctx.fillRect(x, y, 1, 1);
+  }
+
+  drawGrid();
+  drawHUD();
+  drawBricks();
+  drawPaddle();
+  drawBall();
+
+  if (state === 'start')    drawOverlay('PRONTO?', 'Muovi il mouse · clicca per lanciare', null);
+  if (state === 'gameover') drawOverlay('GAME OVER', 'Punteggio: ' + score, '↺ Rigioca');
+  if (state === 'win')      drawOverlay('HAI VINTO!', 'Punteggio: ' + score, '↺ Ancora');
+}
+
+// ─── LOOP ────────────────────────────────────────────────────────────────────
+function loop() {
+  update();
+  draw();
+  requestAnimationFrame(loop);
+}
+
+// ─── INPUT ───────────────────────────────────────────────────────────────────
+function movePaddle(clientX) {
+  const rect  = C.getBoundingClientRect();
+  const scale = W / rect.width;
+  const mx    = (clientX - rect.left) * scale;
+  PAD.x = Math.max(0, Math.min(W - PAD.w, mx - PAD.w / 2));
+  if (state === 'start') BALL.x = PAD.x + PAD.w / 2;
+}
+
+C.addEventListener('mousemove', e => movePaddle(e.clientX));
+
+C.addEventListener('click', () => {
+  if (state === 'start')                { launchBall(); }
+  else if (state === 'gameover' || state === 'win') { init(); }
+});
+
+C.addEventListener('touchmove', e => {
+  e.preventDefault();
+  movePaddle(e.touches[0].clientX);
+}, { passive: false });
+
+C.addEventListener('touchstart', e => {
+  e.preventDefault();
+  movePaddle(e.touches[0].clientX);
+  if (state === 'start')                { launchBall(); }
+  else if (state === 'gameover' || state === 'win') { init(); }
+}, { passive: false });
+
+// ─── START ───────────────────────────────────────────────────────────────────
+init();
+loop();
+</script>
 </body>
 </html>
