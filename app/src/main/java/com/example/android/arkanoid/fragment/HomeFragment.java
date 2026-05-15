@@ -45,6 +45,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     String playerName="";
     FirebaseDatabase database;
     DatabaseReference playerRef;
+    private ValueEventListener playerListener;
 
 
     public HomeFragment() {
@@ -161,18 +162,18 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 
 
     private void addEventListener() {
-        //read from database
-        playerRef.addValueEventListener(new ValueEventListener() {
+        // Remove any previous listener before adding a new one
+        if (playerRef != null && playerListener != null)
+            playerRef.removeEventListener(playerListener);
+
+        playerListener = new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                //success = continue to the next screen after saving the player name
                 if (!playerName.equals("")) {
-                    SharedPreferences preferences =  getContext().getSharedPreferences("PREFS", 0);
-
+                    SharedPreferences preferences = requireContext().getSharedPreferences("PREFS", 0);
                     SharedPreferences.Editor editor = preferences.edit();
                     editor.putString("playerName", playerName);
                     editor.apply();
-
                 }
             }
 
@@ -180,6 +181,14 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
             public void onCancelled(@NonNull DatabaseError error) {
                 Toast.makeText(getContext(), "ERRORE", Toast.LENGTH_SHORT).show();
             }
-        });
+        };
+        playerRef.addValueEventListener(playerListener);
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        if (playerRef != null && playerListener != null)
+            playerRef.removeEventListener(playerListener);
     }
 }

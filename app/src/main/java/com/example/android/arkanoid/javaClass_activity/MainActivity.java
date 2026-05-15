@@ -116,6 +116,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onStop(){
         super.onStop();
 
+        if (myThread != null) myThread.stopThread();
+
         if(role.equals("host")){
             messageRef = database.getReference("rooms/" + roomName );
             messageRef.removeValue();
@@ -123,7 +125,6 @@ public class MainActivity extends AppCompatActivity {
             messageRef = database.getReference("rooms/" + roomName + "/guest");
             messageRef.removeValue();
         }
-        super.onBackPressed();
     }
     protected void onPause() {
         super.onPause();

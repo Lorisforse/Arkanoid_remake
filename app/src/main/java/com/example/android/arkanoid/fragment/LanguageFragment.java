@@ -57,7 +57,6 @@ public class LanguageFragment extends Fragment implements View.OnClickListener{
 
             case R.id.italian:
                 setLocate("it");
-                Locale.getDefault().getDisplayLanguage();
                 italian.getBackground().mutate().setAlpha(255);
                 english.getBackground().mutate().setAlpha(64);
                 spanish.getBackground().mutate().setAlpha(64);
@@ -87,11 +86,11 @@ public class LanguageFragment extends Fragment implements View.OnClickListener{
                 break;
             case R.id.back:
             case R.id.close:
-                setLocate("locale");
                 requireActivity().getSupportFragmentManager().popBackStackImmediate();
                 break;
             case R.id.check:
-                if ((italian.getBackground().getAlpha() == english.getBackground().getAlpha()) == (spanish.getBackground().getAlpha() == francais.getBackground().getAlpha()))
+                if (italian.getBackground().getAlpha() == 64 && english.getBackground().getAlpha() == 64
+                        && spanish.getBackground().getAlpha() == 64 && francais.getBackground().getAlpha() == 64)
                     Toast.makeText(getContext(), "Scegli una lingua prima di confermare", Toast.LENGTH_SHORT).show();
                 else
                     requireActivity().getSupportFragmentManager().popBackStackImmediate();

@@ -1,13 +1,11 @@
 package com.example.android.arkanoid.javaClass_activity;
 
-import android.hardware.Sensor;
-
 public class Paddle {
 
     private float x;
     private float y;
     private double velocityX;
-    private static final double MAX_SPEED = Sensor.TYPE_ACCELEROMETER_UNCALIBRATED;
+    private static final double MAX_SPEED = 15.0;
 
     public Paddle(float x, float y) {
         this.x = x;

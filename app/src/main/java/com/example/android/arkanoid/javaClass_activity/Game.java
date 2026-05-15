@@ -120,8 +120,15 @@ public class Game extends View implements SensorEventListener {
     String role ="";
     Ball ball2;
     Bitmap redBall2;
+    Bitmap fireballBitmap;
+    Bitmap normalBallBitmap;
     String over;
     String resumeRetry;
+    boolean firebaseListenerRegistered = false;
+    ValueEventListener xListener;
+    ValueEventListener yListener;
+    DatabaseReference xListenerRef;
+    DatabaseReference yListenerRef;
 
 
     public Game(Context context, int lifes, int score, int gameMode, int difficulty) {
@@ -166,8 +173,10 @@ public class Game extends View implements SensorEventListener {
 
         readBackground(context);
 
-        // create a bitmap for the ball and paddle
-        redBall = BitmapFactory.decodeResource(getResources(), R.drawable.yellowball);
+        // create a bitmap for the ball and paddle — decoded once here to avoid per-frame allocation
+        normalBallBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.yellowball);
+        fireballBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.fireball);
+        redBall = normalBallBitmap;
         paddle_p = BitmapFactory.decodeResource(getResources(), R.drawable.paddle);
 
         //pause = BitmapFactory.decodeResource(getResources(),R.drawable.pause);
@@ -206,10 +215,7 @@ public class Game extends View implements SensorEventListener {
         canvas.drawBitmap(stretchedOut, 0, 0, paint);
 
         //draw the ball
-        if(potenza1){
-            redBall = BitmapFactory.decodeResource(getResources(), R.drawable.fireball);
-        }else
-            redBall = BitmapFactory.decodeResource(getResources(), R.drawable.yellowball);
+        redBall = potenza1 ? fireballBitmap : normalBallBitmap;
         paint.setColor(Color.RED);
         canvas.drawBitmap(redBall, ball.getX(), ball.getY(), paint);
         if(difficulty==5)
@@ -280,8 +286,11 @@ public class Game extends View implements SensorEventListener {
 
             messageRef.setValue((int)ball.getY());
 
-            checkXListener();
-            checkYListener();
+            if (!firebaseListenerRegistered) {
+                checkXListener();
+                checkYListener();
+                firebaseListenerRegistered = true;
+            }
         }
     }
 
@@ -534,7 +543,7 @@ public class Game extends View implements SensorEventListener {
     public void onSensorChanged(SensorEvent event) {
         if(gameMode==0){
             if (event.sensor.getType() == Sensor.TYPE_ACCELEROMETER) {
-                paddle.setX(paddle.getX() - event.values[0] - event.values[0]);
+                paddle.setX(paddle.getX() - event.values[0]);
                 if (paddle.getX() + event.values[0] > size.x - 240) {
                     paddle.setX(size.x - 240);
                 } else if (paddle.getX() - event.values[0] <= 20) {
@@ -666,7 +675,7 @@ public class Game extends View implements SensorEventListener {
                         case MotionEvent.ACTION_DOWN:
                             gameOver();
                             start = true;
-                            if (joystick.isPressed((double) event.getX())) {
+                            if (joystick.isPressed((double) event.getX(), (double) event.getY())) {
                                 joystick.setIsPressed(true);
                             }
                             return true;
@@ -765,11 +774,13 @@ public class Game extends View implements SensorEventListener {
 
     private void checkXListener(){
         if(role.equals("host"))
-            messageRef = database.getReference(("rooms/" + roomName + "/guest" + "/X"));
+            xListenerRef = database.getReference(("rooms/" + roomName + "/guest" + "/X"));
         else if(role.equals("guest"))
-            messageRef = database.getReference(("rooms/" + roomName + "/host" + "/X"));
+            xListenerRef = database.getReference(("rooms/" + roomName + "/host" + "/X"));
+        else
+            return;
 
-        messageRef.addValueEventListener(new ValueEventListener() {
+        xListener = new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if(!(snapshot.getValue() == null)){
@@ -780,16 +791,19 @@ public class Game extends View implements SensorEventListener {
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
             }
-        });
+        };
+        xListenerRef.addValueEventListener(xListener);
     }
 
     private void checkYListener(){
         if(role.equals("host"))
-            messageRef2 = database.getReference(("rooms/" + roomName + "/guest" + "/Y"));
+            yListenerRef = database.getReference(("rooms/" + roomName + "/guest" + "/Y"));
         else if(role.equals("guest"))
-            messageRef2 = database.getReference(("rooms/" + roomName + "/host" + "/Y"));
+            yListenerRef = database.getReference(("rooms/" + roomName + "/host" + "/Y"));
+        else
+            return;
 
-        messageRef2.addValueEventListener(new ValueEventListener() {
+        yListener = new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if(!(snapshot.getValue() == null)){
@@ -800,7 +814,20 @@ public class Game extends View implements SensorEventListener {
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
             }
-        });
+        };
+        yListenerRef.addValueEventListener(yListener);
+    }
+
+    @Override
+    protected void onDetachedFromWindow() {
+        super.onDetachedFromWindow();
+        if (firebaseListenerRegistered) {
+            if (xListenerRef != null && xListener != null)
+                xListenerRef.removeEventListener(xListener);
+            if (yListenerRef != null && yListener != null)
+                yListenerRef.removeEventListener(yListener);
+            firebaseListenerRegistered = false;
+        }
     }
 
 

@@ -51,12 +51,7 @@ public class ExitFragment extends Fragment implements View.OnClickListener {
             case R.id.yes:
                 yes.getBackground().mutate().setAlpha(255);
                 no.getBackground().mutate().setAlpha(64);
-                Handler handler = new Handler();
-                handler.postDelayed(new Runnable() {
-                    public void run() {
-                        System.exit(0);
-                    }
-                }, 500);
+                requireActivity().finishAffinity();
 
                 break;
 

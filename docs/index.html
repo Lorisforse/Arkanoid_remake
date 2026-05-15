@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Arkanoid Remake — Android</title>
+  <style>
+    :root {
+      --bg: #0a0a1a;
+      --surface: #12122a;
+      --card: #1a1a35;
+      --accent: #6c63ff;
+      --accent2: #ff6584;
+      --text: #e0e0ff;
+      --muted: #8888aa;
+      --border: #2a2a4a;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      line-height: 1.6;
+    }
+
+    /* HERO */
+    .hero {
+      text-align: center;
+      padding: 80px 20px 60px;
+      background: radial-gradient(ellipse at top, #1a1060 0%, var(--bg) 70%);
+      border-bottom: 1px solid var(--border);
+    }
+    .hero .pixel-title {
+      font-size: clamp(2.5rem, 8vw, 5rem);
+      font-weight: 900;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      background: linear-gradient(135deg, #6c63ff, #ff6584, #ffda79);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      text-shadow: none;
+    }
+    .hero .subtitle {
+      margin-top: 12px;
+      font-size: 1.1rem;
+      color: var(--muted);
+      font-style: italic;
+      max-width: 620px;
+      margin-inline: auto;
+    }
+    .hero .badges {
+      margin-top: 24px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      justify-content: center;
+    }
+    .badge {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 4px 14px;
+      font-size: 0.78rem;
+      color: var(--muted);
+      letter-spacing: 0.5px;
+    }
+    .badge.accent { border-color: var(--accent); color: var(--accent); }
+    .hero .cta {
+      margin-top: 36px;
+    }
+    .btn-download {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: linear-gradient(135deg, var(--accent), #9c59ff);
+      color: #fff;
+      padding: 14px 32px;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 1.05rem;
+      letter-spacing: 0.5px;
+      transition: transform 0.15s, box-shadow 0.15s;
+      box-shadow: 0 4px 24px rgba(108,99,255,0.4);
+    }
+    .btn-download:hover { transform: translateY(-2px); box-shadow: 0 8px 32px rgba(108,99,255,0.55); }
+    .btn-download svg { width: 22px; height: 22px; fill: #fff; }
+
+    /* SCREENSHOTS */
+    .screenshots {
+      padding: 60px 20px;
+      text-align: center;
+    }
+    .section-title {
+      font-size: 1.6rem;
+      font-weight: 700;
+      margin-bottom: 32px;
+      color: var(--text);
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+    .section-title span { color: var(--accent); }
+    .screens-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      justify-content: center;
+      max-width: 1100px;
+      margin-inline: auto;
+    }
+    .screen-item {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+      width: 200px;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .screen-item:hover { transform: scale(1.04); box-shadow: 0 8px 32px rgba(108,99,255,0.3); }
+    .screen-item img { width: 100%; display: block; }
+    .screen-item .caption {
+      padding: 8px 10px;
+      font-size: 0.78rem;
+      color: var(--muted);
+      text-align: center;
+    }
+
+    /* FEATURES */
+    .features {
+      padding: 60px 20px;
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 20px;
+      max-width: 1000px;
+      margin-inline: auto;
+    }
+    .feature-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 24px 20px;
+      transition: border-color 0.2s;
+    }
+    .feature-card:hover { border-color: var(--accent); }
+    .feature-card .icon { font-size: 2rem; margin-bottom: 12px; }
+    .feature-card h3 { font-size: 1rem; font-weight: 700; margin-bottom: 6px; color: var(--text); }
+    .feature-card p { font-size: 0.88rem; color: var(--muted); }
+
+    /* TECH */
+    .tech {
+      padding: 60px 20px;
+      text-align: center;
+    }
+    .tech-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      justify-content: center;
+      max-width: 700px;
+      margin-inline: auto;
+    }
+    .tech-pill {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 8px 18px;
+      font-size: 0.88rem;
+      color: var(--text);
+    }
+    .tech-pill strong { color: var(--accent); }
+
+    /* FOOTER */
+    footer {
+      text-align: center;
+      padding: 32px 20px;
+      border-top: 1px solid var(--border);
+      color: var(--muted);
+      font-size: 0.85rem;
+    }
+    footer a { color: var(--accent); text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+
+  <!-- HERO -->
+  <section class="hero">
+    <h1 class="pixel-title">Arkanoid Remake</h1>
+    <p class="subtitle">
+      La piccola astronave "Vaus" è intrappolata in una piega spazio-temporale.
+      Distruggi i blocchi, raccoglie i power-up e sfida i tuoi amici online.
+    </p>
+    <div class="badges">
+      <span class="badge accent">Android</span>
+      <span class="badge">Java</span>
+      <span class="badge">Firebase Multiplayer</span>
+      <span class="badge">Min SDK 21</span>
+      <span class="badge">v1.0.0</span>
+    </div>
+    <div class="cta">
+      <a class="btn-download" href="https://github.com/Lorisforse/Arkanoid_remake/releases/download/V1.0.0/Arkanoid.remake.apk">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M5 20h14v-2H5v2zm7-18L5.33 9h3.84v5h5.66V9h3.84L12 2z"/>
+        </svg>
+        Scarica l'APK
+      </a>
+    </div>
+  </section>
+
+  <!-- SCREENSHOTS -->
+  <section class="screenshots">
+    <h2 class="section-title">Screen<span>shot</span></h2>
+    <div class="screens-grid">
+      <div class="screen-item">
+        <img src="../Screen/menu.jpg" alt="Menu principale"/>
+        <div class="caption">Menu principale</div>
+      </div>
+      <div class="screen-item">
+        <img src="../Screen/modalita.jpg" alt="Modalità"/>
+        <div class="caption">Modalità di gioco</div>
+      </div>
+      <div class="screen-item">
+        <img src="../Screen/opzioni.jpg" alt="Opzioni"/>
+        <div class="caption">Opzioni</div>
+      </div>
+      <div class="screen-item">
+        <img src="../Screen/gioco.jpg" alt="Partita"/>
+        <div class="caption">Partita in corso</div>
+      </div>
+      <div class="screen-item">
+        <img src="../Screen/guida.jpg" alt="Guida"/>
+        <div class="caption">Guida</div>
+      </div>
+      <div class="screen-item">
+        <img src="../Screen/custom.jpg" alt="Custom Level"/>
+        <div class="caption">Editor livello</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section class="features">
+    <h2 class="section-title" style="text-align:center">Funzionalit&agrave;</h2>
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="icon">🎮</div>
+        <h3>3 Difficoltà</h3>
+        <p>Facile, Medio e Difficile con mattoni resistenti e velocità progressiva della pallina.</p>
+      </div>
+      <div class="feature-card">
+        <div class="icon">🌐</div>
+        <h3>Multiplayer Online</h3>
+        <p>Crea o entra in una stanza e sfida un avversario in tempo reale tramite Firebase.</p>
+      </div>
+      <div class="feature-card">
+        <div class="icon">⚡</div>
+        <h3>Power-Up</h3>
+        <p>Palla di fuoco, palette allargata, palla di ghiaccio e vite extra da raccogliere.</p>
+      </div>
+      <div class="feature-card">
+        <div class="icon">🏗️</div>
+        <h3>Livello Personalizzato</h3>
+        <p>Disegna e salva la tua griglia di mattoni con il builder integrato.</p>
+      </div>
+      <div class="feature-card">
+        <div class="icon">🕹️</div>
+        <h3>3 Tipi di Controllo</h3>
+        <p>Touchscreen, joystick virtuale o accelerometro — scegli quello che preferisci.</p>
+      </div>
+      <div class="feature-card">
+        <div class="icon">🌍</div>
+        <h3>4 Lingue</h3>
+        <p>Interfaccia disponibile in Italiano, Inglese, Spagnolo e Francese.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- TECH -->
+  <section class="tech">
+    <h2 class="section-title">Tech <span>Stack</span></h2>
+    <div class="tech-grid">
+      <div class="tech-pill"><strong>Java 8</strong> · Android</div>
+      <div class="tech-pill"><strong>Firebase</strong> · Realtime DB</div>
+      <div class="tech-pill"><strong>SensorManager</strong> · Accelerometro</div>
+      <div class="tech-pill"><strong>MediaPlayer</strong> + <strong>SoundPool</strong></div>
+      <div class="tech-pill"><strong>SharedPreferences</strong> · File I/O</div>
+      <div class="tech-pill"><strong>FragmentManager</strong> · Navigation</div>
+      <div class="tech-pill"><strong>Custom Views</strong> · Rendering</div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>
+      Sviluppato con &#x2764; da <a href="https://github.com/Lorisforse" target="_blank">Lorisforse</a>
+      &nbsp;|&nbsp;
+      <a href="https://github.com/Lorisforse/Arkanoid_remake" target="_blank">GitHub Repository</a>
+      &nbsp;|&nbsp;
+      Licenza MIT
+    </p>
+  </footer>
+
+</body>
+</html>

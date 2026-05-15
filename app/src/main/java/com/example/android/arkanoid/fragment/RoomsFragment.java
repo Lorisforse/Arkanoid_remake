@@ -47,6 +47,7 @@ public class RoomsFragment extends Fragment implements View.OnClickListener{
     boolean opponentConnect =false;
     Intent intent;
     ImageView viewImage;
+    private ValueEventListener opponentVEL;
 
 
 
@@ -174,33 +175,42 @@ public class RoomsFragment extends Fragment implements View.OnClickListener{
 
 
     private void opponentListener() {
-
+        DatabaseReference newGuestRef;
         if (playerName.equals(roomName))
-            guestRef = (database.getReference("rooms/" + roomName + "/guest" + "/name"));
+            newGuestRef = database.getReference("rooms/" + roomName + "/guest" + "/name");
         else
-            guestRef = (database.getReference("rooms/" + roomName + "/host" + "/name"));
-        guestRef.addValueEventListener(new ValueEventListener() {
+            newGuestRef = database.getReference("rooms/" + roomName + "/host" + "/name");
+
+        // Remove previous listener before adding a new one
+        if (guestRef != null && opponentVEL != null)
+            guestRef.removeEventListener(opponentVEL);
+        guestRef = newGuestRef;
+
+        opponentVEL = new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 opponentConnect = snapshot.getValue() != null;
 
                 if(loading.getVisibility()==View.VISIBLE){
                     if(opponentConnect){
-
                         roomsPlay.setText(getString(R.string.play));
-                    }
-                    else
+                    } else
                         roomsPlay.setText(getString(R.string.create_room));
                 }
-
-
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
             }
-        });
+        };
+        guestRef.addValueEventListener(opponentVEL);
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        if (guestRef != null && opponentVEL != null)
+            guestRef.removeEventListener(opponentVEL);
     }
 
 
@@ -226,25 +236,16 @@ public class RoomsFragment extends Fragment implements View.OnClickListener{
         roomsRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                //show list of rooms
                 roomsList.clear();
-
-
-                Iterable<DataSnapshot> rooms = dataSnapshot.getChildren();
-                for(DataSnapshot snapshot : rooms){
+                for(DataSnapshot snapshot : dataSnapshot.getChildren()){
                     roomsList.add(snapshot.getKey());
-
-                    ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(), R.layout.row, roomsList);
-                    listView.setAdapter(adapter);
-
                 }
-
-
+                ArrayAdapter<String> adapter = new ArrayAdapter<>(requireActivity(), R.layout.row, roomsList);
+                listView.setAdapter(adapter);
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                //error - nothing
             }
         });
     }
